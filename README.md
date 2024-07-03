@@ -1,4 +1,4 @@
-[My Guthub Repo](https://github.com/CodeServant)
+[My Github Repo](https://github.com/CodeServant)
 
 <!--
 **CodeServant/CodeServant** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
