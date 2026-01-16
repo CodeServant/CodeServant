@@ -1,0 +1,528 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Publikowanie pakietu na Crates.io - Język programowania Rust</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="ferris-d33b75bf.css">
+        <link rel="stylesheet" href="theme/2018-edition-4e126c62.css">
+        <link rel="stylesheet" href="theme/semantic-notes-9b5766c0.css">
+        <link rel="stylesheet" href="theme/listing-cab26221.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-773dca2f.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-039e37ba.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Język programowania Rust</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/rust-lang/book" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h2 id="publikowanie-pakietu-na-cratesio"><a class="header" href="#publikowanie-pakietu-na-cratesio">Publikowanie pakietu na Crates.io</a></h2>
+<p>Korzystaliśmy już z pakietów z <a href="https://crates.io/">crates.io</a><!-- ignore --> jako zależności w naszych projektach, ale możesz również udostępniać swój kod innym osobom, publikując własne pakiety. Rejestr pakietów <a href="https://crates.io/">crates.io</a><!-- ignore --> dystrybuuje kod źródłowy Twoich pakietów, więc hostuje głównie kod open source.</p>
+<p>Rust i Cargo posiadają funkcje, które ułatwiają innym osobom odnalezienie i użycie opublikowanego pakietu. Następnie omówimy niektóre z tych funkcji, a potem wyjaśnimy, jak opublikować pakiet.</p>
+<h3 id="tworzenie-użytecznych-komentarzy-dokumentacji"><a class="header" href="#tworzenie-użytecznych-komentarzy-dokumentacji">Tworzenie użytecznych komentarzy dokumentacji</a></h3>
+<p>Dokładne udokumentowanie Twoich pakietów pomoże innym użytkownikom zrozumieć, jak i kiedy ich używać, dlatego warto poświęcić czas na napisanie dokumentacji. W Rozdziale 3 omówiliśmy, jak komentować kod w Rust za pomocą dwóch ukośników, <code>//</code>. Rust ma również szczególny rodzaj komentarza do dokumentacji, znany wygodnie jako <em>komentarz dokumentacji</em>, który wygeneruje dokumentację HTML. HTML wyświetla zawartość komentarzy dokumentacji dla publicznych elementów API przeznaczonych dla programistów zainteresowanych sposobem <em>użycia</em> Twojego pakietu, w przeciwieństwie do sposobu <em>implementacji</em> Twojego pakietu.</p>
+<p>Komentarze dokumentacji używają trzech ukośników, <code>///</code>, zamiast dwóch i obsługują notację Markdown do formatowania tekstu. Umieść komentarze dokumentacji tuż przed elementem, który dokumentują. Listing 14-1 pokazuje komentarze dokumentacji dla funkcji <code>add_one</code> w pakiecie o nazwie <code>my_crate</code>.</p>
+<listing number="14-1" file-name="src/lib.rs" caption="Komentarz dokumentacji dla funkcji">
+<pre><code class="language-rust ignore">/// Dodaje jeden do podanej liczby.
+///
+/// # Przykłady
+///
+/// ```
+/// let arg = 5;
+/// let answer = my_crate::add_one(arg);
+///
+/// assert_eq!(6, answer);
+/// ```
+pub fn add_one(x: i32) -&gt; i32 {
+    x + 1
+}</code></pre>
+</listing>
+<p>Tutaj podajemy opis tego, co robi funkcja <code>add_one</code>, rozpoczynamy sekcję z nagłówkiem <code>Przykłady</code>, a następnie podajemy kod, który demonstruje, jak używać funkcji <code>add_one</code>. Możemy wygenerować dokumentację HTML z tego komentarza dokumentacji, uruchamiając <code>cargo doc</code>. To polecenie uruchamia narzędzie <code>rustdoc</code> dystrybuowane z Rustem i umieszcza wygenerowaną dokumentację HTML w katalogu <em>target/doc</em>.</p>
+<p>Dla wygody, uruchomienie <code>cargo doc --open</code> zbuduje HTML dla dokumentacji twojego bieżącego pakietu (a także dokumentację dla wszystkich zależności twojego pakietu) i otworzy wynik w przeglądarce internetowej. Przejdź do funkcji <code>add_one</code> i zobaczysz, jak tekst z komentarzy dokumentacji jest renderowany, jak pokazano na Rysunku 14-1.</p>
+<img alt="Wyrenderowana dokumentacja HTML dla funkcji `add_one` pakietu `my_crate`" src="img/trpl14-01.png" class="center" />
+<p><span class="caption">Rysunek 14-1: Dokumentacja HTML dla funkcji <code>add_one</code></span></p>
+<h4 id="często-używane-sekcje"><a class="header" href="#często-używane-sekcje">Często używane sekcje</a></h4>
+<p>Użyliśmy nagłówka Markdown <code># Przykłady</code> w Listing 14-1, aby stworzyć sekcję w HTML z tytułem „Przykłady”. Oto inne sekcje, które autorzy pakietów często używają w swojej dokumentacji:</p>
+<ul>
+<li><strong>Panics</strong>: Są to scenariusze, w których dokumentowana funkcja może wywołać panikę. Osoby wywołujące funkcję, które nie chcą, aby ich programy panikowały, powinny upewnić się, że nie wywołują funkcji w tych sytuacjach.</li>
+<li><strong>Errors</strong>: Jeśli funkcja zwraca <code>Result</code>, opisanie rodzajów błędów, które mogą wystąpić, i warunków, które mogą spowodować zwrócenie tych błędów, może być pomocne dla osób wywołujących, aby mogły napisać kod do obsługi różnych rodzajów błędów na różne sposoby.</li>
+<li><strong>Safety</strong>: Jeśli wywołanie funkcji jest <code>unsafe</code> (niebezpieczne) (omawiamy niebezpieczeństwo w Rozdziale 20), powinna istnieć sekcja wyjaśniająca, dlaczego funkcja jest niebezpieczna i omawiająca niezmienniki, których funkcja oczekuje od osób wywołujących.</li>
+</ul>
+<p>Większość komentarzy dokumentacyjnych nie potrzebuje wszystkich tych sekcji, ale jest to dobra lista kontrolna, która przypomina o aspektach Twojego kodu, którymi użytkownicy będą zainteresowani.</p>
+<h4 id="komentarze-dokumentacji-jako-testy"><a class="header" href="#komentarze-dokumentacji-jako-testy">Komentarze dokumentacji jako testy</a></h4>
+<p>Dodawanie bloków kodu przykładu w komentarzach dokumentacji może pomóc zademonstrować, jak używać Twojej biblioteki i ma dodatkowy bonus: uruchomienie <code>cargo test</code> uruchomi przykłady kodu z Twojej dokumentacji jako testy! Nic nie jest lepsze niż dokumentacja z przykładami. Ale nic nie jest gorsze niż przykłady, które nie działają, ponieważ kod zmienił się od czasu napisania dokumentacji. Jeśli uruchomimy <code>cargo test</code> z dokumentacją dla funkcji <code>add_one</code> z Listing 14-1, zobaczymy sekcję w wynikach testów, która wygląda tak:</p>
+<!-- manual-regeneration
+cd listings/ch14-more-about-cargo/listing-14-01/
+cargo test
+copy just the doc-tests section below
+-->
+<pre><code class="language-text">   Doc-tests my_crate
+
+running 1 test
+test src/lib.rs - add_one (linia 5) ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.27s
+</code></pre>
+<p>Teraz, jeśli zmienimy funkcję lub przykład tak, że <code>assert_eq!</code> w przykładzie wywoła panikę, i ponownie uruchomimy <code>cargo test</code>, zobaczymy, że testy dokumentacji wykryją, że przykład i kod są niezsynchronizowane!</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="commenting-contained-items"></a></p>
+<h4 id="komentarze-do-zawartych-elementów"><a class="header" href="#komentarze-do-zawartych-elementów">Komentarze do zawartych elementów</a></h4>
+<p>Styl komentarza dokumentacji <code>//!</code> dodaje dokumentację do elementu, który <em>zawiera</em> komentarze, a nie do elementów <em>następujących po</em> komentarzach. Zazwyczaj używamy tych komentarzy dokumentacji wewnątrz pliku głównego pakietu (<em>src/lib.rs</em> zgodnie z konwencją) lub wewnątrz modułu, aby udokumentować pakiet lub moduł jako całość.</p>
+<p>Na przykład, aby dodać dokumentację opisującą cel pakietu <code>my_crate</code>, który zawiera funkcję <code>add_one</code>, dodajemy komentarze dokumentacji, które zaczynają się od <code>//!</code> na początku pliku <em>src/lib.rs</em>, jak pokazano w Listing 14-2.</p>
+<listing number="14-2" file-name="src/lib.rs" caption="Dokumentacja dla pakietu `my_crate` jako całości">
+<pre><code class="language-rust ignore">//! # Mój Pakiet
+//!
+//! `my_crate` to zbiór narzędzi ułatwiających wykonywanie pewnych
+//! obliczeń.
+
+/// Dodaje jeden do podanej liczby.
+// --snip--
+<span class="boring">///
+</span><span class="boring">/// # Przykłady
+</span><span class="boring">///
+</span><span class="boring">/// ```
+</span><span class="boring">/// let arg = 5;
+</span><span class="boring">/// let answer = my_crate::add_one(arg);
+</span><span class="boring">///
+</span><span class="boring">/// assert_eq!(6, answer);
+</span><span class="boring">/// ```
+</span><span class="boring">pub fn add_one(x: i32) -&gt; i32 {
+</span><span class="boring">    x + 1
+</span><span class="boring">}</span></code></pre>
+</listing>
+<p>Zauważ, że po ostatniej linii zaczynającej się od <code>//!</code> nie ma żadnego kodu. Ponieważ rozpoczęliśmy komentarze od <code>//!</code> zamiast <code>///</code>, dokumentujemy element, który zawiera ten komentarz, a nie element, który następuje po tym komentarzu. W tym przypadku elementem jest plik <em>src/lib.rs</em>, który jest korzeniem pakietu. Te komentarze opisują cały pakiet.</p>
+<p>Kiedy uruchomimy <code>cargo doc --open</code>, te komentarze zostaną wyświetlone na stronie głównej dokumentacji <code>my_crate</code> powyżej listy publicznych elementów w pakiecie, jak pokazano na Rysunku 14-2.</p>
+<p>Komentarze dokumentacyjne wewnątrz elementów są szczególnie przydatne do opisywania pakietów i modułów. Używaj ich do wyjaśniania ogólnego celu kontenera, aby pomóc użytkownikom zrozumieć organizację pakietu.</p>
+<img alt="Wyrenderowana dokumentacja HTML z komentarzem dla całego pakietu `art`" src="img/trpl14-02.png" class="center" />
+<p><span class="caption">Rysunek 14-2: Wyrenderowana dokumentacja dla <code>my_crate</code>, zawierająca komentarz opisujący cały pakiet</span></p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="exporting-a-convenient-public-api-with-pub-use"></a></p>
+<h3 id="eksportowanie-wygodnego-publicznego-api"><a class="header" href="#eksportowanie-wygodnego-publicznego-api">Eksportowanie wygodnego publicznego API</a></h3>
+<p>Struktura publicznego API jest kluczową kwestią podczas publikowania pakietu. Osoby korzystające z twojego pakietu są mniej zaznajomione z jego strukturą niż ty i mogą mieć trudności ze znalezieniem elementów, których chcą użyć, jeśli twój pakiet ma dużą hierarchię modułów.</p>
+<p>W Rozdziale 7 omówiliśmy, jak uczynić elementy publicznymi za pomocą słowa kluczowego <code>pub</code> oraz jak wprowadzić elementy do zakresu za pomocą słowa kluczowego <code>use</code>. Jednak struktura, która ma sens dla Ciebie podczas tworzenia pakietu, może nie być zbyt wygodna dla Twoich użytkowników. Możesz chcieć zorganizować swoje struktury w hierarchii zawierającej wiele poziomów, ale wtedy osoby, które chcą użyć typu zdefiniowanego głęboko w hierarchii, mogą mieć trudności z odkryciem, że taki typ istnieje. Mogą również być zirytowane koniecznością wpisywania <code>use my_crate::some_module::another_module::UsefulType;</code> zamiast <code>use my_crate::UsefulType;</code>.</p>
+<p>Dobrą wiadomością jest to, że jeśli struktura <em>nie</em> jest wygodna do użycia z innej biblioteki, nie musisz zmieniać swojej wewnętrznej organizacji: zamiast tego możesz ponownie eksportować elementy, aby stworzyć publiczną strukturę, która różni się od Twojej prywatnej struktury, używając <code>pub use</code>. <em>Ponowne eksportowanie</em> pobiera publiczny element w jednym miejscu i udostępnia go publicznie w innym miejscu, tak jakby był zdefiniowany w tym innym miejscu.</p>
+<p>Na przykład, powiedzmy, że stworzyliśmy bibliotekę o nazwie <code>art</code> do modelowania pojęć artystycznych. W tej bibliotece znajdują się dwa moduły: moduł <code>kinds</code> zawierający dwa wyliczenia o nazwach <code>PrimaryColor</code> i <code>SecondaryColor</code> oraz moduł <code>utils</code> zawierający funkcję o nazwie <code>mix</code>, jak pokazano w Listing 14-3.</p>
+<listing number="14-3" file-name="src/lib.rs" caption="Biblioteka `art` z elementami zorganizowanymi w moduły `kinds` i `utils`">
+<pre><code class="language-rust noplayground test_harness">//! # Sztuka
+//!
+//! Biblioteka do modelowania koncepcji artystycznych.
+
+pub mod kinds {
+    /// Kolory podstawowe według modelu kolorów RYB.
+    pub enum PrimaryColor {
+        Red,
+        Yellow,
+        Blue,
+    }
+
+    /// Kolory wtórne według modelu kolorów RYB.
+    pub enum SecondaryColor {
+        Orange,
+        Green,
+        Purple,
+    }
+}
+
+pub mod utils {
+    use crate::kinds::*;
+
+    /// Łączy dwa kolory podstawowe w równych proporcjach, aby stworzyć
+    /// kolor wtórny.
+    pub fn mix(c1: PrimaryColor, c2: PrimaryColor) -&gt; SecondaryColor {
+        // --snip--
+<span class="boring">        unimplemented!();
+</span>    }
+}</code></pre>
+</listing>
+<p>Rysunek 14-3 pokazuje, jak wyglądałaby strona główna dokumentacji dla tego pakietu wygenerowana przez <code>cargo doc</code>.</p>
+<img alt="Wyrenderowana dokumentacja dla pakietu `art`, która zawiera listę modułów `kinds` i `utils`" src="img/trpl14-03.png" class="center" />
+<p><span class="caption">Rysunek 14-3: Strona główna dokumentacji dla <code>art</code>, która zawiera listę modułów <code>kinds</code> i <code>utils</code></span></p>
+<p>Zauważ, że typy <code>PrimaryColor</code> i <code>SecondaryColor</code> nie są wymienione na stronie głównej, podobnie jak funkcja <code>mix</code>. Musimy kliknąć <code>kinds</code> i <code>utils</code>, aby je zobaczyć.</p>
+<p>Inny pakiet, który zależy od tej biblioteki, potrzebowałby instrukcji <code>use</code>, które wprowadzają elementy z <code>art</code> do zakresu, określając strukturę modułu, która jest aktualnie zdefiniowana. Listing 14-4 pokazuje przykład pakietu, który używa elementów <code>PrimaryColor</code> i <code>mix</code> z pakietu <code>art</code>.</p>
+<listing number="14-4" file-name="src/main.rs" caption="Pakiet używający elementów pakietu `art` z wyeksportowaną strukturą wewnętrzną">
+<pre><code class="language-rust ignore">use art::kinds::PrimaryColor;
+use art::utils::mix;
+
+fn main() {
+    let red = PrimaryColor::Red;
+    let yellow = PrimaryColor::Yellow;
+    mix(red, yellow);
+}</code></pre>
+</listing>
+<p>Autor kodu w Listing 14-4, który używa pakietu <code>art</code>, musiał dowiedzieć się, że <code>PrimaryColor</code> znajduje się w module <code>kinds</code>, a <code>mix</code> w module <code>utils</code>. Struktura modułów pakietu <code>art</code> jest bardziej istotna dla programistów pracujących nad pakietem <code>art</code> niż dla tych, którzy go używają. Wewnętrzna struktura nie zawiera żadnych użytecznych informacji dla kogoś próbującego zrozumieć, jak używać pakietu <code>art</code>, ale raczej powoduje zamieszanie, ponieważ programiści, którzy go używają, muszą dowiedzieć się, gdzie szukać i muszą określać nazwy modułów w instrukcjach <code>use</code>.</p>
+<p>Aby usunąć wewnętrzną organizację z publicznego API, możemy zmodyfikować kod pakietu <code>art</code> w Listing 14-3, aby dodać instrukcje <code>pub use</code> do ponownego eksportu elementów na najwyższym poziomie, jak pokazano w Listing 14-5.</p>
+<listing number="14-5" file-name="src/lib.rs" caption="Dodawanie instrukcji `pub use` do ponownego eksportu elementów">
+<pre><code class="language-rust ignore">//! # Sztuka
+//!
+//! Biblioteka do modelowania koncepcji artystycznych.
+
+pub use self::kinds::PrimaryColor;
+pub use self::kinds::SecondaryColor;
+pub use self::utils::mix;
+
+pub mod kinds {
+    // --snip--
+<span class="boring">    /// Kolory podstawowe według modelu kolorów RYB.
+</span><span class="boring">    pub enum PrimaryColor {
+</span><span class="boring">        Red,
+</span><span class="boring">        Yellow,
+</span><span class="boring">        Blue,
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    /// Kolory wtórne według modelu kolorów RYB.
+</span><span class="boring">    pub enum SecondaryColor {
+</span><span class="boring">        Orange,
+</span><span class="boring">        Green,
+</span><span class="boring">        Purple,
+</span><span class="boring">    }
+</span>}
+
+pub mod utils {
+    // --snip--
+<span class="boring">    use crate::kinds::*;
+</span><span class="boring">
+</span><span class="boring">    /// Łączy dwa kolory podstawowe w równych proporcjach, aby stworzyć
+</span><span class="boring">    /// kolor wtórny.
+</span><span class="boring">    pub fn mix(c1: PrimaryColor, c2: PrimaryColor) -&gt; SecondaryColor {
+</span><span class="boring">        SecondaryColor::Orange
+</span><span class="boring">    }
+</span>}</code></pre>
+</listing>
+<p>Dokumentacja API wygenerowana przez <code>cargo doc</code> dla tego pakietu będzie teraz listować i linkować ponowne eksporty na stronie głównej, jak pokazano na Rysunku 14-4, ułatwiając znalezienie typów <code>PrimaryColor</code> i <code>SecondaryColor</code> oraz funkcji <code>mix</code>.</p>
+<img alt="Wyrenderowana dokumentacja dla pakietu `art` z ponownymi eksportami na stronie głównej" src="img/trpl14-04.png" class="center" />
+<p><span class="caption">Rysunek 14-4: Strona główna dokumentacji dla <code>art</code>, która zawiera listę ponownych eksportów</span></p>
+<p>Użytkownicy pakietu <code>art</code> nadal mogą przeglądać i używać wewnętrznej struktury z Listing 14-3, jak zademonstrowano w Listing 14-4, lub mogą używać bardziej wygodnej struktury z Listing 14-5, jak pokazano w Listing 14-6.</p>
+<listing number="14-6" file-name="src/main.rs" caption="Program używający ponownie wyeksportowanych elementów z pakietu `art`">
+<pre><code class="language-rust ignore">use art::PrimaryColor;
+use art::mix;
+
+fn main() {
+    // --snip--
+<span class="boring">    let red = PrimaryColor::Red;
+</span><span class="boring">    let yellow = PrimaryColor::Yellow;
+</span><span class="boring">    mix(red, yellow);
+</span>}</code></pre>
+</listing>
+<p>W przypadkach, gdy istnieje wiele zagnieżdżonych modułów, ponowne eksportowanie typów na najwyższym poziomie za pomocą <code>pub use</code> może znacznie wpłynąć na doświadczenie osób korzystających z pakietu. Innym częstym zastosowaniem <code>pub use</code> jest ponowne eksportowanie definicji zależności w bieżącym pakiecie, aby definicje tego pakietu stały się częścią publicznego API Twojego pakietu.</p>
+<p>Tworzenie użytecznej struktury publicznego API to bardziej sztuka niż nauka, a Ty możesz iterować, aby znaleźć API, które najlepiej pasuje do Twoich użytkowników. Wybór <code>pub use</code> daje Ci elastyczność w wewnętrznej strukturze pakietu i oddziela tę wewnętrzną strukturę od tego, co prezentujesz użytkownikom. Przyjrzyj się kodowi niektórych zainstalowanych pakietów, aby sprawdzić, czy ich wewnętrzna struktura różni się od ich publicznego API.</p>
+<h3 id="konfigurowanie-konta-cratesio"><a class="header" href="#konfigurowanie-konta-cratesio">Konfigurowanie konta Crates.io</a></h3>
+<p>Zanim będziesz mógł publikować jakiekolwiek pakiety, musisz utworzyć konto na <a href="https://crates.io/">crates.io</a><!-- ignore --> i uzyskać token API. Aby to zrobić, odwiedź stronę główną <a href="https://crates.io/">crates.io</a><!-- ignore --> i zaloguj się za pomocą konta GitHub. (Konto GitHub jest obecnie wymagane, ale witryna może w przyszłości obsługiwać inne sposoby tworzenia konta.) Po zalogowaniu odwiedź ustawienia swojego konta pod adresem <a href="https://crates.io/me/">https://crates.io/me/</a><!-- ignore --> i pobierz swój klucz API. Następnie uruchom polecenie <code>cargo login</code> i wklej swój klucz API po wyświetleniu monitu, w następujący sposób:</p>
+<pre><code class="language-console">$ cargo login
+abcdefghijklmnopqrstuvwxyz012345
+</code></pre>
+<p>To polecenie poinformuje Cargo o Twoim tokenie API i zapisze go lokalnie w <em>~/.cargo/credentials.toml</em>. Zauważ, że ten token jest tajny: nie udostępniaj go nikomu. Jeśli z jakiegoś powodu go udostępnisz, powinieneś go unieważnić i wygenerować nowy token na <a href="https://crates.io/">crates.io</a><!-- ignore -->.</p>
+<h3 id="dodawanie-metadanych-do-nowego-pakietu"><a class="header" href="#dodawanie-metadanych-do-nowego-pakietu">Dodawanie metadanych do nowego pakietu</a></h3>
+<p>Powiedzmy, że masz pakiet, który chcesz opublikować. Przed publikacją musisz dodać kilka metadanych w sekcji <code>[package]</code> pliku <em>Cargo.toml</em> pakietu.</p>
+<p>Twój pakiet będzie potrzebował unikalnej nazwy. Podczas pracy nad pakietem lokalnie, możesz nazwać pakiet jak chcesz. Jednak nazwy pakietów na <a href="https://crates.io/">crates.io</a><!-- ignore --> są przydzielane na zasadzie „kto pierwszy, ten lepszy”. Gdy nazwa pakietu zostanie zajęta, nikt inny nie może opublikować pakietu o tej nazwie. Przed próbą publikacji pakietu, wyszukaj nazwę, której chcesz użyć. Jeśli nazwa została użyta, będziesz musiał znaleźć inną nazwę i edytować pole <code>name</code> w pliku <em>Cargo.toml</em> w sekcji <code>[package]</code>, aby użyć nowej nazwy do publikacji, w następujący sposób:</p>
+<p><span class="filename">Nazwa pliku: Cargo.toml</span></p>
+<pre><code class="language-toml">[package]
+name = "guessing_game"
+</code></pre>
+<p>Nawet jeśli wybrałeś unikalną nazwę, kiedy uruchomisz <code>cargo publish</code>, aby opublikować pakiet w tym momencie, otrzymasz ostrzeżenie, a następnie błąd:</p>
+<!-- manual-regeneration
+Create a new package with an unregistered name, making no further modifications
+  to the generated package, so it is missing the description and license fields.
+cargo publish
+copy just the relevant lines below
+-->
+<pre><code class="language-console">$ cargo publish
+    Aktualizowanie indeksu crates.io
+warning: manifest nie ma opisu, licencji, pliku licencyjnego, dokumentacji, strony głównej lub repozytorium.
+Zobacz https://doc.rust-lang.org/cargo/reference/manifest.html#package-metadata aby uzyskać więcej informacji.
+--snip--
+error: nie udało się opublikować w rejestrze pod adresem https://crates.io
+
+Spowodowane przez:
+  zdalny serwer odpowiedział błędem (status 400 Bad Request): brakujące lub puste pola metadanych: description, license. Zobacz https://doc.rust-lang.org/cargo/reference/manifest.html, aby uzyskać więcej informacji na temat konfiguracji tych pól
+</code></pre>
+<p>Prowadzi to do błędu, ponieważ brakuje Ci pewnych kluczowych informacji: opis i licencja są wymagane, aby ludzie wiedzieli, co robi Twój pakiet i na jakich warunkach mogą go używać. W <em>Cargo.toml</em> dodaj opis składający się z jednego lub dwóch zdań, ponieważ będzie on wyświetlany wraz z Twoim pakietem w wynikach wyszukiwania. Dla pola <code>license</code> musisz podać <em>wartość identyfikatora licencji</em>. <a href="https://spdx.org/licenses/">Software Package Data Exchange (SPDX) Fundacji Linuksa</a> wymienia identyfikatory, których możesz użyć dla tej wartości. Na przykład, aby określić, że licencjonowałeś swój pakiet za pomocą licencji MIT, dodaj identyfikator <code>MIT</code>:</p>
+<p><span class="filename">Nazwa pliku: Cargo.toml</span></p>
+<pre><code class="language-toml">[package]
+name = "guessing_game"
+license = "MIT"
+</code></pre>
+<p>Jeśli chcesz użyć licencji, która nie pojawia się w SPDX, musisz umieścić tekst tej licencji w pliku, dołączyć ten plik do swojego projektu, a następnie użyć <code>license-file</code>, aby określić nazwę tego pliku zamiast używania klucza <code>license</code>.</p>
+<p>Porady dotyczące wyboru odpowiedniej licencji dla Twojego projektu wykraczają poza zakres tej książki. Wiele osób w społeczności Rusta licencjonuje swoje projekty w ten sam sposób co Rust, używając podwójnej licencji <code>MIT OR Apache-2.0</code>. Ta praktyka pokazuje, że możesz również określić wiele identyfikatorów licencji oddzielonych <code>OR</code>, aby mieć wiele licencji dla swojego projektu.</p>
+<p>Po dodaniu unikalnej nazwy, wersji, opisu i licencji, plik <em>Cargo.toml</em> dla projektu gotowego do publikacji może wyglądać następująco:</p>
+<p><span class="filename">Nazwa pliku: Cargo.toml</span></p>
+<pre><code class="language-toml">[package]
+name = "guessing_game"
+version = "0.1.0"
+edition = "2024"
+description = "Ciekawa gra, w której zgadujesz liczbę wybraną przez komputer."
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+</code></pre>
+<p><a href="https://doc.rust-lang.org/cargo/">Dokumentacja Cargo</a> opisuje inne metadane, które można określić, aby inni mogli łatwiej odkryć i używać Twojego pakietu.</p>
+<h3 id="publikowanie-na-cratesio"><a class="header" href="#publikowanie-na-cratesio">Publikowanie na Crates.io</a></h3>
+<p>Teraz, gdy utworzyłeś konto, zapisałeś swój token API, wybrałeś nazwę dla swojego pakietu i określiłeś wymagane metadane, jesteś gotowy do publikacji! Publikowanie pakietu przesyła konkretną wersję do <a href="https://crates.io/">crates.io</a><!-- ignore -->, aby inni mogli z niej korzystać.</p>
+<p>Bądź ostrożny, ponieważ publikacja jest <em>trwała</em>. Wersja nigdy nie może zostać nadpisana, a kod nie może zostać usunięty, z wyjątkiem pewnych okoliczności. Jednym z głównych celów Crates.io jest pełnienie funkcji stałego archiwum kodu, tak aby kompilacje wszystkich projektów, które zależą od pakietów z <a href="https://crates.io/">crates.io</a><!-- ignore -->, nadal działały. Dopuszczenie usuwania wersji uniemożliwiłoby osiągnięcie tego celu. Nie ma jednak limitu liczby wersji pakietów, które możesz opublikować.</p>
+<p>Uruchom ponownie polecenie <code>cargo publish</code>. Powinno się teraz udać:</p>
+<!-- manual-regeneration
+go to some valid crate, publish a new version
+cargo publish
+copy just the relevant lines below
+-->
+<pre><code class="language-console">$ cargo publish
+    Aktualizowanie indeksu crates.io
+   Pakowanie guessing_game v0.1.0 (file:///projects/guessing_game)
+    Spakowano 6 plików, 1.2KiB (895.0B skompresowanych)
+   Weryfikowanie guessing_game v0.1.0 (file:///projects/guessing_game)
+   Kompilowanie guessing_game v0.1.0
+(file:///projects/guessing_game/target/package/guessing_game-0.1.0)
+    Zakończono `dev` profil [unoptimized + debuginfo] cel(e) w 0.19s
+   Przesyłanie guessing_game v0.1.0 (file:///projects/guessing_game)
+    Przesłano guessing_game v0.1.0 do rejestru `crates-io`
+note: oczekiwanie na dostępność `guessing_game v0.1.0` w rejestrze
+`crates-io`. Możesz nacisnąć ctrl-c, aby pominąć oczekiwanie; pakiet powinien być dostępny wkrótce.
+   Opublikowano guessing_game v0.1.0 w rejestrze `crates-io`
+</code></pre>
+<p>Gratulacje! Udostępniłeś swój kod społeczności Rusta, a każdy może łatwo dodać Twój pakiet jako zależność swojego projektu.</p>
+<h3 id="publikowanie-nowej-wersji-istniejącego-pakietu"><a class="header" href="#publikowanie-nowej-wersji-istniejącego-pakietu">Publikowanie nowej wersji istniejącego pakietu</a></h3>
+<p>Kiedy wprowadzisz zmiany w swoim pakiecie i będziesz gotowy do wydania nowej wersji, zmieniasz wartość <code>version</code> określoną w pliku <em>Cargo.toml</em> i publikujesz ponownie. Użyj <a href="https://semver.org/">zasad Semantycznego Wersjonowania</a>, aby zdecydować, jaki jest odpowiedni numer następnej wersji, w oparciu o rodzaj wprowadzonych zmian. Następnie uruchom <code>cargo publish</code>, aby przesłać nową wersję.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="removing-versions-from-cratesio-with-cargo-yank"></a>
+<a id="deprecating-versions-from-cratesio-with-cargo-yank"></a></p>
+<h3 id="wycofywanie-wersji-z-cratesio"><a class="header" href="#wycofywanie-wersji-z-cratesio">Wycofywanie wersji z Crates.io</a></h3>
+<p>Chociaż nie możesz usuwać poprzednich wersji pakietu, możesz uniemożliwić przyszłym projektom dodawanie ich jako nowych zależności. Jest to przydatne, gdy wersja pakietu jest zepsuta z jakiegoś powodu. W takich sytuacjach Cargo obsługuje wycofanie wersji pakietu.</p>
+<p><em>Wycofanie</em> wersji zapobiega zależnościom nowych projektów od tej wersji, jednocześnie umożliwiając wszystkim istniejącym projektom, które są od niej zależne, dalsze działanie. Zasadniczo, wycofanie oznacza, że wszystkie projekty z plikiem <em>Cargo.lock</em> nie zostaną zepsute, a żadne przyszłe pliki <em>Cargo.lock</em> nie będą używać wycofanej wersji.</p>
+<p>Aby wycofać wersję pakietu, w katalogu pakietu, który wcześniej opublikowałeś, uruchom <code>cargo yank</code> i określ, którą wersję chcesz wycofać. Na przykład, jeśli opublikowaliśmy pakiet o nazwie <code>guessing_game</code> w wersji 1.0.1 i chcemy go wycofać, uruchomimy następujące polecenie w katalogu projektu <code>guessing_game</code>:</p>
+<!-- manual-regeneration:
+cargo yank carol-test --version 2.1.0
+cargo yank carol-test --version 2.1.0 --undo
+-->
+<pre><code class="language-console">$ cargo yank --vers 1.0.1
+    Aktualizowanie indeksu crates.io
+        Wycofuję guessing_game@1.0.1
+</code></pre>
+<p>Dodając <code>--undo</code> do polecenia, możesz również cofnąć wycofanie i ponownie zezwolić projektom na zależność od danej wersji:</p>
+<pre><code class="language-console">$ cargo yank --vers 1.0.1 --undo
+    Aktualizowanie indeksu crates.io
+      Przywracam guessing_game@1.0.1
+</code></pre>
+<p>Wycofanie <em>nie</em> usuwa żadnego kodu. Nie może na przykład usunąć przypadkowo przesłanych sekretów. Jeśli tak się stanie, musisz natychmiast zresetować te sekrety.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="ch14-01-release-profiles.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="ch14-03-cargo-workspaces.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="ch14-01-release-profiles.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="ch14-03-cargo-workspaces.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="ferris-2317480c.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

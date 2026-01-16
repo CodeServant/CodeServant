@@ -1,0 +1,859 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Implementacja Obiektowo Zorientowanego Wzorca Projektowego - Język programowania Rust</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="ferris-d33b75bf.css">
+        <link rel="stylesheet" href="theme/2018-edition-4e126c62.css">
+        <link rel="stylesheet" href="theme/semantic-notes-9b5766c0.css">
+        <link rel="stylesheet" href="theme/listing-cab26221.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-773dca2f.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-039e37ba.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Język programowania Rust</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/rust-lang/book" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h2 id="implementacja-obiektowo-zorientowanego-wzorca-projektowego"><a class="header" href="#implementacja-obiektowo-zorientowanego-wzorca-projektowego">Implementacja Obiektowo Zorientowanego Wzorca Projektowego</a></h2>
+<p><em>Wzorzec stanu</em> to obiektowo zorientowany wzorzec projektowy. Istotą wzorca jest to, że definiujemy zestaw stanów, które wartość może mieć wewnętrznie. Stany są reprezentowane przez zestaw <em>obiektów stanu</em>, a zachowanie wartości zmienia się w zależności od jej stanu. Przejdziemy przez przykład struktury wpisu na blogu, która ma pole do przechowywania swojego stanu, który będzie obiektem stanu z zestawu „szkic”, „do recenzji” lub „opublikowany”.</p>
+<p>Obiekty stanu dzielą funkcjonalność: w Rust, oczywiście, używamy struktur i cech zamiast obiektów i dziedziczenia. Każdy obiekt stanu jest odpowiedzialny za własne zachowanie i za to, kiedy powinien zmienić się w inny stan. Wartość, która przechowuje obiekt stanu, nic nie wie o różnych zachowaniach stanów ani o tym, kiedy przechodzić między stanami.</p>
+<p>Zaletą stosowania wzorca stanu jest to, że gdy zmienią się wymagania biznesowe programu, nie będziemy musieli zmieniać kodu wartości przechowującej stan ani kodu, który używa tej wartości. Będziemy musieli jedynie zaktualizować kod wewnątrz jednego z obiektów stanu, aby zmienić jego zasady lub ewentualnie dodać więcej obiektów stanu.</p>
+<p>Najpierw zaimplementujemy wzorzec stanu w bardziej tradycyjny, obiektowy sposób. Następnie użyjemy podejścia, które jest nieco bardziej naturalne w Rust. Zagłębimy się w stopniową implementację przepływu pracy wpisu na blogu, używając wzorca stanu.</p>
+<p>Końcowa funkcjonalność będzie wyglądać tak:</p>
+<ol>
+<li>Wpis na blogu zaczyna się jako pusty szkic.</li>
+<li>Po zakończeniu szkicu, prosi się o jego recenzję.</li>
+<li>Po zatwierdzeniu wpis zostaje opublikowany.</li>
+<li>Tylko opublikowane wpisy na blogu zwracają treść do wydrukowania, aby niezaprobowane wpisy nie mogły zostać przypadkowo opublikowane.</li>
+</ol>
+<p>Wszelkie inne próby zmian we wpisie nie powinny mieć żadnego efektu. Na przykład, jeśli spróbujemy zatwierdzić szkic wpisu na blogu, zanim poprosimy o recenzję, wpis powinien pozostać nieopublikowanym szkicem.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="a-traditional-object-oriented-attempt"></a></p>
+<h3 id="próba-w-tradycyjnym-stylu-obiektowym"><a class="header" href="#próba-w-tradycyjnym-stylu-obiektowym">Próba w Tradycyjnym Stylu Obiektowym</a></h3>
+<p>Istnieje nieskończenie wiele sposobów strukturyzowania kodu w celu rozwiązania tego samego problemu, każdy z różnymi kompromisami. Implementacja w tej sekcji jest bardziej tradycyjnym stylem obiektowym, który jest możliwy do napisania w Rust, ale nie wykorzystuje niektórych mocnych stron Rust. Później zademonstrujemy inne rozwiązanie, które nadal używa wzorca projektowego zorientowanego obiektowo, ale jest skonstruowane w sposób, który może wydawać się mniej znajomy programistom z doświadczeniem w programowaniu obiektowym. Porównamy oba rozwiązania, aby doświadczyć kompromisów związanych z projektowaniem kodu Rust inaczej niż w innych językach.</p>
+<p>Lista 18-11 pokazuje ten przepływ pracy w formie kodu: jest to przykład użycia API, które zaimplementujemy w bibliotece o nazwie <code>blog</code>. To się jeszcze nie skompiluje, ponieważ nie zaimplementowaliśmy crate <code>blog</code>.</p>
+<figure class="listing" id="listing-18-11">
+<span class="file-name">Nazwa pliku: src/main.rs</span>
+<pre><code class="language-rust ignore does_not_compile">use blog::Post;
+
+fn main() {
+    let mut post = Post::new();
+
+    post.add_text("I ate a salad for lunch today");
+    assert_eq!("", post.content());
+
+    post.request_review();
+    assert_eq!("", post.content());
+
+    post.approve();
+    assert_eq!("I ate a salad for lunch today", post.content());
+}</code></pre>
+<figcaption><a href="#listing-18-11">Lista 18-11</a>: Kod demonstrujący pożądane zachowanie, które chcemy, aby posiadała nasza biblioteka <code>blog</code></figcaption>
+</figure>
+<p>Chcemy umożliwić użytkownikowi utworzenie nowego szkicu wpisu na blogu za pomocą <code>Post::new</code>. Chcemy umożliwić dodawanie tekstu do wpisu na blogu. Jeśli spróbujemy natychmiast uzyskać treść wpisu, przed zatwierdzeniem, nie powinniśmy otrzymać żadnego tekstu, ponieważ wpis jest nadal szkicem. Dodaliśmy <code>assert_eq!</code> w kodzie w celach demonstracyjnych. Doskonałym testem jednostkowym byłoby sprawdzenie, czy szkic wpisu na blogu zwraca pusty ciąg z metody <code>content</code>, ale nie będziemy pisać testów dla tego przykładu.</p>
+<p>Następnie chcemy umożliwić prośbę o recenzję wpisu i chcemy, aby <code>content</code> zwracało pusty ciąg, podczas gdy czekamy na recenzję. Kiedy wpis zostanie zatwierdzony, powinien zostać opublikowany, co oznacza, że tekst wpisu zostanie zwrócony, gdy wywołana zostanie metoda <code>content</code>.</p>
+<p>Zauważ, że jedynym typem, z którym wchodzimy w interakcję z biblioteki, jest typ <code>Post</code>. Ten typ będzie używał wzorca stanu i będzie przechowywał wartość, która będzie jednym z trzech obiektów stanu reprezentujących różne stany, w jakich może znajdować się wpis — szkic, do recenzji lub opublikowany. Zmiana z jednego stanu na drugi będzie zarządzana wewnętrznie w typie <code>Post</code>. Stany zmieniają się w odpowiedzi na metody wywoływane przez użytkowników naszej biblioteki na instancji <code>Post</code>, ale nie muszą oni bezpośrednio zarządzać zmianami stanu. Ponadto użytkownicy nie mogą popełnić błędu ze stanami, na przykład publikując wpis przed jego zrecenzowaniem.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="defining-post-and-creating-a-new-instance-in-the-draft-state"></a></p>
+<h4 id="definiowanie-post-i-tworzenie-nowej-instancji"><a class="header" href="#definiowanie-post-i-tworzenie-nowej-instancji">Definiowanie <code>Post</code> i Tworzenie Nowej Instancji</a></h4>
+<p>Rozpocznijmy implementację biblioteki! Wiemy, że potrzebujemy publicznej struktury <code>Post</code>, która przechowuje pewną zawartość, więc zaczniemy od definicji struktury i powiązanej publicznej funkcji <code>new</code> do tworzenia instancji <code>Post</code>, jak pokazano na Liście 18-12. Stworzymy również prywatną cechę <code>State</code>, która zdefiniuje zachowanie, które muszą mieć wszystkie obiekty stanu dla <code>Post</code>.</p>
+<p>Następnie <code>Post</code> będzie przechowywać obiekt cechy <code>Box&lt;dyn State&gt;</code> wewnątrz <code>Option&lt;T&gt;</code> w prywatnym polu o nazwie <code>state</code>, aby przechowywać obiekt stanu. Za chwilę zobaczysz, dlaczego <code>Option&lt;T&gt;</code> jest konieczny.</p>
+<figure class="listing" id="listing-18-12">
+<span class="file-name">Nazwa pliku: src/lib.rs</span>
+<pre><code class="language-rust noplayground">pub struct Post {
+    state: Option&lt;Box&lt;dyn State&gt;&gt;,
+    content: String,
+}
+
+impl Post {
+    pub fn new() -&gt; Post {
+        Post {
+            state: Some(Box::new(Draft {})),
+            content: String::new(),
+        }
+    }
+}
+
+trait State {}
+
+struct Draft {}
+
+impl State for Draft {}</code></pre>
+<figcaption><a href="#listing-18-12">Lista 18-12</a>: Definicja struktury <code>Post</code> i funkcji <code>new</code>, która tworzy nową instancję <code>Post</code>, cechy <code>State</code> i struktury <code>Draft</code></figcaption>
+</figure>
+<p>Cecha <code>State</code> definiuje zachowanie dzielone przez różne stany wpisu. Obiekty stanu to <code>Draft</code>, <code>PendingReview</code> i <code>Published</code>, i wszystkie one będą implementować cechę <code>State</code>. Na razie cecha nie ma żadnych metod, a zaczniemy od zdefiniowania tylko stanu <code>Draft</code>, ponieważ to jest stan, w którym chcemy, aby wpis zaczynał się.</p>
+<p>Kiedy tworzymy nowy <code>Post</code>, ustawiamy jego pole <code>state</code> na wartość <code>Some</code>, która zawiera <code>Box</code>. Ten <code>Box</code> wskazuje na nową instancję struktury <code>Draft</code>. To zapewnia, że za każdym razem, gdy tworzymy nową instancję <code>Post</code>, zaczyna ona jako szkic. Ponieważ pole <code>state</code> w <code>Post</code> jest prywatne, nie ma możliwości utworzenia <code>Post</code> w żadnym innym stanie! W funkcji <code>Post::new</code> ustawiamy pole <code>content</code> na nowy, pusty <code>String</code>.</p>
+<h4 id="przechowywanie-tekstu-treści-wpisu"><a class="header" href="#przechowywanie-tekstu-treści-wpisu">Przechowywanie Tekstu Treści Wpisu</a></h4>
+<p>Widzieliśmy w Liście 18-11, że chcemy mieć możliwość wywołania metody <code>add_text</code> i przekazania jej <code>&amp;str</code>, który jest następnie dodawany jako tekstowa zawartość wpisu na blogu. Implementujemy to jako metodę, zamiast udostępniać pole <code>content</code> jako <code>pub</code>, aby później móc zaimplementować metodę, która będzie kontrolować, w jaki sposób odczytywane są dane pola <code>content</code>. Metoda <code>add_text</code> jest dość prosta, więc dodajmy implementację z Listy 18-13 do bloku <code>impl Post</code>.</p>
+<figure class="listing" id="listing-18-13">
+<span class="file-name">Nazwa pliku: src/lib.rs</span>
+<pre><code class="language-rust noplayground"><span class="boring">pub struct Post {
+</span><span class="boring">    state: Option&lt;Box&lt;dyn State&gt;&gt;,
+</span><span class="boring">    content: String,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl Post {
+    // --snip--
+<span class="boring">    pub fn new() -&gt; Post {
+</span><span class="boring">        Post {
+</span><span class="boring">            state: Some(Box::new(Draft {})),
+</span><span class="boring">            content: String::new(),
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">
+</span>    pub fn add_text(&amp;mut self, text: &amp;str) {
+        self.content.push_str(text);
+    }
+}
+<span class="boring">
+</span><span class="boring">trait State {}
+</span><span class="boring">
+</span><span class="boring">struct Draft {}
+</span><span class="boring">
+</span><span class="boring">impl State for Draft {}</span></code></pre>
+<figcaption><a href="#listing-18-13">Lista 18-13</a>: Implementacja metody <code>add_text</code> do dodawania tekstu do <code>content</code> wpisu</figcaption>
+</figure>
+<p>Metoda <code>add_text</code> przyjmuje zmienną referencję do <code>self</code>, ponieważ zmieniamy instancję <code>Post</code>, na której wywołujemy <code>add_text</code>. Następnie wywołujemy <code>push_str</code> na <code>String</code> w <code>content</code> i przekazujemy argument <code>text</code>, aby dodać go do zapisanej <code>content</code>. To zachowanie nie zależy od stanu, w jakim znajduje się wpis, więc nie jest częścią wzorca stanu. Metoda <code>add_text</code> w ogóle nie wchodzi w interakcje z polem <code>state</code>, ale jest częścią zachowania, które chcemy wspierać.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="ensuring-the-content-of-a-draft-post-is-empty"></a></p>
+<h4 id="zapewnienie-że-zawartość-szkicu-wpisu-jest-pusta"><a class="header" href="#zapewnienie-że-zawartość-szkicu-wpisu-jest-pusta">Zapewnienie, że Zawartość Szkicu Wpisu Jest Pusta</a></h4>
+<p>Nawet po wywołaniu <code>add_text</code> i dodaniu treści do naszego wpisu, nadal chcemy, aby metoda <code>content</code> zwracała pusty fragment ciągu, ponieważ wpis jest nadal w stanie szkicu, jak pokazano przez pierwsze <code>assert_eq!</code> na Liście 18-11. Na razie zaimplementujmy metodę <code>content</code> w najprostszy sposób, który spełni to wymaganie: zawsze zwracając pusty fragment ciągu. Zmienimy to później, gdy zaimplementujemy możliwość zmiany stanu wpisu, tak aby mógł zostać opublikowany. Do tej pory wpisy mogą być tylko w stanie szkicu, więc zawartość wpisu powinna być zawsze pusta. Lista 18-14 pokazuje tę implementację zastępczą.</p>
+<figure class="listing" id="listing-18-14">
+<span class="file-name">Nazwa pliku: src/lib.rs</span>
+<pre><code class="language-rust noplayground"><span class="boring">pub struct Post {
+</span><span class="boring">    state: Option&lt;Box&lt;dyn State&gt;&gt;,
+</span><span class="boring">    content: String,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl Post {
+    // --snip--
+<span class="boring">    pub fn new() -&gt; Post {
+</span><span class="boring">        Post {
+</span><span class="boring">            state: Some(Box::new(Draft {})),
+</span><span class="boring">            content: String::new(),
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    pub fn add_text(&amp;mut self, text: &amp;str) {
+</span><span class="boring">        self.content.push_str(text);
+</span><span class="boring">    }
+</span><span class="boring">
+</span>    pub fn content(&amp;self) -&gt; &amp;str {
+        ""
+    }
+}
+<span class="boring">
+</span><span class="boring">trait State {}
+</span><span class="boring">
+</span><span class="boring">struct Draft {}
+</span><span class="boring">
+</span><span class="boring">impl State for Draft {}</span></code></pre>
+<figcaption><a href="#listing-18-14">Lista 18-14</a>: Dodanie implementacji zastępczej dla metody <code>content</code> w <code>Post</code>, która zawsze zwraca pusty fragment ciągu</figcaption>
+</figure>
+<p>Dzięki tej dodanej metodzie <code>content</code> wszystko z Listy 18-11 aż do pierwszego <code>assert_eq!</code> działa zgodnie z przeznaczeniem.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="requesting-a-review-of-the-post-changes-its-state"></a>
+<a id="requesting-a-review-changes-the-posts-state"></a></p>
+<h4 id="zlecenie-recenzji-która-zmienia-stan-wpisu"><a class="header" href="#zlecenie-recenzji-która-zmienia-stan-wpisu">Zlecenie recenzji, która zmienia stan wpisu</a></h4>
+<p>Następnie musimy dodać funkcjonalność do żądania recenzji wpisu, co powinno zmienić jego stan ze <code>Draft</code> na <code>PendingReview</code>. Lista 18-15 pokazuje ten kod.</p>
+<figure class="listing" id="listing-18-15">
+<span class="file-name">Nazwa pliku: src/lib.rs</span>
+<pre><code class="language-rust noplayground"><span class="boring">pub struct Post {
+</span><span class="boring">    state: Option&lt;Box&lt;dyn State&gt;&gt;,
+</span><span class="boring">    content: String,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl Post {
+    // --snip--
+<span class="boring">    pub fn new() -&gt; Post {
+</span><span class="boring">        Post {
+</span><span class="boring">            state: Some(Box::new(Draft {})),
+</span><span class="boring">            content: String::new(),
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    pub fn add_text(&amp;mut self, text: &amp;str) {
+</span><span class="boring">        self.content.push_str(text);
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    pub fn content(&amp;self) -&gt; &amp;str {
+</span><span class="boring">        ""
+</span><span class="boring">    }
+</span><span class="boring">
+</span>    pub fn request_review(&amp;mut self) {
+        if let Some(s) = self.state.take() {
+            self.state = Some(s.request_review())
+        }
+    }
+}
+
+trait State {
+    fn request_review(self: Box&lt;Self&gt;) -&gt; Box&lt;dyn State&gt;;
+}
+
+struct Draft {}
+
+impl State for Draft {
+    fn request_review(self: Box&lt;Self&gt;) -&gt; Box&lt;dyn State&gt; {
+        Box::new(PendingReview {})
+    }
+}
+
+struct PendingReview {}
+
+impl State for PendingReview {
+    fn request_review(self: Box&lt;Self&gt;) -&gt; Box&lt;dyn State&gt; {
+        self
+    }
+}</code></pre>
+<figcaption><a href="#listing-18-15">Lista 18-15</a>: Implementacja metod <code>request_review</code> w <code>Post</code> i cechy <code>State</code></figcaption>
+</figure>
+<p>Dajemy <code>Post</code> publiczną metodę <code>request_review</code>, która przyjmuje zmienną referencję do <code>self</code>. Następnie wywołujemy wewnętrzną metodę <code>request_review</code> na bieżącym stanie <code>Post</code>, a ta druga metoda <code>request_review</code> konsumuje bieżący stan i zwraca nowy stan.</p>
+<p>Dodajemy metodę <code>request_review</code> do cechy <code>State</code>; wszystkie typy, które implementują tę cechę, będą teraz musiały zaimplementować metodę <code>request_review</code>. Zauważ, że zamiast <code>self</code>, <code>&amp;self</code> lub <code>&amp;mut self</code> jako pierwszego parametru metody, mamy <code>self: Box&lt;Self&gt;</code>. Ta składnia oznacza, że metoda jest prawidłowa tylko wtedy, gdy jest wywoływana na <code>Box</code> zawierającym ten typ. Ta składnia przejmuje własność <code>Box&lt;Self&gt;</code>, unieważniając stary stan, tak aby wartość stanu <code>Post</code> mogła przekształcić się w nowy stan.</p>
+<p>Aby skonsumować stary stan, metoda <code>request_review</code> musi przejąć własność wartości stanu. To tutaj wchodzi w grę <code>Option</code> w polu <code>state</code> struktury <code>Post</code>: wywołujemy metodę <code>take</code>, aby pobrać wartość <code>Some</code> z pola <code>state</code> i pozostawić <code>None</code> na jej miejscu, ponieważ Rust nie pozwala nam mieć niezapelnionych pól w strukturach. To pozwala nam przenieść wartość <code>state</code> z <code>Post</code>, zamiast jej pożyczać. Następnie ustawimy wartość <code>state</code> wpisu na wynik tej operacji.</p>
+<p>Musimy tymczasowo ustawić <code>state</code> na <code>None</code>, zamiast ustawiać go bezpośrednio kodem takim jak <code>self.state = self.state.request_review();</code>, aby uzyskać własność wartości <code>state</code>. Zapewnia to, że <code>Post</code> nie może używać starej wartości <code>state</code> po tym, jak przekształciliśmy ją w nowy stan.</p>
+<p>Metoda <code>request_review</code> w <code>Draft</code> zwraca nową, opakowaną instancję nowej struktury <code>PendingReview</code>, która reprezentuje stan, gdy wpis oczekuje na recenzję. Struktura <code>PendingReview</code> również implementuje metodę <code>request_review</code>, ale nie wykonuje żadnych transformacji. Zamiast tego zwraca siebie, ponieważ gdy prosimy o recenzję wpisu, który jest już w stanie <code>PendingReview</code>, powinien on pozostać w stanie <code>PendingReview</code>.</p>
+<p>Teraz możemy zacząć dostrzegać zalety wzorca stanu: metoda <code>request_review</code> w <code>Post</code> jest taka sama niezależnie od jej wartości <code>state</code>. Każdy stan jest odpowiedzialny za własne reguły.</p>
+<p>Pozostawimy metodę <code>content</code> w <code>Post</code> w niezmienionej postaci, zwracając pusty fragment ciągu. Możemy teraz mieć <code>Post</code> w stanie <code>PendingReview</code>, a także w stanie <code>Draft</code>, ale chcemy tego samego zachowania w stanie <code>PendingReview</code>. Lista 18-11 działa teraz aż do drugiego wywołania <code>assert_eq!</code>!</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="adding-the-approve-method-that-changes-the-behavior-of-content"></a>
+<a id="adding-approve-to-change-the-behavior-of-content"></a></p>
+<h4 id="dodawanie-approve-w-celu-zmiany-zachowania-content"><a class="header" href="#dodawanie-approve-w-celu-zmiany-zachowania-content">Dodawanie <code>approve</code> w celu zmiany zachowania <code>content</code></a></h4>
+<p>Metoda <code>approve</code> będzie podobna do metody <code>request_review</code>: ustawi <code>state</code> na wartość, którą bieżący stan powinien mieć po zatwierdzeniu, jak pokazano na Liście 18-16.</p>
+<figure class="listing" id="listing-18-16">
+<span class="file-name">Nazwa pliku: src/lib.rs</span>
+<pre><code class="language-rust noplayground"><span class="boring">pub struct Post {
+</span><span class="boring">    state: Option&lt;Box&lt;dyn State&gt;&gt;,
+</span><span class="boring">    content: String,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl Post {
+    // --snip--
+<span class="boring">    pub fn new() -&gt; Post {
+</span><span class="boring">        Post {
+</span><span class="boring">            state: Some(Box::new(Draft {})),
+</span><span class="boring">            content: String::new(),
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    pub fn add_text(&amp;mut self, text: &amp;str) {
+</span><span class="boring">        self.content.push_str(text);
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    pub fn content(&amp;self) -&gt; &amp;str {
+</span><span class="boring">        ""
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    pub fn request_review(&amp;mut self) {
+</span><span class="boring">        if let Some(s) = self.state.take() {
+</span><span class="boring">            self.state = Some(s.request_review())
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">
+</span>    pub fn approve(&amp;mut self) {
+        if let Some(s) = self.state.take() {
+            self.state = Some(s.approve())
+        }
+    }
+}
+
+trait State {
+    fn request_review(self: Box&lt;Self&gt;) -&gt; Box&lt;dyn State&gt;;
+    fn approve(self: Box&lt;Self&gt;) -&gt; Box&lt;dyn State&gt;;
+}
+
+struct Draft {}
+
+impl State for Draft {
+    // --snip--
+<span class="boring">    fn request_review(self: Box&lt;Self&gt;) -&gt; Box&lt;dyn State&gt; {
+</span><span class="boring">        Box::new(PendingReview {})
+</span><span class="boring">    }
+</span><span class="boring">
+</span>    fn approve(self: Box&lt;Self&gt;) -&gt; Box&lt;dyn State&gt; {
+        self
+    }
+}
+
+struct PendingReview {}
+
+impl State for PendingReview {
+    // --snip--
+<span class="boring">    fn request_review(self: Box&lt;Self&gt;) -&gt; Box&lt;dyn State&gt; {
+</span><span class="boring">        self
+</span><span class="boring">    }
+</span><span class="boring">
+</span>    fn approve(self: Box&lt;Self&gt;) -&gt; Box&lt;dyn State&gt; {
+        Box::new(Published {})
+    }
+}
+
+struct Published {}
+
+impl State for Published {
+    fn request_review(self: Box&lt;Self&gt;) -&gt; Box&lt;dyn State&gt; {
+        self
+    }
+
+    fn approve(self: Box&lt;Self&gt;) -&gt; Box&lt;dyn State&gt; {
+        self
+    }
+}</code></pre>
+<figcaption><a href="#listing-18-16">Lista 18-16</a>: Implementacja metody <code>approve</code> w <code>Post</code> i cechy <code>State</code></figcaption>
+</figure>
+<p>Dodajemy metodę <code>approve</code> do cechy <code>State</code> i nową strukturę, która implementuje <code>State</code>, czyli stan <code>Published</code>.</p>
+<p>Podobnie jak działa <code>request_review</code> w <code>PendingReview</code>, jeśli wywołamy metodę <code>approve</code> na <code>Draft</code>, nie będzie to miało żadnego efektu, ponieważ <code>approve</code> zwróci <code>self</code>. Kiedy wywołamy <code>approve</code> na <code>PendingReview</code>, zwróci nową, spakowaną instancję struktury <code>Published</code>. Struktura <code>Published</code> implementuje cechę <code>State</code>, a dla obu metod <code>request_review</code> i <code>approve</code> zwraca siebie, ponieważ w tych przypadkach wpis powinien pozostać w stanie <code>Published</code>.</p>
+<p>Teraz musimy zaktualizować metodę <code>content</code> w <code>Post</code>. Chcemy, aby wartość zwracana przez <code>content</code> zależała od bieżącego stanu <code>Post</code>, dlatego <code>Post</code> będzie delegować do metody <code>content</code> zdefiniowanej na swoim <code>state</code>, jak pokazano na Liście 18-17.</p>
+<figure class="listing" id="listing-18-17">
+<span class="file-name">Nazwa pliku: src/lib.rs</span>
+<pre><code class="language-rust ignore does_not_compile"><span class="boring">pub struct Post {
+</span><span class="boring">    state: Option&lt;Box&lt;dyn State&gt;&gt;,
+</span><span class="boring">    content: String,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl Post {
+    // --snip--
+<span class="boring">    pub fn new() -&gt; Post {
+</span><span class="boring">        Post {
+</span><span class="boring">            state: Some(Box::new(Draft {})),
+</span><span class="boring">            content: String::new(),
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    pub fn add_text(&amp;mut self, text: &amp;str) {
+</span><span class="boring">        self.content.push_str(text);
+</span><span class="boring">    }
+</span><span class="boring">
+</span>    pub fn content(&amp;self) -&gt; &amp;str {
+        self.state.as_ref().unwrap().content(self)
+    }
+    // --snip--
+<span class="boring">
+</span><span class="boring">    pub fn request_review(&amp;mut self) {
+</span><span class="boring">        if let Some(s) = self.state.take() {
+</span><span class="boring">            self.state = Some(s.request_review())
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    pub fn approve(&amp;mut self) {
+</span><span class="boring">        if let Some(s) = self.state.take() {
+</span><span class="boring">            self.state = Some(s.approve())
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span>}
+<span class="boring">
+</span><span class="boring">trait State {
+</span><span class="boring">    fn request_review(self: Box&lt;Self&gt;) -&gt; Box&lt;dyn State&gt;;
+</span><span class="boring">    fn approve(self: Box&lt;Self&gt;) -&gt; Box&lt;dyn State&gt;;
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">struct Draft {}
+</span><span class="boring">
+</span><span class="boring">impl State for Draft {
+</span><span class="boring">    fn request_review(self: Box&lt;Self&gt;) -&gt; Box&lt;dyn State&gt; {
+</span><span class="boring">        Box::new(PendingReview {})
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    fn approve(self: Box&lt;Self&gt;) -&gt; Box&lt;dyn State&gt; {
+</span><span class="boring">        self
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">struct PendingReview {}
+</span><span class="boring">
+</span><span class="boring">impl State for PendingReview {
+</span><span class="boring">    fn request_review(self: Box&lt;Self&gt;) -&gt; Box&lt;dyn State&gt; {
+</span><span class="boring">        self
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    fn approve(self: Box&lt;Self&gt;) -&gt; Box&lt;dyn State&gt; {
+</span><span class="boring">        Box::new(Published {})
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">struct Published {}
+</span><span class="boring">
+</span><span class="boring">impl State for Published {
+</span><span class="boring">    fn request_review(self: Box&lt;Self&gt;) -&gt; Box&lt;dyn State&gt; {
+</span><span class="boring">        self
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    fn approve(self: Box&lt;Self&gt;) -&gt; Box&lt;dyn State&gt; {
+</span><span class="boring">        self
+</span><span class="boring">    }
+</span><span class="boring">}</span></code></pre>
+<figcaption><a href="#listing-18-17">Lista 18-17</a>: Aktualizacja metody <code>content</code> w <code>Post</code> w celu delegowania do metody <code>content</code> w <code>State</code></figcaption>
+</figure>
+<p>Ponieważ celem jest utrzymanie wszystkich tych zasad wewnątrz struktur implementujących <code>State</code>, wywołujemy metodę <code>content</code> na wartości w <code>state</code> i przekazujemy instancję wpisu (czyli <code>self</code>) jako argument. Następnie zwracamy wartość zwróconą przez użycie metody <code>content</code> na wartości <code>state</code>.</p>
+<p>Wywołujemy metodę <code>as_ref</code> na <code>Option</code>, ponieważ chcemy referencję do wartości wewnątrz <code>Option</code>, a nie własności wartości. Ponieważ <code>state</code> jest <code>Option&lt;Box&lt;dyn State&gt;&gt;</code>, po wywołaniu <code>as_ref</code> zwracane jest <code>Option&lt;&amp;Box&lt;dyn State&gt;&gt;</code>. Gdybyśmy nie wywołali <code>as_ref</code>, otrzymalibyśmy błąd, ponieważ nie możemy przenieść <code>state</code> poza pożyczone <code>&amp;self</code> z parametru funkcji.</p>
+<p>Następnie wywołujemy metodę <code>unwrap</code>, o której wiemy, że nigdy nie spowoduje paniki, ponieważ wiemy, że metody w <code>Post</code> zapewniają, że <code>state</code> zawsze będzie zawierać wartość <code>Some</code> po zakończeniu tych metod. Jest to jeden z przypadków, o których mówiliśmy w sekcji <a href="ch09-03-to-panic-or-not-to-panic.html#cases-in-which-you-have-more-information-than-the-compiler">„Kiedy masz więcej informacji niż kompilator”</a><!-- ignore --> w Rozdziale 9, kiedy wiemy, że wartość <code>None</code> nigdy nie jest możliwa, mimo że kompilator nie jest w stanie tego zrozumieć.</p>
+<p>W tym momencie, gdy wywołamy <code>content</code> na <code>&amp;Box&lt;dyn State&gt;</code>, nastąpi koercja dereferencji na <code>&amp;</code> i <code>Box</code>, tak że metoda <code>content</code> zostanie ostatecznie wywołana na typie, który implementuje cechę <code>State</code>. Oznacza to, że musimy dodać <code>content</code> do definicji cechy <code>State</code>, i to tam umieścimy logikę dotyczącą tego, jaką zawartość zwrócić w zależności od posiadanego stanu, jak pokazano na Liście 18-18.</p>
+<figure class="listing" id="listing-18-18">
+<span class="file-name">Nazwa pliku: src/lib.rs</span>
+<pre><code class="language-rust noplayground"><span class="boring">pub struct Post {
+</span><span class="boring">    state: Option&lt;Box&lt;dyn State&gt;&gt;,
+</span><span class="boring">    content: String,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Post {
+</span><span class="boring">    pub fn new() -&gt; Post {
+</span><span class="boring">        Post {
+</span><span class="boring">            state: Some(Box::new(Draft {})),
+</span><span class="boring">            content: String::new(),
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    pub fn add_text(&amp;mut self, text: &amp;str) {
+</span><span class="boring">        self.content.push_str(text);
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    pub fn content(&amp;self) -&gt; &amp;str {
+</span><span class="boring">        self.state.as_ref().unwrap().content(self)
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    pub fn request_review(&amp;mut self) {
+</span><span class="boring">        if let Some(s) = self.state.take() {
+</span><span class="boring">            self.state = Some(s.request_review())
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    pub fn approve(&amp;mut self) {
+</span><span class="boring">        if let Some(s) = self.state.take() {
+</span><span class="boring">            self.state = Some(s.approve())
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>trait State {
+    // --snip--
+<span class="boring">    fn request_review(self: Box&lt;Self&gt;) -&gt; Box&lt;dyn State&gt;;
+</span><span class="boring">    fn approve(self: Box&lt;Self&gt;) -&gt; Box&lt;dyn State&gt;;
+</span><span class="boring">
+</span>    fn content&lt;'a&gt;(&amp;self, post: &amp;'a Post) -&gt; &amp;'a str {
+        ""
+    }
+}
+
+// --snip--
+<span class="boring">
+</span><span class="boring">struct Draft {}
+</span><span class="boring">
+</span><span class="boring">impl State for Draft {
+</span><span class="boring">    fn request_review(self: Box&lt;Self&gt;) -&gt; Box&lt;dyn State&gt; {
+</span><span class="boring">        Box::new(PendingReview {})
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    fn approve(self: Box&lt;Self&gt;) -&gt; Box&lt;dyn State&gt; {
+</span><span class="boring">        self
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">struct PendingReview {}
+</span><span class="boring">
+</span><span class="boring">impl State for PendingReview {
+</span><span class="boring">    fn request_review(self: Box&lt;Self&gt;) -&gt; Box&lt;dyn State&gt; {
+</span><span class="boring">        self
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    fn approve(self: Box&lt;Self&gt;) -&gt; Box&lt;dyn State&gt; {
+</span><span class="boring">        Box::new(Published {})
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>struct Published {}
+
+impl State for Published {
+    // --snip--
+<span class="boring">    fn request_review(self: Box&lt;Self&gt;) -&gt; Box&lt;dyn State&gt; {
+</span><span class="boring">        self
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    fn approve(self: Box&lt;Self&gt;) -&gt; Box&lt;dyn State&gt; {
+</span><span class="boring">        self
+</span><span class="boring">    }
+</span><span class="boring">
+</span>    fn content&lt;'a&gt;(&amp;self, post: &amp;'a Post) -&gt; &amp;'a str {
+        &amp;post.content
+    }
+}</code></pre>
+<figcaption><a href="#listing-18-18">Lista 18-18</a>: Dodanie metody <code>content</code> do cechy <code>State</code></figcaption>
+</figure>
+<p>Dodajemy domyślną implementację metody <code>content</code>, która zwraca pusty fragment ciągu. Oznacza to, że nie musimy implementować <code>content</code> w strukturach <code>Draft</code> i <code>PendingReview</code>. Struktura <code>Published</code> nadpisze metodę <code>content</code> i zwróci wartość z <code>post.content</code>. Choć wygodne, posiadanie metody <code>content</code> w <code>State</code>, która określa zawartość <code>Post</code>, zaciera granice między odpowiedzialnością <code>State</code> a odpowiedzialnością <code>Post</code>.</p>
+<p>Zauważ, że potrzebujemy adnotacji dotyczących czasu życia w tej metodzie, jak omówiliśmy w Rozdziale 10. Przyjmujemy referencję do <code>post</code> jako argument i zwracamy referencję do części tego <code>post</code>, więc czas życia zwróconej referencji jest związany z czasem życia argumentu <code>post</code>.</p>
+<p>I gotowe — cała Lista 18-11 działa! Zaimplementowaliśmy wzorzec stanu z zasadami przepływu pracy wpisu na blogu. Logika związana z zasadami znajduje się w obiektach stanu, a nie jest rozproszona po <code>Post</code>.</p>
+<section class="note" aria-role="note">
+<h3 id="dlaczego-nie-wyliczenie-enum"><a class="header" href="#dlaczego-nie-wyliczenie-enum">Dlaczego Nie Wyliczenie (Enum)?</a></h3>
+<p>Być może zastanawiałeś się, dlaczego nie użyliśmy wyliczenia (enum) z różnymi możliwymi stanami wpisu jako wariantami. To z pewnością możliwe rozwiązanie; spróbuj go i porównaj ostateczne wyniki, aby zobaczyć, które wolisz! Jedną z wad używania wyliczenia jest to, że każde miejsce, które sprawdza wartość wyliczenia, będzie potrzebowało wyrażenia <code>match</code> lub podobnego, aby obsłużyć każdy możliwy wariant. To mogłoby stać się bardziej powtarzalne niż to rozwiązanie z obiektem cechy.</p>
+</section>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="trade-offs-of-the-state-pattern"></a></p>
+<h4 id="ocena-wzorca-stanu"><a class="header" href="#ocena-wzorca-stanu">Ocena Wzorca Stanu</a></h4>
+<p>Pokazaliśmy, że Rust jest zdolny do implementacji obiektowo zorientowanego wzorca stanu w celu hermetyzacji różnych rodzajów zachowań, jakie powinien mieć wpis w każdym stanie. Metody w <code>Post</code> nic nie wiedzą o różnych zachowaniach. Dzięki temu, jak zorganizowaliśmy kod, musimy patrzeć tylko w jedno miejsce, aby poznać różne sposoby zachowania opublikowanego wpisu: implementację cechy <code>State</code> na strukturze <code>Published</code>.</p>
+<p>Gdybyśmy stworzyli alternatywną implementację, która nie używałaby wzorca stanu, moglibyśmy zamiast tego użyć wyrażeń <code>match</code> w metodach w <code>Post</code> lub nawet w kodzie <code>main</code>, który sprawdza stan wpisu i zmienia zachowanie w tych miejscach. Oznaczałoby to, że musielibyśmy patrzeć w kilku miejscach, aby zrozumieć wszystkie implikacje bycia w stanie opublikowanym.</p>
+<p>Przy użyciu wzorca stanu, metody <code>Post</code> i miejsca, w których używamy <code>Post</code>, nie potrzebują wyrażeń <code>match</code>, a aby dodać nowy stan, wystarczyłoby dodać nową strukturę i zaimplementować metody cech na tej jednej strukturze w jednym miejscu.</p>
+<p>Implementacja wykorzystująca wzorzec stanu jest łatwa do rozszerzenia o dodatkową funkcjonalność. Aby zobaczyć prostotę utrzymywania kodu, który używa wzorca stanu, wypróbuj kilka z tych sugestii:</p>
+<ul>
+<li>Dodaj metodę <code>reject</code>, która zmienia stan wpisu z <code>PendingReview</code> z powrotem na <code>Draft</code>.</li>
+<li>Wymagaj dwóch wywołań <code>approve</code>, zanim stan będzie mógł zostać zmieniony na <code>Published</code>.</li>
+<li>Zezwalaj użytkownikom na dodawanie treści tekstowej tylko wtedy, gdy wpis jest w stanie <code>Draft</code>.
+Wskazówka: niech obiekt stanu będzie odpowiedzialny za to, co może się zmienić w treści, ale nie za modyfikowanie <code>Post</code>.</li>
+</ul>
+<p>Jedną z wad wzorca stanu jest to, że ponieważ stany implementują przejścia między stanami, niektóre stany są ze sobą powiązane. Gdybyśmy dodali inny stan między <code>PendingReview</code> a <code>Published</code>, taki jak <code>Scheduled</code>, musielibyśmy zmienić kod w <code>PendingReview</code>, aby przejść do <code>Scheduled</code>. Byłoby to mniej pracy, gdyby <code>PendingReview</code> nie wymagało zmian wraz z dodaniem nowego stanu, ale to oznaczałoby przejście na inny wzorzec projektowy.</p>
+<p>Inną wadą jest to, że powieliliśmy trochę logiki. Aby wyeliminować część powtórzeń, moglibyśmy spróbować stworzyć domyślne implementacje dla metod <code>request_review</code> i <code>approve</code> w cechy <code>State</code>, które zwracają <code>self</code>. Jednak to by nie zadziałało: używając <code>State</code> jako obiektu cechy, cecha nie wie dokładnie, czym będzie konkretny <code>self</code>, więc typ zwracany nie jest znany w czasie kompilacji. (To jedna z wcześniej wspomnianych reguł kompatybilności <code>dyn</code>).</p>
+<p>Inne powtórzenia obejmują podobne implementacje metod <code>request_review</code> i <code>approve</code> w <code>Post</code>. Obie metody używają <code>Option::take</code> z polem <code>state</code> z <code>Post</code>, a jeśli <code>state</code> jest <code>Some</code>, delegują do implementacji tej samej metody przez owiniętą wartość i ustawiają nową wartość pola <code>state</code> na wynik. Gdybyśmy mieli wiele metod w <code>Post</code>, które postępowałyby zgodnie z tym wzorcem, moglibyśmy rozważyć zdefiniowanie makra, aby wyeliminować powtórzenia (patrz sekcja <a href="ch20-05-macros.html#macros">„Makrodefinicje”</a><!-- ignore --> w Rozdziale 20).</p>
+<p>Implementując wzorzec stanu dokładnie tak, jak jest zdefiniowany dla języków zorientowanych obiektowo, nie wykorzystujemy w pełni mocnych stron Rust. Przyjrzyjmy się kilku zmianom, które możemy wprowadzić w bibliotece <code>blog</code>, aby nieprawidłowe stany i przejścia stały się błędami w czasie kompilacji.</p>
+<h3 id="kodowanie-stanów-i-zachowania-jako-typy"><a class="header" href="#kodowanie-stanów-i-zachowania-jako-typy">Kodowanie Stanów i Zachowania jako Typy</a></h3>
+<p>Pokażemy, jak przemyśleć wzorzec stanu, aby uzyskać inny zestaw kompromisów. Zamiast całkowicie hermetyzować stany i przejścia, tak aby zewnętrzny kod nie miał o nich wiedzy, zakodujemy stany w różnych typach. W konsekwencji system sprawdzania typów Rust zapobiegnie próbom użycia szkiców wpisów tam, gdzie dozwolone są tylko opublikowane wpisy, zgłaszając błąd kompilacji.</p>
+<p>Rozważmy pierwszą część <code>main</code> na Liście 18-11:</p>
+<figure class="listing">
+<span class="file-name">Nazwa pliku: src/main.rs</span>
+<pre><code class="language-rust ignore"><span class="boring">use blog::Post;
+</span><span class="boring">
+</span>fn main() {
+    let mut post = Post::new();
+
+    post.add_text("I ate a salad for lunch today");
+    assert_eq!("", post.content());
+<span class="boring">
+</span><span class="boring">    post.request_review();
+</span><span class="boring">    assert_eq!("", post.content());
+</span><span class="boring">
+</span><span class="boring">    post.approve();
+</span><span class="boring">    assert_eq!("I ate a salad for lunch today", post.content());
+</span>}</code></pre>
+</figure>
+<p>Dalej umożliwiamy tworzenie nowych wpisów w stanie szkicu za pomocą <code>Post::new</code> oraz możliwość dodawania tekstu do treści wpisu. Ale zamiast mieć metodę <code>content</code> w szkicu wpisu, która zwraca pusty ciąg, sprawimy, że szkice wpisów w ogóle nie będą miały metody <code>content</code>. W ten sposób, jeśli spróbujemy uzyskać treść szkicu wpisu, otrzymamy błąd kompilatora informujący nas, że metoda nie istnieje. W rezultacie niemożliwe będzie przypadkowe wyświetlenie treści szkicu wpisu w produkcji, ponieważ ten kod nawet się nie skompiluje. Lista 18-19 pokazuje definicję struktury <code>Post</code> i struktury <code>DraftPost</code>, a także metody na każdej z nich.</p>
+<figure class="listing" id="listing-18-19">
+<span class="file-name">Nazwa pliku: src/lib.rs</span>
+<pre><code class="language-rust noplayground">pub struct Post {
+    content: String,
+}
+
+pub struct DraftPost {
+    content: String,
+}
+
+impl Post {
+    pub fn new() -&gt; DraftPost {
+        DraftPost {
+            content: String::new(),
+        }
+    }
+
+    pub fn content(&amp;self) -&gt; &amp;str {
+        &amp;self.content
+    }
+}
+
+impl DraftPost {
+    pub fn add_text(&amp;mut self, text: &amp;str) {
+        self.content.push_str(text);
+    }
+}</code></pre>
+<figcaption><a href="#listing-18-19">Lista 18-19</a>: <code>Post</code> z metodą <code>content</code> i <code>DraftPost</code> bez metody <code>content</code></figcaption>
+</figure>
+<p>Zarówno struktury <code>Post</code>, jak i <code>DraftPost</code> mają prywatne pole <code>content</code>, które przechowuje tekst wpisu na blogu. Struktury nie mają już pola <code>state</code>, ponieważ przenosimy kodowanie stanu do typów struktur. Struktura <code>Post</code> będzie reprezentować opublikowany wpis i ma metodę <code>content</code>, która zwraca <code>content</code>.</p>
+<p>Dalej mamy funkcję <code>Post::new</code>, ale zamiast zwracać instancję <code>Post</code>, zwraca instancję <code>DraftPost</code>. Ponieważ <code>content</code> jest prywatne i nie ma żadnych funkcji zwracających <code>Post</code>, obecnie nie jest możliwe utworzenie instancji <code>Post</code>.</p>
+<p>Struktura <code>DraftPost</code> posiada metodę <code>add_text</code>, więc możemy dodawać tekst do <code>content</code> tak jak wcześniej, ale zauważ, że <code>DraftPost</code> nie ma zdefiniowanej metody <code>content</code>! Teraz program zapewnia, że wszystkie wpisy zaczynają się jako szkice wpisów, a szkice wpisów nie mają dostępnej treści do wyświetlenia. Każda próba obejścia tych ograniczeń spowoduje błąd kompilatora.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="implementing-transitions-as-transformations-into-different-types"></a></p>
+<p>Więc jak zdobyć opublikowany wpis? Chcemy wymusić zasadę, że szkic wpisu musi zostać zrecenzowany i zatwierdzony, zanim zostanie opublikowany. Wpis w stanie oczekiwania na recenzję nadal nie powinien wyświetlać żadnej treści. Zaimplementujmy te ograniczenia, dodając kolejną strukturę, <code>PendingReviewPost</code>, definiując metodę <code>request_review</code> w <code>DraftPost</code>, aby zwracała <code>PendingReviewPost</code>, i definiując metodę <code>approve</code> w <code>PendingReviewPost</code>, aby zwracała <code>Post</code>, jak pokazano na Liście 18-20.</p>
+<figure class="listing" id="listing-18-20">
+<span class="file-name">Nazwa pliku: src/lib.rs</span>
+<pre><code class="language-rust noplayground"><span class="boring">pub struct Post {
+</span><span class="boring">    content: String,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">pub struct DraftPost {
+</span><span class="boring">    content: String,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Post {
+</span><span class="boring">    pub fn new() -&gt; DraftPost {
+</span><span class="boring">        DraftPost {
+</span><span class="boring">            content: String::new(),
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    pub fn content(&amp;self) -&gt; &amp;str {
+</span><span class="boring">        &amp;self.content
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl DraftPost {
+    // --snip--
+<span class="boring">    pub fn add_text(&amp;mut self, text: &amp;str) {
+</span><span class="boring">        self.content.push_str(text);
+</span><span class="boring">    }
+</span><span class="boring">
+</span>    pub fn request_review(self) -&gt; PendingReviewPost {
+        PendingReviewPost {
+            content: self.content,
+        }
+    }
+}
+
+pub struct PendingReviewPost {
+    content: String,
+}
+
+impl PendingReviewPost {
+    pub fn approve(self) -&gt; Post {
+        Post {
+            content: self.content,
+        }
+    }
+}</code></pre>
+<figcaption><a href="#listing-18-20">Lista 18-20</a>: Struktura <code>PendingReviewPost</code>, która jest tworzona poprzez wywołanie <code>request_review</code> na <code>DraftPost</code>, oraz metoda <code>approve</code>, która zamienia <code>PendingReviewPost</code> w opublikowany <code>Post</code></figcaption>
+</figure>
+<p>Metody <code>request_review</code> i <code>approve</code> przejmują własność <code>self</code>, konsumując w ten sposób instancje <code>DraftPost</code> i <code>PendingReviewPost</code> i przekształcając je odpowiednio w <code>PendingReviewPost</code> i opublikowany <code>Post</code>. W ten sposób nie będziemy mieć żadnych pozostałych instancji <code>DraftPost</code> po wywołaniu na nich <code>request_review</code> i tak dalej. Struktura <code>PendingReviewPost</code> nie ma zdefiniowanej metody <code>content</code>, więc próba odczytania jej treści skutkuje błędem kompilacji, podobnie jak w przypadku <code>DraftPost</code>. Ponieważ jedynym sposobem na uzyskanie opublikowanej instancji <code>Post</code>, która ma zdefiniowaną metodę <code>content</code>, jest wywołanie metody <code>approve</code> na <code>PendingReviewPost</code>, a jedynym sposobem na uzyskanie <code>PendingReviewPost</code> jest wywołanie metody <code>request_review</code> na <code>DraftPost</code>, zakodowaliśmy teraz przepływ pracy wpisu na blogu w systemie typów.</p>
+<p>Musimy jednak wprowadzić również niewielkie zmiany w <code>main</code>. Metody <code>request_review</code> i <code>approve</code> zwracają nowe instancje zamiast modyfikować strukturę, na której są wywoływane, więc musimy dodać więcej przypisań <code>let post =</code> w celu zapisania zwróconych instancji. Nie możemy też mieć asercji dotyczących pustych ciągów w treści szkiców i wpisów oczekujących na recenzję, ani ich nie potrzebujemy: nie możemy już skompilować kodu, który próbuje użyć treści wpisów w tych stanach. Zaktualizowany kod w <code>main</code> pokazano na Liście 18-21.</p>
+<figure class="listing" id="listing-18-21">
+<span class="file-name">Nazwa pliku: src/main.rs</span>
+<pre><code class="language-rust ignore">use blog::Post;
+
+fn main() {
+    let mut post = Post::new();
+
+    post.add_text("I ate a salad for lunch today");
+
+    let post = post.request_review();
+
+    let post = post.approve();
+
+    assert_eq!("I ate a salad for lunch today", post.content());
+}</code></pre>
+<figcaption><a href="#listing-18-21">Lista 18-21</a>: Modyfikacje w <code>main</code> w celu użycia nowej implementacji przepływu pracy wpisu na blogu</figcaption>
+</figure>
+<p>Zmiany, które musieliśmy wprowadzić w <code>main</code>, aby ponownie przypisać <code>post</code>, oznaczają, że ta implementacja nie do końca już odpowiada wzorcowi stanu zorientowanemu obiektowo: transformacje między stanami nie są już w pełni hermetyzowane w implementacji <code>Post</code>. Jednak naszym zyskiem jest to, że nieprawidłowe stany są teraz niemożliwe dzięki systemowi typów i sprawdzaniu typów, które odbywa się w czasie kompilacji! To zapewnia, że pewne błędy, takie jak wyświetlanie treści nieopublikowanego wpisu, zostaną wykryte, zanim trafią do produkcji.</p>
+<p>Wypróbuj zadania sugerowane na początku tej sekcji na bibliotece <code>blog</code> w stanie po Liście 18-21, aby zobaczyć, co myślisz o projekcie tej wersji kodu. Zauważ, że niektóre zadania mogą być już ukończone w tym projekcie.</p>
+<p>Widzieliśmy, że chociaż Rust jest w stanie implementować obiektowo zorientowane wzorce projektowe, inne wzorce, takie jak kodowanie stanu w systemie typów, są również dostępne w Rust. Te wzorce mają różne kompromisy. Chociaż możesz być bardzo zaznajomiony z obiektowo zorientowanymi wzorcami, ponowne przemyślenie problemu w celu wykorzystania funkcji Rust może przynieść korzyści, takie jak zapobieganie niektórym błędom w czasie kompilacji. Wzorce obiektowo zorientowane nie zawsze będą najlepszym rozwiązaniem w Rust ze względu na pewne cechy, takie jak własność, których języki obiektowo zorientowane nie posiadają.</p>
+<h2 id="podsumowanie"><a class="header" href="#podsumowanie">Podsumowanie</a></h2>
+<p>Niezależnie od tego, czy uważasz Rust za język obiektowy po przeczytaniu tego rozdziału, wiesz już, że możesz używać obiektów cech, aby uzyskać niektóre cechy obiektowe w Rust. Dynamiczne wysyłanie może zapewnić Twojemu kodowi pewną elastyczność w zamian za niewielki koszt wydajności w czasie wykonania. Możesz wykorzystać tę elastyczność do implementacji obiektowych wzorców, które mogą pomóc w utrzymaniu kodu. Rust ma również inne cechy, takie jak własność, których języki obiektowe nie mają. Wzorzec obiektowy nie zawsze będzie najlepszym sposobem na wykorzystanie mocnych stron Rust, ale jest to dostępna opcja.</p>
+<p>Następnie przyjrzymy się wzorcom, które są kolejną z funkcji Rust, które umożliwiają dużą elastyczność. Przyglądaliśmy się im krótko w całej książce, ale nie widzieliśmy jeszcze ich pełnych możliwości. Zacznijmy!</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="ch18-02-trait-objects.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="ch19-00-patterns.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="ch18-02-trait-objects.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="ch19-00-patterns.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="ferris-2317480c.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

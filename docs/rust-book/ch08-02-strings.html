@@ -1,0 +1,492 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Przechowywanie tekstu zakodowanego w UTF-8 za pomocą ciągów znaków - Język programowania Rust</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="ferris-d33b75bf.css">
+        <link rel="stylesheet" href="theme/2018-edition-4e126c62.css">
+        <link rel="stylesheet" href="theme/semantic-notes-9b5766c0.css">
+        <link rel="stylesheet" href="theme/listing-cab26221.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-773dca2f.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-039e37ba.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Język programowania Rust</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/rust-lang/book" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h2 id="przechowywanie-tekstu-zakodowanego-w-utf-8-za-pomocą-ciągów-znaków"><a class="header" href="#przechowywanie-tekstu-zakodowanego-w-utf-8-za-pomocą-ciągów-znaków">Przechowywanie tekstu zakodowanego w UTF-8 za pomocą ciągów znaków</a></h2>
+<p>O ciągach znaków rozmawialiśmy w Rozdziale 4, ale teraz przyjrzymy się im bardziej szczegółowo. Nowi użytkownicy Rusta często mają problemy z ciągami znaków z powodu połączenia trzech czynników: skłonności Rusta do ujawniania możliwych błędów, ciągów znaków będących bardziej skomplikowaną strukturą danych, niż wielu programistów im przypisuje, oraz UTF-8. Czynniki te łączą się w sposób, który może wydawać się trudny, gdy pochodzisz z innych języków programowania.</p>
+<p>Ciągi znaków omawiamy w kontekście kolekcji, ponieważ są one implementowane jako kolekcja bajtów, plus kilka metod zapewniających użyteczną funkcjonalność, gdy te bajty są interpretowane jako tekst. W tej sekcji omówimy operacje na <code>String</code>, które posiada każdy typ kolekcji, takie jak tworzenie, aktualizowanie i odczytywanie. Omówimy również różnice między <code>String</code> a innymi kolekcjami, a mianowicie, jak indeksowanie <code>String</code> jest skomplikowane przez różnice między tym, jak ludzie i komputery interpretują dane <code>String</code>.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="what-is-a-string"></a></p>
+<h3 id="definiowanie-ciągów-znaków"><a class="header" href="#definiowanie-ciągów-znaków">Definiowanie ciągów znaków</a></h3>
+<p>Najpierw zdefiniujemy, co rozumiemy przez termin <em>ciąg znaków</em>. Rust ma tylko jeden typ ciągu znaków w podstawowym języku, który jest wycinkiem ciągu <code>str</code>, zazwyczaj występującym w formie pożyczonej, <code>&amp;str</code>. W Rozdziale 4 rozmawialiśmy o wycinkach ciągów znaków, które są referencjami do danych ciągu znaków zakodowanych w UTF-8, przechowywanych gdzie indziej. Literały ciągów znaków, na przykład, są przechowywane w binarnym pliku programu i dlatego są wycinkami ciągów znaków.</p>
+<p>Typ <code>String</code>, który jest dostarczany przez standardową bibliotekę Rusta, a nie zakodowany w podstawowym języku, jest rosnącym, mutowalnym, posiadającym własność, zakodowanym w UTF-8 typem ciągu znaków. Kiedy użytkownicy Rusta odwołują się do „ciągów znaków” w Rust, mogą odnosić się zarówno do typów <code>String</code>, jak i wycinków ciągu <code>&amp;str</code>, a nie tylko do jednego z tych typów. Chociaż ta sekcja dotyczy głównie <code>String</code>, oba typy są intensywnie używane w standardowej bibliotece Rusta, a zarówno <code>String</code>, jak i wycinki ciągów znaków są zakodowane w UTF-8.</p>
+<h3 id="tworzenie-nowego-ciągu-znaków"><a class="header" href="#tworzenie-nowego-ciągu-znaków">Tworzenie nowego ciągu znaków</a></h3>
+<p>Wiele z tych samych operacji dostępnych dla <code>Vec&lt;T&gt;</code> jest również dostępnych dla <code>String</code>, ponieważ <code>String</code> jest faktycznie implementowane jako opakowanie wokół wektora bajtów z dodatkowymi gwarancjami, ograniczeniami i możliwościami. Przykładem funkcji, która działa w ten sam sposób z <code>Vec&lt;T&gt;</code> i <code>String</code>, jest funkcja <code>new</code> do tworzenia instancji, pokazana w Listing 8-11.</p>
+<listing number="8-11" caption="Tworzenie nowego, pustego `String`">
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span>    let mut s = String::new();
+<span class="boring">}</span></code></pre>
+</listing>
+<p>Ta linia tworzy nowy, pusty ciąg znaków o nazwie <code>s</code>, do którego możemy następnie załadować dane. Często będziemy mieli pewne początkowe dane, którymi chcemy rozpocząć ciąg znaków. W tym celu używamy metody <code>to_string</code>, która jest dostępna dla każdego typu implementującego cechę <code>Display</code>, tak jak literały ciągów znaków. Listing 8-12 pokazuje dwa przykłady.</p>
+<listing number="8-12" caption="Użycie metody `to_string` do utworzenia `String` z literału ciągu znaków">
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span>    let data = "początkowa zawartość";
+
+    let s = data.to_string();
+
+    // Metoda działa również bezpośrednio na literale:
+    let s = "początkowa zawartość".to_string();
+<span class="boring">}</span></code></pre>
+</listing>
+<p>Ten kod tworzy ciąg znaków zawierający <code>początkową zawartość</code>.</p>
+<p>Możemy również użyć funkcji <code>String::from</code> do utworzenia <code>String</code> z literału ciągu znaków. Kod w Listing 8-13 jest równoważny kodowi w Listing 8-12, który używa <code>to_string</code>.</p>
+<listing number="8-13" caption="Użycie funkcji `String::from` do utworzenia `String` z literału ciągu znaków">
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span>    let s = String::from("początkowa zawartość");
+<span class="boring">}</span></code></pre>
+</listing>
+<p>Ponieważ ciągi znaków są używane do wielu rzeczy, możemy używać wielu różnych generycznych API dla ciągów znaków, co daje nam wiele opcji. Niektóre z nich mogą wydawać się nadmiarowe, ale wszystkie mają swoje miejsce! W tym przypadku <code>String::from</code> i <code>to_string</code> robią to samo, więc wybór zależy od stylu i czytelności.</p>
+<p>Pamiętaj, że ciągi znaków są zakodowane w UTF-8, więc możemy w nich zawrzeć dowolne poprawnie zakodowane dane, jak pokazano w Listing 8-14.</p>
+<listing number="8-14" caption="Przechowywanie pozdrowień w różnych językach w ciągach znaków">
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span>    let hello = String::from("السلام عليكم");
+    let hello = String::from("Dobrý den");
+    let hello = String::from("Hello");
+    let hello = String::from("שלום");
+    let hello = String::from("नमस्ते");
+    let hello = String::from("こんにちは");
+    let hello = String::from("안녕하세요");
+    let hello = String::from("你好");
+    let hello = String::from("Olá");
+    let hello = String::from("Здравствуйте");
+    let hello = String::from("Hola");
+<span class="boring">}</span></code></pre>
+</listing>
+<p>Wszystkie te wartości <code>String</code> są prawidłowe.</p>
+<h3 id="aktualizowanie-ciągu-znaków"><a class="header" href="#aktualizowanie-ciągu-znaków">Aktualizowanie ciągu znaków</a></h3>
+<p><code>String</code> może rosnąć i zmieniać swoją zawartość, podobnie jak zawartość <code>Vec&lt;T&gt;</code>, jeśli dodasz do niego więcej danych. Ponadto możesz wygodnie użyć operatora <code>+</code> lub makra <code>format!</code> do łączenia wartości <code>String</code>.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="appending-to-a-string-with-push_str-and-push"></a></p>
+<h4 id="dołączanie-za-pomocą-push_str-lub-push"><a class="header" href="#dołączanie-za-pomocą-push_str-lub-push">Dołączanie za pomocą <code>push_str</code> lub <code>push</code></a></h4>
+<p>Możemy powiększyć <code>String</code>, używając metody <code>push_str</code> do dołączenia wycinka ciągu znaków, jak pokazano w Listing 8-15.</p>
+<listing number="8-15" caption="Dołączanie wycinka ciągu znaków do `String` za pomocą metody `push_str`">
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span>    let mut s = String::from("foo");
+    s.push_str("bar");
+<span class="boring">}</span></code></pre>
+</listing>
+<p>Po tych dwóch liniach <code>s</code> będzie zawierać <code>foobar</code>. Metoda <code>push_str</code> przyjmuje wycinek ciągu znaków, ponieważ niekoniecznie chcemy przejąć własność parametru. Na przykład w kodzie w Listing 8-16 chcemy móc użyć <code>s2</code> po dołączeniu jego zawartości do <code>s1</code>.</p>
+<listing number="8-16" caption="Użycie wycinka ciągu znaków po dołączeniu jego zawartości do `String`">
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span>    let mut s1 = String::from("foo");
+    let s2 = "bar";
+    s1.push_str(s2);
+    println!("s2 to {s2}");
+<span class="boring">}</span></code></pre>
+</listing>
+<p>Gdyby metoda <code>push_str</code> przejęła własność <code>s2</code>, nie moglibyśmy wydrukować jego wartości w ostatniej linii. Jednak ten kod działa zgodnie z oczekiwaniami!</p>
+<p>Metoda <code>push</code> przyjmuje pojedynczy znak jako parametr i dodaje go do <code>String</code>. Listing 8-17 dodaje literę <em>l</em> do <code>String</code> za pomocą metody <code>push</code>.</p>
+<listing number="8-17" caption="Dodawanie jednego znaku do wartości `String` za pomocą `push`">
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span>    let mut s = String::from("lo");
+    s.push('l');
+<span class="boring">}</span></code></pre>
+</listing>
+<p>W rezultacie <code>s</code> będzie zawierać <code>lol</code>.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="concatenation-with-the--operator-or-the-format-macro"></a></p>
+<h4 id="łączenie-za-pomocą--lub-format"><a class="header" href="#łączenie-za-pomocą--lub-format">Łączenie za pomocą <code>+</code> lub <code>format!</code></a></h4>
+<p>Często będziesz chciał połączyć dwa istniejące ciągi znaków. Jednym ze sposobów na to jest użycie operatora <code>+</code>, jak pokazano w Listing 8-18.</p>
+<listing number="8-18" caption="Użycie operatora `+` do połączenia dwóch wartości `String` w nową wartość `String`">
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span>    let s1 = String::from("Witaj, ");
+    let s2 = String::from("świecie!");
+    let s3 = s1 + &amp;s2; // uwaga, s1 zostało przeniesione i nie może być już użyte
+<span class="boring">}</span></code></pre>
+</listing>
+<p>Ciąg <code>s3</code> będzie zawierał <code>Witaj, świecie!</code>. Powód, dla którego <code>s1</code> jest już nieważne po dodaniu, oraz powód, dla którego użyliśmy referencji do <code>s2</code>, ma związek z sygnaturą metody, która jest wywoływana, gdy używamy operatora <code>+</code>. Operator <code>+</code> używa metody <code>add</code>, której sygnatura wygląda mniej więcej tak:</p>
+<pre><code class="language-rust ignore">fn add(self, s: &amp;str) -&gt; String {</code></pre>
+<p>W standardowej bibliotece zobaczysz <code>add</code> zdefiniowane przy użyciu generyków i typów skojarzonych. Tutaj podstawiliśmy konkretne typy, co dzieje się, gdy wywołujemy tę metodę z wartościami <code>String</code>. Generyki omówimy w Rozdziale 10. Ta sygnatura daje nam wskazówki potrzebne do zrozumienia trudnych aspektów operatora <code>+</code>.</p>
+<p>Po pierwsze, <code>s2</code> ma <code>&amp;</code>, co oznacza, że dodajemy referencję drugiego ciągu znaków do pierwszego ciągu znaków. Dzieje się tak z powodu parametru <code>s</code> w funkcji <code>add</code>: możemy dodać tylko wycinek ciągu znaków do <code>String</code>; nie możemy dodać dwóch wartości <code>String</code> razem. Ale czekaj – typ <code>&amp;s2</code> to <code>&amp;String</code>, a nie <code>&amp;str</code>, jak określono w drugim parametrze <code>add</code>. Dlaczego więc Listing 8-18 kompiluje się?</p>
+<p>Powodem, dla którego możemy użyć <code>&amp;s2</code> w wywołaniu <code>add</code>, jest to, że kompilator może wymusić konwersję argumentu <code>&amp;String</code> na <code>&amp;str</code>. Kiedy wywołujemy metodę <code>add</code>, Rust używa deref coercion, która tutaj zmienia <code>&amp;s2</code> na <code>&amp;s2[..]</code>. Omówimy deref coercion szczegółowo w Rozdziale 15. Ponieważ <code>add</code> nie przejmuje własności parametru <code>s</code>, <code>s2</code> nadal będzie prawidłowym <code>String</code> po tej operacji.</p>
+<p>Po drugie, w sygnaturze widzimy, że <code>add</code> przejmuje własność <code>self</code>, ponieważ <code>self</code> <em>nie</em> ma <code>&amp;</code>. Oznacza to, że <code>s1</code> w Listing 8-18 zostanie przeniesione do wywołania <code>add</code> i po tym nie będzie już ważne. Tak więc, chociaż <code>let s3 = s1 + &amp;s2;</code> wygląda na to, że skopiuje oba ciągi i stworzy nowy, to faktycznie przejmuje własność <code>s1</code>, dołącza kopię zawartości <code>s2</code>, a następnie zwraca własność wyniku. Innymi słowy, wygląda na to, że wykonuje wiele kopii, ale tak nie jest; implementacja jest bardziej wydajna niż kopiowanie.</p>
+<p>Jeśli potrzebujemy połączyć wiele ciągów znaków, zachowanie operatora <code>+</code> staje się nieporęczne:</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span>    let s1 = String::from("tic");
+    let s2 = String::from("tac");
+    let s3 = String::from("toe");
+
+    let s = s1 + "-" + &amp;s2 + "-" + &amp;s3;
+<span class="boring">}</span></code></pre>
+<p>W tym momencie <code>s</code> będzie <code>tic-tac-toe</code>. Z tymi wszystkimi znakami <code>+</code> i <code>"</code> trudno jest zrozumieć, co się dzieje. Do łączenia ciągów znaków w bardziej skomplikowany sposób możemy zamiast tego użyć makra <code>format!</code>:</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span>    let s1 = String::from("tic");
+    let s2 = String::from("tac");
+    let s3 = String::from("toe");
+
+    let s = format!("{s1}-{s2}-{s3}");
+<span class="boring">}</span></code></pre>
+<p>Ten kod również ustawia <code>s</code> na <code>tic-tac-toe</code>. Makro <code>format!</code> działa jak <code>println!</code>, ale zamiast drukować wynik na ekranie, zwraca <code>String</code> z zawartością. Wersja kodu używająca <code>format!</code> jest znacznie łatwiejsza do odczytania, a kod generowany przez makro <code>format!</code> używa referencji, dzięki czemu to wywołanie nie przejmuje własności żadnego z jego parametrów.</p>
+<h3 id="indeksowanie-w-ciągach-znaków"><a class="header" href="#indeksowanie-w-ciągach-znaków">Indeksowanie w ciągach znaków</a></h3>
+<p>W wielu innych językach programowania, dostęp do pojedynczych znaków w ciągu znaków poprzez odwoływanie się do nich za pomocą indeksu jest prawidłową i powszechną operacją. Jednakże, jeśli spróbujesz uzyskać dostęp do części <code>String</code> za pomocą składni indeksowania w Rust, otrzymasz błąd. Rozważ nieprawidłowy kod w Listing 8-19.</p>
+<listing number="8-19" caption="Próba użycia składni indeksowania z `String`">
+<pre><code class="language-rust ignore does_not_compile"><span class="boring">fn main() {
+</span>    let s1 = String::from("hi");
+    let h = s1[0];
+<span class="boring">}</span></code></pre>
+</listing>
+<p>Ten kod spowoduje następujący błąd:</p>
+<pre><code class="language-console">$ cargo run
+   Compiling collections v0.1.0 (file:///projects/collections)
+error[E0277]: the type `str` cannot be indexed by `{integer}`
+ --&gt; src/main.rs:3:16
+  |
+3 |     let h = s1[0];
+  |                ^ string indices are ranges of `usize`
+  |
+  = help: the trait `SliceIndex&lt;str&gt;` is not implemented for `{integer}`
+  = note: you can use `.chars().nth()` or `.bytes().nth()`
+          for more information, see chapter 8 in The Book: &lt;https://doc.rust-lang.org/book/ch08-02-strings.html#indexing-into-strings&gt;
+  = help: the following other types implement trait `SliceIndex&lt;T&gt;`:
+            `usize` implements `SliceIndex&lt;ByteStr&gt;`
+            `usize` implements `SliceIndex&lt;[T]&gt;`
+  = note: required for `String` to implement `Index&lt;{integer}&gt;`
+
+For more information about this error, try `rustc --explain E0277`.
+error: could not compile `collections` (bin "collections") due to 1 previous error
+</code></pre>
+<p>Błąd opowiada historię: ciągi znaków w Rust nie obsługują indeksowania. Ale dlaczego? Aby odpowiedzieć na to pytanie, musimy omówić, jak Rust przechowuje ciągi znaków w pamięci.</p>
+<h4 id="reprezentacja-wewnętrzna"><a class="header" href="#reprezentacja-wewnętrzna">Reprezentacja wewnętrzna</a></h4>
+<p><code>String</code> jest opakowaniem na <code>Vec&lt;u8&gt;</code>. Spójrzmy na niektóre z naszych poprawnie zakodowanych przykładów ciągów znaków UTF-8 z Listing 8-14. Najpierw ten:</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span><span class="boring">    let hello = String::from("السلام عليكم");
+</span><span class="boring">    let hello = String::from("Dobrý den");
+</span><span class="boring">    let hello = String::from("Hello");
+</span><span class="boring">    let hello = String::from("שלום");
+</span><span class="boring">    let hello = String::from("नमस्ते");
+</span><span class="boring">    let hello = String::from("こんにちは");
+</span><span class="boring">    let hello = String::from("안녕하세요");
+</span><span class="boring">    let hello = String::from("你好");
+</span><span class="boring">    let hello = String::from("Olá");
+</span><span class="boring">    let hello = String::from("Здравствуйте");
+</span>    let hello = String::from("Hola");
+<span class="boring">}</span></code></pre>
+<p>W tym przypadku <code>len</code> będzie równe <code>4</code>, co oznacza, że wektor przechowujący ciąg znaków <code>"Hola"</code> ma 4 bajty długości. Każda z tych liter zajmuje 1 bajt po zakodowaniu w UTF-8. Następna linia może Cię jednak zaskoczyć (zauważ, że ten ciąg zaczyna się od wielkiej cyrylicznej litery <em>Ze</em>, a nie liczby 3):</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span><span class="boring">    let hello = String::from("السلام عليكم");
+</span><span class="boring">    let hello = String::from("Dobrý den");
+</span><span class="boring">    let hello = String::from("Hello");
+</span><span class="boring">    let hello = String::from("שלום");
+</span><span class="boring">    let hello = String::from("नमस्ते");
+</span><span class="boring">    let hello = String::from("こんにちは");
+</span><span class="boring">    let hello = String::from("안녕하세요");
+</span><span class="boring">    let hello = String::from("你好");
+</span><span class="boring">    let hello = String::from("Olá");
+</span>    let hello = String::from("Здравствуйте");
+<span class="boring">    let hello = String::from("Hola");
+</span><span class="boring">}</span></code></pre>
+<p>Gdybyś został zapytany, jak długi jest ten ciąg znaków, mógłbyś powiedzieć 12. W rzeczywistości odpowiedź Rusta to 24: to liczba bajtów potrzebna do zakodowania „Здравствуйте” w UTF-8, ponieważ każda skalarna wartość Unicode w tym ciągu zajmuje 2 bajty pamięci. Dlatego indeksowanie bajtów ciągu nie zawsze będzie korelować z prawidłową skalarną wartością Unicode. Aby to zademonstrować, rozważ ten nieprawidłowy kod w Rust:</p>
+<pre><code class="language-rust ignore does_not_compile">let hello = "Здравствуйте";
+let answer = &amp;hello[0];</code></pre>
+<p>Wiesz już, że <code>answer</code> nie będzie <code>З</code>, pierwszą literą. Po zakodowaniu w UTF-8 pierwszy bajt <code>З</code> to <code>208</code>, a drugi to <code>151</code>, więc wydawałoby się, że <code>answer</code> powinien faktycznie wynosić <code>208</code>, ale <code>208</code> sam w sobie nie jest prawidłowym znakiem. Zwracanie <code>208</code> prawdopodobnie nie jest tym, czego użytkownik chciałby, gdyby poprosił o pierwszą literę tego ciągu; jednak to jedyne dane, które Rust ma pod indeksem bajtowym 0. Użytkownicy generalnie nie chcą, aby zwracana była wartość bajtowa, nawet jeśli ciąg zawiera tylko litery łacińskie: Gdyby <code>&amp;"hi"[0]</code> był prawidłowym kodem zwracającym wartość bajtową, zwróciłby <code>104</code>, a nie <code>h</code>.</p>
+<p>Odpowiedź brzmi zatem, że aby uniknąć zwracania nieoczekiwanej wartości i powodowania błędów, które mogą nie zostać natychmiast wykryte, Rust w ogóle nie kompiluje tego kodu i zapobiega nieporozumieniom na wczesnym etapie procesu rozwoju.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="bytes-and-scalar-values-and-grapheme-clusters-oh-my"></a></p>
+<h4 id="bajty-wartości-skalarne-i-klastry-grafemów"><a class="header" href="#bajty-wartości-skalarne-i-klastry-grafemów">Bajty, wartości skalarne i klastry grafemów</a></h4>
+<p>Inną kwestią dotyczącą UTF-8 jest to, że istnieją faktycznie trzy istotne sposoby patrzenia na ciągi znaków z perspektywy Rusta: jako bajty, wartości skalarne i klastry grafemów (najbliższe temu, co nazwalibyśmy <em>literami</em>).</p>
+<p>Jeśli spojrzymy na hinduskie słowo „नमस्ते” napisane pismem dewanagari, jest ono przechowywane jako wektor wartości <code>u8</code>, który wygląda tak:</p>
+<pre><code class="language-text">[224, 164, 168, 224, 164, 174, 224, 164, 184, 224, 165, 141, 224, 164, 164,
+224, 165, 135]
+</code></pre>
+<p>To 18 bajtów i tak ostatecznie komputery przechowują te dane. Jeśli spojrzymy na nie jako skalarne wartości Unicode, czyli to, czym jest typ <code>char</code> w Rust, te bajty wyglądają tak:</p>
+<pre><code class="language-text">['न', 'म', 'स', '्', 'त', 'े']
+</code></pre>
+<p>Jest tu sześć wartości <code>char</code>, ale czwarta i szósta nie są literami: to znaki diakrytyczne, które same w sobie nie mają sensu. W końcu, jeśli spojrzymy na nie jako klastry grafemów, otrzymamy to, co człowiek nazwałby czterema literami tworzącymi hinduskie słowo:</p>
+<pre><code class="language-text">["न", "म", "स्", "ते"]
+</code></pre>
+<p>Rust udostępnia różne sposoby interpretacji surowych danych ciągu znaków, które przechowują komputery, tak aby każdy program mógł wybrać interpretację, której potrzebuje, niezależnie od tego, w jakim języku ludzkim są dane.</p>
+<p>Ostatnim powodem, dla którego Rust nie pozwala nam indeksować <code>String</code> w celu uzyskania znaku, jest to, że operacje indeksowania mają zawsze zajmować stały czas (O(1)). Nie jest jednak możliwe zagwarantowanie takiej wydajności w przypadku <code>String</code>, ponieważ Rust musiałby przechodzić przez zawartość od początku do indeksu, aby określić, ile jest prawidłowych znaków.</p>
+<h3 id="krojenie-ciągów-znaków"><a class="header" href="#krojenie-ciągów-znaków">Krojenie ciągów znaków</a></h3>
+<p>Indeksowanie ciągu znaków jest często złym pomysłem, ponieważ nie jest jasne, jaki powinien być typ zwracany przez operację indeksowania ciągu znaków: wartość bajtowa, znak, klaster grafemów czy wycinek ciągu znaków. Jeśli naprawdę potrzebujesz używać indeksów do tworzenia wycinków ciągu znaków, Rust prosi o większą precyzję.</p>
+<p>Zamiast indeksowania za pomocą <code>[]</code> z pojedynczą liczbą, możesz użyć <code>[]</code> z zakresem, aby utworzyć wycinek ciągu znaków zawierający określone bajty:</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let hello = "Здравствуйте";
+
+let s = &amp;hello[0..4];
+<span class="boring">}</span></code></pre>
+<p>W tym przypadku <code>s</code> będzie <code>&amp;str</code>, który zawiera pierwsze 4 bajty ciągu. Wcześniej wspomnieliśmy, że każdy z tych znaków miał 2 bajty, co oznacza, że <code>s</code> będzie <code>Зд</code>.</p>
+<p>Gdybyśmy spróbowali podzielić tylko część bajtów znaku za pomocą czegoś takiego jak <code>&amp;hello[0..1]</code>, Rust panikowałby w czasie wykonywania w taki sam sposób, jakbyśmy uzyskali dostęp do nieprawidłowego indeksu w wektorze:</p>
+<pre><code class="language-console">$ cargo run
+   Compiling collections v0.1.0 (file:///projects/collections)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.43s
+     Running `target/debug/collections`
+
+thread 'main' panicked at src/main.rs:4:19:
+byte index 1 is not a char boundary; it is inside 'З' (bytes 0..2) of `Здравствуйте`
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+</code></pre>
+<p>Powinieneś zachować ostrożność podczas tworzenia wycinków ciągów znaków za pomocą zakresów, ponieważ może to spowodować awarię programu.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="methods-for-iterating-over-strings"></a></p>
+<h3 id="iterowanie-po-ciągach-znaków"><a class="header" href="#iterowanie-po-ciągach-znaków">Iterowanie po ciągach znaków</a></h3>
+<p>Najlepszym sposobem na operowanie na fragmentach ciągów znaków jest wyraźne określenie, czy chcemy znaków, czy bajtów. W przypadku pojedynczych skalarnych wartości Unicode, użyj metody <code>chars</code>. Wywołanie <code>chars</code> na „Зд” rozdziela i zwraca dwie wartości typu <code>char</code>, i możesz iterować po wyniku, aby uzyskać dostęp do każdego elementu:</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>for c in "Зд".chars() {
+    println!("{c}");
+}
+<span class="boring">}</span></code></pre>
+<p>Ten kod wydrukuje następujące:</p>
+<pre><code class="language-text">З
+д
+</code></pre>
+<p>Alternatywnie, metoda <code>bytes</code> zwraca każdy surowy bajt, co może być odpowiednie dla twojej domeny:</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>for b in "Зд".bytes() {
+    println!("{b}");
+}
+<span class="boring">}</span></code></pre>
+<p>Ten kod wydrukuje 4 bajty, które składają się na ten ciąg znaków:</p>
+<pre><code class="language-text">208
+151
+208
+180
+</code></pre>
+<p>Ale pamiętaj, że prawidłowe skalarne wartości Unicode mogą składać się z więcej niż 1 bajta.</p>
+<p>Uzyskiwanie klastrów grafemów z ciągów znaków, tak jak w przypadku pisma dewanagari, jest złożone, dlatego ta funkcjonalność nie jest dostarczana przez standardową bibliotekę. Skrzynki są dostępne na <a href="https://crates.io/">crates.io</a><!-- ignore -->, jeśli to jest funkcjonalność, której potrzebujesz.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="strings-are-not-so-simple"></a></p>
+<h3 id="obsługa-złożoności-ciągów-znaków"><a class="header" href="#obsługa-złożoności-ciągów-znaków">Obsługa złożoności ciągów znaków</a></h3>
+<p>Podsumowując, ciągi znaków są skomplikowane. Różne języki programowania podejmują różne decyzje dotyczące tego, jak przedstawić tę złożoność programistom. Rust wybrał, aby prawidłowe obchodzenie się z danymi <code>String</code> było domyślnym zachowaniem dla wszystkich programów Rust, co oznacza, że programiści muszą z wyprzedzeniem poświęcić więcej uwagi obsłudze danych UTF-8. Ten kompromis ujawnia więcej złożoności ciągów znaków, niż jest to widoczne w innych językach programowania, ale zapobiega konieczności obsługi błędów związanych ze znakami spoza ASCII w późniejszym cyklu rozwoju.</p>
+<p>Dobrą wiadomością jest to, że standardowa biblioteka oferuje wiele funkcjonalności zbudowanych na typach <code>String</code> i <code>&amp;str</code>, aby pomóc w prawidłowym radzeniu sobie z tymi złożonymi sytuacjami. Koniecznie sprawdź dokumentację pod kątem przydatnych metod, takich jak <code>contains</code> do wyszukiwania w ciągu znaków i <code>replace</code> do zastępowania części ciągu znaków innym ciągiem znaków.</p>
+<p>Przejdźmy do czegoś nieco mniej skomplikowanego: mapy haszujące!</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="ch08-01-vectors.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="ch08-03-hash-maps.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="ch08-01-vectors.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="ch08-03-hash-maps.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="ferris-2317480c.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

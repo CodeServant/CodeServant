@@ -1,0 +1,1343 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Programowanie gry w zgadywanie - Język programowania Rust</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="ferris-d33b75bf.css">
+        <link rel="stylesheet" href="theme/2018-edition-4e126c62.css">
+        <link rel="stylesheet" href="theme/semantic-notes-9b5766c0.css">
+        <link rel="stylesheet" href="theme/listing-cab26221.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-773dca2f.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-039e37ba.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Język programowania Rust</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/rust-lang/book" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="programowanie-gry-w-zgadywanie"><a class="header" href="#programowanie-gry-w-zgadywanie">Programowanie gry w zgadywanie</a></h1>
+<p>Zanurzmy się w Rust, realizując wspólnie praktyczny projekt! Ten rozdział
+wprowadza cię w kilka popularnych koncepcji Rusta, pokazując, jak używać ich
+w prawdziwym programie. Dowiesz się o <code>let</code>, <code>match</code>, metodach, funkcjach
+skojarzonych, zewnętrznych “crate’ach” i wielu innych! W kolejnych
+rozdziałach będziemy badać te idee bardziej szczegółowo. W tym rozdziale
+będziesz ćwiczyć tylko podstawy.</p>
+<p>Zaimplementujemy klasyczny problem programistyczny dla początkujących: grę w
+zgadywanie. Działa to tak: program wygeneruje losową liczbę całkowitą od 1 do
+100. Następnie poprosi gracza o podanie strzału. Po wprowadzeniu strzału,
+program wskaże, czy strzał jest za niski, czy za wysoki. Jeśli strzał jest
+prawidłowy, gra wyświetli komunikat gratulacyjny i zakończy się.</p>
+<h2 id="konfiguracja-nowego-projektu"><a class="header" href="#konfiguracja-nowego-projektu">Konfiguracja nowego projektu</a></h2>
+<p>Aby skonfigurować nowy projekt, przejdź do katalogu <em>projects</em>, który utworzyłeś
+w Rozdziale 1, i utwórz nowy projekt za pomocą Cargo, w następujący sposób:</p>
+<pre><code class="language-console">$ cargo new guessing_game
+$ cd guessing_game
+</code></pre>
+<p>Pierwsze polecenie, <code>cargo new</code>, przyjmuje nazwę projektu (<code>guessing_game</code>) jako
+pierwszy argument. Drugie polecenie zmienia katalog na katalog nowego projektu.</p>
+<p>Spójrz na wygenerowany plik <em>Cargo.toml</em>:</p>
+<!-- manual-regeneration
+cd listings/ch02-guessing-game-tutorial
+rm -rf no-listing-01-cargo-new
+cargo new no-listing-01-cargo-new --name guessing_game
+cd no-listing-01-cargo-new
+cargo run > output.txt 2>&1
+cd ../../..
+-->
+<p><span class="filename">Nazwa pliku: Cargo.toml</span></p>
+<pre><code class="language-toml">[package]
+name = "guessing_game"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+</code></pre>
+<p>Jak widziałeś w Rozdziale 1, <code>cargo new</code> generuje program “Hello, world!” dla
+Ciebie. Sprawdź plik <em>src/main.rs</em>:</p>
+<p><span class="filename">Nazwa pliku: src/main.rs</span></p>
+<pre class="playground"><code class="language-rust edition2024">fn main() {
+    println!("Hello, world!");
+}</code></pre>
+<p>Teraz skompilujmy ten program “Hello, world!” i uruchommy go w tym samym kroku,
+używając polecenia <code>cargo run</code>:</p>
+<pre><code class="language-console">$ cargo run
+   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.08s
+     Running `target/debug/guessing_game`
+Hello, world!
+</code></pre>
+<p>Polecenie <code>run</code> przydaje się, gdy trzeba szybko iterować nad projektem, tak
+jak będziemy to robić w tej grze, szybko testując każdą iterację, zanim
+przejdziemy do następnej.</p>
+<p>Otwórz ponownie plik <em>src/main.rs</em>. Cały kod będziesz pisać w tym pliku.</p>
+<h2 id="przetwarzanie-strzału"><a class="header" href="#przetwarzanie-strzału">Przetwarzanie strzału</a></h2>
+<p>Pierwsza część programu do zgadywania liczb poprosi o dane wejściowe od
+użytkownika, przetworzy je i sprawdzi, czy dane są w oczekiwanej formie. Na
+początek pozwolimy graczowi wprowadzić strzał. Wprowadź kod z Listingu 2-1 do
+<em>src/main.rs</em>.</p>
+<figure class="listing" id="listing-2-1">
+<span class="file-name">Nazwa pliku: src/main.rs</span>
+<pre><code class="language-rust ignore">use std::io;
+
+fn main() {
+    println!("Guess the number!");
+
+    println!("Please input your guess.");
+
+    let mut guess = String::new();
+
+    io::stdin()
+        .read_line(&amp;mut guess)
+        .expect("Failed to read line");
+
+    println!("You guessed: {guess}");
+}</code></pre>
+<figcaption><a href="#listing-2-1">Listing 2-1</a>: Kod, który pobiera strzał od użytkownika i go wyświetla</figcaption>
+</figure>
+<p>Ten kod zawiera wiele informacji, więc przeanalizujmy go linia po linii. Aby
+pobrać dane od użytkownika, a następnie wyświetlić wynik, musimy wprowadzić
+bibliotekę wejścia/wyjścia <code>io</code> do zakresu. Biblioteka <code>io</code> pochodzi ze
+standardowej biblioteki, znanej jako <code>std</code>:</p>
+<pre><code class="language-rust ignore">use std::io;
+<span class="boring">
+</span><span class="boring">fn main() {
+</span><span class="boring">    println!("Guess the number!");
+</span><span class="boring">
+</span><span class="boring">    println!("Please input your guess.");
+</span><span class="boring">
+</span><span class="boring">    let mut guess = String::new();
+</span><span class="boring">
+</span><span class="boring">    io::stdin()
+</span><span class="boring">        .read_line(&amp;mut guess)
+</span><span class="boring">        .expect("Failed to read line");
+</span><span class="boring">
+</span><span class="boring">    println!("You guessed: {guess}");
+</span><span class="boring">}</span></code></pre>
+<p>Domyślnie Rust ma zestaw elementów zdefiniowanych w standardowej bibliotece,
+które są wprowadzane do zakresu każdego programu. Ten zestaw nazywa się
+<em>preludium</em>, a wszystko w nim możesz zobaczyć <a href="../std/prelude/index.html">w dokumentacji biblioteki
+standardowej</a>.</p>
+<p>Jeśli typ, którego chcesz użyć, nie znajduje się w preludium, musisz
+explicitnie wprowadzić ten typ do zakresu za pomocą instrukcji <code>use</code>. Użycie
+biblioteki <code>std::io</code> zapewnia wiele przydatnych funkcji, w tym możliwość
+przyjmowania danych wejściowych od użytkownika.</p>
+<p>Jak widziałeś w Rozdziale 1, funkcja <code>main</code> jest punktem wejścia do programu:</p>
+<pre><code class="language-rust ignore"><span class="boring">use std::io;
+</span><span class="boring">
+</span>fn main() {
+<span class="boring">    println!("Guess the number!");
+</span><span class="boring">
+</span><span class="boring">    println!("Please input your guess.");
+</span><span class="boring">
+</span><span class="boring">    let mut guess = String::new();
+</span><span class="boring">
+</span><span class="boring">    io::stdin()
+</span><span class="boring">        .read_line(&amp;mut guess)
+</span><span class="boring">        .expect("Failed to read line");
+</span><span class="boring">
+</span><span class="boring">    println!("You guessed: {guess}");
+</span><span class="boring">}</span></code></pre>
+<p>Składnia <code>fn</code> deklaruje nową funkcję; nawiasy <code>()</code> wskazują, że nie ma
+parametrów; a nawias klamrowy <code>{</code> rozpoczyna ciało funkcji.</p>
+<p>Jak również dowiedziałeś się w Rozdziale 1, <code>println!</code> to makro, które
+wyświetla ciąg znaków na ekranie:</p>
+<pre><code class="language-rust ignore"><span class="boring">use std::io;
+</span><span class="boring">
+</span><span class="boring">fn main() {
+</span>    println!("Guess the number!");
+
+    println!("Please input your guess.");
+<span class="boring">
+</span><span class="boring">    let mut guess = String::new();
+</span><span class="boring">
+</span><span class="boring">    io::stdin()
+</span><span class="boring">        .read_line(&amp;mut guess)
+</span><span class="boring">        .expect("Failed to read line");
+</span><span class="boring">
+</span><span class="boring">    println!("You guessed: {guess}");
+</span><span class="boring">}</span></code></pre>
+<p>Ten kod wyświetla komunikat informujący, czym jest gra, i prosi użytkownika
+o wprowadzenie danych.</p>
+<h3 id="przechowywanie-wartości-w-zmiennych"><a class="header" href="#przechowywanie-wartości-w-zmiennych">Przechowywanie wartości w zmiennych</a></h3>
+<p>Następnie utworzymy <em>zmienną</em> do przechowywania danych wprowadzonych przez
+użytkownika, w ten sposób:</p>
+<pre><code class="language-rust ignore"><span class="boring">use std::io;
+</span><span class="boring">
+</span><span class="boring">fn main() {
+</span><span class="boring">    println!("Guess the number!");
+</span><span class="boring">
+</span><span class="boring">    println!("Please input your guess.");
+</span><span class="boring">
+</span>    let mut guess = String::new();
+<span class="boring">
+</span><span class="boring">    io::stdin()
+</span><span class="boring">        .read_line(&amp;mut guess)
+</span><span class="boring">        .expect("Failed to read line");
+</span><span class="boring">
+</span><span class="boring">    println!("You guessed: {guess}");
+</span><span class="boring">}</span></code></pre>
+<p>Teraz program staje się ciekawszy! W tej krótkiej linii dzieje się dużo. Używamy
+instrukcji <code>let</code> do utworzenia zmiennej. Oto inny przykład:</p>
+<pre><code class="language-rust ignore">let apples = 5;</code></pre>
+<p>Ta linia tworzy nową zmienną o nazwie <code>apples</code> i wiąże ją z wartością <code>5</code>.
+W Rust zmienne są domyślnie niezmienne, co oznacza, że gdy raz nadamy
+zmiennej wartość, wartość ta nie ulegnie zmianie. Omówimy tę koncepcję
+szczegółowo w sekcji <a href="ch03-01-variables-and-mutability.html#variables-and-mutability">„Zmienne i mutowalność”</a></p>
+<!-- ignore --> w Rozdziale 3. Aby zmienna była mutowalna, dodajemy `mut` przed
+<p>nazwą zmiennej:</p>
+<pre><code class="language-rust ignore">let apples = 5; // niezmienna
+let mut bananas = 5; // mutowalna</code></pre>
+<section class="note" aria-role="note">
+<p>Uwaga: Składnia <code>//</code> rozpoczyna komentarz, który trwa do końca linii. Rust
+ignoruje wszystko, co znajduje się w komentarzach. Omówimy komentarze
+szczegółowo w <a href="ch03-04-comments.html">Rozdziale 3</a><!-- ignore -->.</p>
+</section>
+<p>Wracając do programu gry w zgadywanie, wiesz już, że <code>let mut guess</code> wprowadzi
+mutowalną zmienną o nazwie <code>guess</code>. Znak równości (<code>=</code>) mówi Rustowi, że
+chcemy teraz powiązać coś ze zmienną. Po prawej stronie znaku równości
+znajduje się wartość, z którą <code>guess</code> jest powiązane, czyli wynik wywołania
+<code>String::new</code>, funkcji, która zwraca nową instancję typu <code>String</code>.
+<a href="../std/string/struct.String.html"><code>String</code></a><!-- ignore --> to typ ciągu znaków dostarczony przez
+standardową bibliotekę, który jest rozszerzalnym, kodowanym UTF-8 fragmentem
+tekstu.</p>
+<p>Składnia <code>::</code> w linii <code>::new</code> wskazuje, że <code>new</code> jest funkcją skojarzoną z
+typem <code>String</code>. <em>Funkcja skojarzona</em> to funkcja zaimplementowana dla danego
+typu, w tym przypadku <code>String</code>. Ta funkcja <code>new</code> tworzy nowy, pusty ciąg
+znaków. Funkcję <code>new</code> znajdziesz na wielu typach, ponieważ jest to
+powszechna nazwa dla funkcji, która tworzy nową wartość jakiegoś rodzaju.</p>
+<p>Podsumowując, linia <code>let mut guess = String::new();</code> utworzyła mutowalną
+zmienną, która jest obecnie powiązana z nową, pustą instancją <code>String</code>. Uff!</p>
+<h3 id="odbieranie-danych-od-użytkownika"><a class="header" href="#odbieranie-danych-od-użytkownika">Odbieranie danych od użytkownika</a></h3>
+<p>Przypomnijmy, że na początku programu dołączyliśmy funkcjonalność wejścia/
+wyjścia ze standardowej biblioteki za pomocą <code>use std::io;</code>. Teraz wywołamy
+funkcję <code>stdin</code> z modułu <code>io</code>, co pozwoli nam obsługiwać dane wejściowe od
+użytkownika:</p>
+<pre><code class="language-rust ignore"><span class="boring">use std::io;
+</span><span class="boring">
+</span><span class="boring">fn main() {
+</span><span class="boring">    println!("Guess the number!");
+</span><span class="boring">
+</span><span class="boring">    println!("Please input your guess.");
+</span><span class="boring">
+</span><span class="boring">    let mut guess = String::new();
+</span><span class="boring">
+</span>    io::stdin()
+        .read_line(&amp;mut guess)
+<span class="boring">        .expect("Failed to read line");
+</span><span class="boring">
+</span><span class="boring">    println!("You guessed: {guess}");
+</span><span class="boring">}</span></code></pre>
+<p>Gdybyśmy nie zaimportowali modułu <code>io</code> za pomocą <code>use std::io;</code> na początku
+programu, nadal moglibyśmy użyć funkcji, pisząc wywołanie funkcji jako
+<code>std::io::stdin</code>. Funkcja <code>stdin</code> zwraca instancję
+<a href="../std/io/struct.Stdin.html"><code>std::io::Stdin</code></a><!-- ignore -->, która jest typem
+reprezentującym uchwyt do standardowego wejścia dla Twojego terminala.</p>
+<p>Następnie, linia <code>.read_line(&amp;mut guess)</code> wywołuje metodę
+<a href="../std/io/struct.Stdin.html#method.read_line"><code>read_line</code></a><!-- ignore --> na uchwycie standardowego wejścia
+w celu pobrania danych od użytkownika. Przekazujemy również <code>&amp;mut guess</code> jako
+argument do <code>read_line</code>, aby powiedzieć jej, w którym ciągu znaków ma
+przechowywać dane wejściowe od użytkownika. Pełnym zadaniem <code>read_line</code> jest
+pobranie wszystkiego, co użytkownik wpisze do standardowego wejścia, i
+dodanie tego do ciągu znaków (bez nadpisywania jego zawartości), dlatego
+przekazujemy ten ciąg znaków jako argument. Argument ciągu znaków musi być
+mutowalny, aby metoda mogła zmieniać zawartość ciągu znaków.</p>
+<p>Znak <code>&amp;</code> wskazuje, że ten argument jest <em>referencją</em>, co pozwala wielu
+częściom Twojego kodu uzyskać dostęp do jednego fragmentu danych bez
+konieczności wielokrotnego kopiowania tych danych do pamięci. Referencje są
+złożoną funkcją, a jedną z głównych zalet Rusta jest to, jak bezpieczne i
+łatwe jest używanie referencji. Nie musisz znać wielu z tych szczegółów, aby
+zakończyć ten program. Na razie wystarczy wiedzieć, że podobnie jak zmienne,
+referencje są domyślnie niezmienne. Dlatego musisz napisać <code>&amp;mut guess</code> zamiast
+<code>&amp;guess</code>, aby uczynić ją mutowalną. (Rozdział 4 wyjaśni referencje bardziej
+dokładnie).</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="handling-potential-failure-with-the-result-type"></a></p>
+<h3 id="obsługa-potencjalnych-błędów-za-pomocą-result"><a class="header" href="#obsługa-potencjalnych-błędów-za-pomocą-result">Obsługa potencjalnych błędów za pomocą <code>Result</code></a></h3>
+<p>Nadal pracujemy nad tą linią kodu. Teraz omawiamy trzecią linię tekstu,
+ale zwróć uwagę, że jest to nadal część jednej logicznej linii kodu. Następna
+część to ta metoda:</p>
+<pre><code class="language-rust ignore"><span class="boring">use std::io;
+</span><span class="boring">
+</span><span class="boring">fn main() {
+</span><span class="boring">    println!("Guess the number!");
+</span><span class="boring">
+</span><span class="boring">    println!("Please input your guess.");
+</span><span class="boring">
+</span><span class="boring">    let mut guess = String::new();
+</span><span class="boring">
+</span><span class="boring">    io::stdin()
+</span><span class="boring">        .read_line(&amp;mut guess)
+</span>        .expect("Failed to read line");
+<span class="boring">
+</span><span class="boring">    println!("You guessed: {guess}");
+</span><span class="boring">}</span></code></pre>
+<p>Ten kod mogliśmy napisać jako:</p>
+<pre><code class="language-rust ignore">io::stdin().read_line(&amp;mut guess).expect("Failed to read line");</code></pre>
+<p>Jednak jedna długa linia jest trudna do odczytania, więc najlepiej jest ją
+podzielić. Często rozsądne jest wprowadzenie nowej linii i innych białych
+znaków, aby ułatwić czytanie długich linii, gdy wywołujesz metodę za pomocą
+składni <code>.method_name()</code>. Teraz omówmy, co ta linia robi.</p>
+<p>Jak wspomniano wcześniej, <code>read_line</code> umieszcza wszystko, co użytkownik
+wprowadzi, w przekazanym jej ciągu znaków, ale zwraca również wartość <code>Result</code>.
+<a href="../std/result/enum.Result.html"><code>Result</code></a><!-- ignore --> to <em>wyliczenie</em> <a href="ch06-00-enums.html">enums</a><!-- ignore -->,
+często nazywane <em>enum</em>, które jest typem mogącym przyjmować jeden z wielu
+możliwych stanów. Każdy możliwy stan nazywamy <em>wariantem</em>.</p>
+<p><a href="ch06-00-enums.html">Rozdział 6</a><!-- ignore --> omówi szczegółowo enums. Celem tych
+typów <code>Result</code> jest kodowanie informacji o obsłudze błędów.</p>
+<p>Wariantami <code>Result</code> są <code>Ok</code> i <code>Err</code>. Wariant <code>Ok</code> wskazuje, że operacja
+zakończyła się sukcesem i zawiera pomyślnie wygenerowaną wartość. Wariant <code>Err</code>
+oznacza, że operacja zakończyła się niepowodzeniem i zawiera informacje o tym,
+jak lub dlaczego operacja się nie powiodła.</p>
+<p>Wartości typu <code>Result</code>, podobnie jak wartości każdego typu, mają zdefiniowane
+na nich metody. Instancja <code>Result</code> ma metodę <a href="../std/result/enum.Result.html#method.expect"><code>expect</code></a><!-- ignore -->,
+którą możesz wywołać. Jeśli ta instancja <code>Result</code> jest wartością <code>Err</code>,
+<code>expect</code> spowoduje awarię programu i wyświetli komunikat, który przekazałeś
+jako argument do <code>expect</code>. Jeśli metoda <code>read_line</code> zwróci <code>Err</code>, będzie to
+prawdopodobnie wynikiem błędu pochodzącego z bazowego systemu operacyjnego.
+Jeśli ta instancja <code>Result</code> jest wartością <code>Ok</code>, <code>expect</code> pobierze wartość
+zwracaną, którą przechowuje <code>Ok</code>, i zwróci ci tylko tę wartość, abyś mógł jej
+użyć. W tym przypadku ta wartość to liczba bajtów w danych wejściowych
+użytkownika.</p>
+<p>Jeśli nie wywołasz <code>expect</code>, program skompiluje się, ale otrzymasz ostrzeżenie:</p>
+<pre><code class="language-console">$ cargo build
+   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+warning: unused `Result` that must be used
+  --&gt; src/main.rs:10:5
+   |
+10 |     io::stdin().read_line(&amp;mut guess);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this `Result` may be an `Err` variant, which should be handled
+   = note: `#[warn(unused_must_use)]` on by default
+help: use `let _ = ...` to ignore the resulting value
+   |
+10 |     let _ = io::stdin().read_line(&amp;mut guess);
+   |     +++++++
+
+warning: `guessing_game` (bin "guessing_game") generated 1 warning
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.59s
+</code></pre>
+<p>Rust ostrzega, że nie użyłeś wartości <code>Result</code> zwróconej z <code>read_line</code>,
+wskazując, że program nie obsłużył możliwego błędu.</p>
+<p>Właściwym sposobem na stłumienie ostrzeżenia jest faktyczne napisanie kodu
+do obsługi błędów, ale w naszym przypadku chcemy po prostu, aby ten program
+uległ awarii, gdy wystąpi problem, więc możemy użyć <code>expect</code>. Dowiesz się o
+recoverowaniu z błędów w <a href="ch09-02-recoverable-errors-with-result.html">Rozdziale 9</a><!-- ignore -->.</p>
+<h3 id="wyświetlanie-wartości-za-pomocą-znaczników-println"><a class="header" href="#wyświetlanie-wartości-za-pomocą-znaczników-println">Wyświetlanie wartości za pomocą znaczników <code>println!</code></a></h3>
+<p>Poza końcowym nawiasem klamrowym, pozostała tylko jedna linia do omówienia w
+dotychczasowym kodzie:</p>
+<pre><code class="language-rust ignore"><span class="boring">use std::io;
+</span><span class="boring">
+</span><span class="boring">fn main() {
+</span><span class="boring">    println!("Guess the number!");
+</span><span class="boring">
+</span><span class="boring">    println!("Please input your guess.");
+</span><span class="boring">
+</span><span class="boring">    let mut guess = String::new();
+</span><span class="boring">
+</span><span class="boring">    io::stdin()
+</span><span class="boring">        .read_line(&amp;mut guess)
+</span><span class="boring">        .expect("Failed to read line");
+</span><span class="boring">
+</span>    println!("You guessed: {guess}");
+<span class="boring">}</span></code></pre>
+<p>Ta linia wyświetla ciąg znaków, który teraz zawiera dane wejściowe
+użytkownika. Zestaw nawiasów klamrowych <code>{}</code> to znacznik miejsca:
+Wyobraź sobie <code>{}</code> jako małe szczypce kraba, które trzymają wartość na miejscu.
+Podczas wyświetlania wartości zmiennej nazwa zmiennej może znajdować się w
+środku nawiasów klamrowych. Podczas wyświetlania wyniku oceny wyrażenia,
+umieść puste nawiasy klamrowe w ciągu formatującym, a następnie po ciągu
+formatującym umieść listę wyrażeń oddzielonych przecinkami, które mają być
+wyświetlone w każdym pustym znaczniku miejsca w tej samej kolejności.
+Wyświetlanie zmiennej i wyniku wyrażenia w jednym wywołaniu <code>println!</code>
+wyglądałoby tak:</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let x = 5;
+let y = 10;
+
+println!("x = {x} and y + 2 = {}", y + 2);
+<span class="boring">}</span></code></pre>
+<p>Ten kod wydrukowałby <code>x = 5 and y + 2 = 12</code>.</p>
+<h3 id="testowanie-pierwszej-części"><a class="header" href="#testowanie-pierwszej-części">Testowanie pierwszej części</a></h3>
+<p>Przetestujmy pierwszą część gry w zgadywanie. Uruchom ją za pomocą <code>cargo run</code>:</p>
+<!-- manual-regeneration
+cd listings/ch02-guessing-game-tutorial/listing-02-01/
+cargo clean
+cargo run
+input 6 -->
+<pre><code class="language-console">$ cargo run
+   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 6.44s
+     Running `target/debug/guessing_game`
+Guess the number!
+Please input your guess.
+6
+You guessed: 6
+</code></pre>
+<p>W tym momencie pierwsza część gry jest gotowa: pobieramy dane z klawiatury,
+a następnie je wyświetlamy.</p>
+<h2 id="generowanie-tajnej-liczby"><a class="header" href="#generowanie-tajnej-liczby">Generowanie tajnej liczby</a></h2>
+<p>Następnie musimy wygenerować tajną liczbę, którą użytkownik będzie próbował
+zgadnąć. Tajna liczba powinna być inna za każdym razem, aby gra była zabawna
+do wielokrotnego grania. Użyjemy losowej liczby od 1 do 100, aby gra nie była
+zbyt trudna. Rust nie zawiera jeszcze funkcji do generowania liczb losowych w
+standardowej bibliotece. Jednak zespół Rusta udostępnia pakiet <a href="https://crates.io/crates/rand"><code>rand</code>
+crate</a> z tą funkcjonalnością.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="using-a-crate-to-get-more-functionality"></a></p>
+<h3 id="zwiększanie-funkcjonalności-za-pomocą-pakietu"><a class="header" href="#zwiększanie-funkcjonalności-za-pomocą-pakietu">Zwiększanie funkcjonalności za pomocą pakietu</a></h3>
+<p>Pamiętaj, że <em>crate</em> to zbiór plików źródłowych Rusta. Projekt, który budujemy,
+jest <em>binary crate</em>, czyli plikiem wykonywalnym. <em>Crate</em> <code>rand</code> to <em>library
+crate</em>, który zawiera kod przeznaczony do użycia w innych programach i nie może
+być wykonywany samodzielnie.</p>
+<p>Koordynacja zewnętrznych <code>crate'ów</code> przez Cargo to miejsce, w którym Cargo
+naprawdę błyszczy. Zanim będziemy mogli napisać kod, który używa <code>rand</code>,
+musimy zmodyfikować plik <em>Cargo.toml</em>, aby dodać <code>rand</code> jako zależność.
+Otwórz ten plik teraz i dodaj następującą linię na dole, pod nagłówkiem
+sekcji <code>[dependencies]</code>, który Cargo dla Ciebie utworzył. Upewnij się, że
+określasz <code>rand</code> dokładnie tak, jak tutaj, z tym numerem wersji, w przeciwnym
+razie przykłady kodu w tym samouczku mogą nie działać:</p>
+<!-- When updating the version of `rand` used, also update the version of
+`rand` used in these files so they all match:
+* ch07-04-bringing-paths-into-scope-with-the-use-keyword.md
+* ch14-03-cargo-workspaces.md
+-->
+<p><span class="filename">Nazwa pliku: Cargo.toml</span></p>
+<pre><code class="language-toml">[dependencies]
+rand = "0.8.5"
+</code></pre>
+<p>W pliku <em>Cargo.toml</em> wszystko, co następuje po nagłówku, jest częścią tej
+sekcji, która trwa, dopóki nie rozpocznie się inna sekcja. W <code>[dependencies]</code>
+informujesz Cargo, od których zewnętrznych pakietów zależy Twój projekt i
+których wersji tych pakietów potrzebujesz. W tym przypadku określamy pakiet
+<code>rand</code> ze specyfikatorem wersji semantycznej <code>0.8.5</code>. Cargo rozumie <a href="http://semver.org">Semantic
+Versioning</a><!-- ignore --> (czasami nazywane <em>SemVer</em>), który jest
+standardem zapisu numerów wersji. Specyfikator <code>0.8.5</code> jest w rzeczywistości
+skrótem od <code>^0.8.5</code>, co oznacza dowolną wersję co najmniej 0.8.5, ale
+padającą poniżej 0.9.0.</p>
+<p>Cargo uważa, że te wersje mają publiczne API kompatybilne z wersją 0.8.5, a ta
+specyfikacja gwarantuje, że otrzymasz najnowszą wersję poprawki, która nadal
+będzie kompilować się z kodem w tym rozdziale. Żadna wersja 0.9.0 lub
+większa nie gwarantuje tego samego API, co w poniższych przykładach.</p>
+<p>Teraz, bez zmiany kodu, zbudujmy projekt, jak pokazano w Listingu 2-2.</p>
+<!-- manual-regeneration
+cd listings/ch02-guessing-game-tutorial/listing-02-02/
+rm Cargo.lock
+cargo clean
+cargo build -->
+<figure class="listing" id="listing-2-2">
+<pre><code class="language-console">$ cargo build
+  Updating crates.io index
+   Locking 15 packages to latest Rust 1.85.0 compatible versions
+    Adding rand v0.8.5 (available: v0.9.0)
+ Compiling proc-macro2 v1.0.93
+ Compiling unicode-ident v1.0.17
+ Compiling libc v0.2.170
+ Compiling cfg-if v1.0.0
+ Compiling byteorder v1.5.0
+ Compiling getrandom v0.2.15
+ Compiling rand_core v0.6.4
+ Compiling quote v1.0.38
+ Compiling syn v2.0.98
+ Compiling zerocopy-derive v0.7.35
+ Compiling zerocopy v0.7.35
+ Compiling ppv-lite86 v0.2.20
+ Compiling rand_chacha v0.3.1
+ Compiling rand v0.8.5
+ Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+  Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.48s
+</code></pre>
+<figcaption><a href="#listing-2-2">Listing 2-2</a>: Wynik uruchomienia <code>cargo build</code> po dodaniu <code>rand</code> jako zależności</figcaption>
+</figure>
+<p>Możesz zobaczyć różne numery wersji (ale wszystkie będą kompatybilne z kodem,
+dzięki SemVer!) i różne linie (w zależności od systemu operacyjnego), a linie
+mogą być w innej kolejności.</p>
+<p>Gdy dołączamy zewnętrzną zależność, Cargo pobiera najnowsze wersje wszystkiego,
+czego ta zależność potrzebuje, z <em>rejestru</em>, który jest kopią danych z
+<a href="https://crates.io/">Crates.io</a>. Crates.io to miejsce, w którym ludzie w ekosystemie
+Rusta publikują swoje projekty Rust open source, aby inni mogli z nich
+korzystać.</p>
+<p>Po zaktualizowaniu rejestru Cargo sprawdza sekcję <code>[dependencies]</code> i pobiera
+wszystkie wymienione pakiety, które nie zostały jeszcze pobrane. W tym
+przypadku, choć wymieniliśmy tylko <code>rand</code> jako zależność, Cargo pobrał również
+inne pakiety, od których zależy <code>rand</code>, aby działał. Po pobraniu pakietów
+Rust kompiluje je, a następnie kompiluje projekt z dostępnymi zależnościami.</p>
+<p>Jeśli natychmiast ponownie uruchomisz <code>cargo build</code> bez wprowadzania żadnych
+zmian, nie otrzymasz żadnych danych wyjściowych poza linią <code>Finished</code>.
+Cargo wie, że już pobrał i skompilował zależności, a Ty nie zmieniłeś nic
+w pliku <em>Cargo.toml</em>. Cargo wie również, że nie zmieniłeś nic w swoim kodzie,
+więc nie kompiluje go ponownie. Nie mając nic do zrobienia, po prostu
+kończy działanie.</p>
+<p>Jeśli otworzysz plik <em>src/main.rs</em>, dokonasz trywialnej zmiany, a następnie
+zapiszesz go i ponownie zbudujesz, zobaczysz tylko dwie linie danych
+wyjściowych:</p>
+<!-- manual-regeneration
+cd listings/ch02-guessing-game-tutorial/listing-02-02/
+touch src/main.rs
+cargo build -->
+<pre><code class="language-console">$ cargo build
+   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.13s
+</code></pre>
+<p>Te linie pokazują, że Cargo aktualizuje kompilację tylko o Twoją drobną zmianę
+w pliku <em>src/main.rs</em>. Twoje zależności nie uległy zmianie, więc Cargo wie,
+że może ponownie wykorzystać to, co już pobrał i skompilował dla nich.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="ensuring-reproducible-builds-with-the-cargo-lock-file"></a></p>
+<h4 id="zapewnianie-powtarzalnych-kompilacji-za-pomocą-pliku-cargolock"><a class="header" href="#zapewnianie-powtarzalnych-kompilacji-za-pomocą-pliku-cargolock">Zapewnianie powtarzalnych kompilacji za pomocą pliku Cargo.lock</a></h4>
+<p>Cargo posiada mechanizm, który zapewnia, że możesz odbudować ten sam artefakt
+za każdym razem, gdy Ty lub ktokolwiek inny buduje Twój kod: Cargo będzie używać
+tylko tych wersji zależności, które określiłeś, chyba że wskażesz inaczej. Na
+przykład, powiedzmy, że w przyszłym tygodniu zostanie wydana wersja 0.8.6 pakietu
+<code>rand</code>, a ta wersja zawiera ważną poprawkę błędu, ale zawiera również regresję,
+która zepsuje Twój kod. Aby temu zaradzić, Rust tworzy plik <em>Cargo.lock</em> za
+pierwszym razem, gdy uruchamiasz <code>cargo build</code>, więc teraz mamy go w katalogu
+<em>guessing_game</em>.</p>
+<p>Kiedy budujesz projekt po raz pierwszy, Cargo ustala wszystkie wersje
+zależności, które spełniają kryteria, a następnie zapisuje je do pliku
+<em>Cargo.lock</em>. Kiedy budujesz swój projekt w przyszłości, Cargo zobaczy, że plik
+<em>Cargo.lock</em> istnieje i użyje tam określonych wersji, zamiast ponownie wykonywać
+całej pracy związanej z ustalaniem wersji. Pozwala to na automatyczne
+powtarzalne budowanie. Innymi słowy, Twój projekt pozostanie w wersji 0.8.5,
+dopóki wyraźnie go nie zaktualizujesz, dzięki plikowi <em>Cargo.lock</em>. Ponieważ
+plik <em>Cargo.lock</em> jest ważny dla powtarzalnych kompilacji, często jest
+dodawany do kontroli wersji wraz z resztą kodu w Twoim projekcie.</p>
+<h4 id="aktualizacja-cratea-aby-uzyskać-nową-wersję"><a class="header" href="#aktualizacja-cratea-aby-uzyskać-nową-wersję">Aktualizacja “crate’a”, aby uzyskać nową wersję</a></h4>
+<p>Kiedy <em>chcesz</em> zaktualizować pakiet, Cargo udostępnia polecenie <code>update</code>, które
+zignoruje plik <em>Cargo.lock</em> i ustali wszystkie najnowsze wersje, które pasują
+do twoich specyfikacji w <em>Cargo.toml</em>. Cargo następnie zapisze te wersje do
+pliku <em>Cargo.lock</em>. W przeciwnym razie, domyślnie, Cargo będzie szukać tylko
+wersji większych niż 0.8.5 i mniejszych niż 0.9.0. Jeśli pakiet <code>rand</code> wydał
+dwie nowe wersje 0.8.6 i 0.999.0, zobaczyłbyś następujące, gdybyś uruchomił
+<code>cargo update</code>:</p>
+<!-- manual-regeneration
+cd listings/ch02-guessing-game-tutorial/listing-02-02/
+cargo update
+assuming there is a new 0.8.x version of rand; otherwise use another update
+as a guide to creating the hypothetical output shown here -->
+<pre><code class="language-console">$ cargo update
+    Updating crates.io index
+     Locking 1 package to latest Rust 1.85.0 compatible version
+    Updating rand v0.8.5 -&gt; v0.8.6 (available: v0.999.0)
+</code></pre>
+<p>Cargo ignoruje wydanie 0.999.0. W tym momencie zauważyłbyś również zmianę w
+pliku <em>Cargo.lock</em>, wskazującą, że wersja pakietu <code>rand</code>, której teraz używasz,
+to 0.8.6. Aby użyć wersji <code>rand</code> 0.999.0 lub dowolnej wersji z serii 0.999.<em>x</em>,
+musiałbyś zamiast tego zaktualizować plik <em>Cargo.toml</em>, aby wyglądał tak (nie
+wprowadzaj tej zmiany, ponieważ poniższe przykłady zakładają, że używasz <code>rand</code>
+0.8):</p>
+<pre><code class="language-toml">[dependencies]
+rand = "0.999.0"
+</code></pre>
+<p>Następnym razem, gdy uruchomisz <code>cargo build</code>, Cargo zaktualizuje rejestr
+dostępnych pakietów i ponownie oceni Twoje wymagania dotyczące <code>rand</code> zgodnie z
+nową wersją, którą określiłeś.</p>
+<p>Wiele jest do powiedzenia na temat <a href="https://doc.rust-lang.org/cargo/">Cargo</a><!-- ignore --> i <a href="https://doc.rust-lang.org/cargo/reference/publishing.html">jego
+ekosystemu</a><!-- ignore -->, które omówimy w Rozdziale 14, ale na
+razie to wszystko, co musisz wiedzieć. Cargo bardzo ułatwia ponowne używanie
+bibliotek, więc Rustowcy mogą pisać mniejsze projekty, które są montowane z
+wielu pakietów.</p>
+<h3 id="generowanie-liczby-losowej"><a class="header" href="#generowanie-liczby-losowej">Generowanie liczby losowej</a></h3>
+<p>Zacznijmy używać <code>rand</code> do generowania liczby do zgadnięcia. Następnym krokiem
+jest aktualizacja <em>src/main.rs</em>, jak pokazano w Listingu 2-3.</p>
+<figure class="listing" id="listing-2-3">
+<span class="file-name">Nazwa pliku: src/main.rs</span>
+<pre><code class="language-rust ignore">use std::io;
+
+use rand::Rng;
+
+fn main() {
+    println!("Guess the number!");
+
+    let secret_number = rand::thread_rng().gen_range(1..=100);
+
+    println!("The secret number is: {secret_number}");
+
+    println!("Please input your guess.");
+
+    let mut guess = String::new();
+
+    io::stdin()
+        .read_line(&amp;mut guess)
+        .expect("Failed to read line");
+
+    println!("You guessed: {guess}");
+}</code></pre>
+<figcaption><a href="#listing-2-3">Listing 2-3</a>: Dodawanie kodu do generowania liczby losowej</figcaption>
+</figure>
+<p>Najpierw dodajemy linię <code>use rand::Rng;</code>. Cecha <code>Rng</code> definiuje metody,
+które implementują generatory liczb losowych, i ta cecha musi być w zakresie,
+abyśmy mogli używać tych metod. Rozdział 10 szczegółowo omówi cechy.</p>
+<p>Następnie dodajemy dwie linie w środku. W pierwszej linii wywołujemy funkcję
+<code>rand::thread_rng</code>, która daje nam konkretny generator liczb losowych, którego
+będziemy używać: taki, który jest lokalny dla bieżącego wątku wykonawczego
+i jest inicjowany przez system operacyjny. Następnie wywołujemy metodę
+<code>gen_range</code> na generatorze liczb losowych. Ta metoda jest zdefiniowana przez
+cechę <code>Rng</code>, którą wprowadziliśmy do zakresu za pomocą instrukcji
+<code>use rand::Rng;</code>. Metoda <code>gen_range</code> przyjmuje wyrażenie zakresu jako argument
+i generuje liczbę losową w tym zakresie. Rodzaj wyrażenia zakresu, którego tu
+używamy, ma postać <code>start..=end</code> i jest inkluzywny na dolnej i górnej granicy,
+więc musimy określić <code>1..=100</code>, aby zażądać liczby od 1 do 100.</p>
+<section class="note" aria-role="note">
+<p>Uwaga: Nie będziesz po prostu wiedział, których cech używać i które metody
+i funkcje wywoływać z “crate’a”, więc każdy “crate” ma dokumentację z
+instrukcjami jego używania. Inną fajną funkcją Cargo jest to, że uruchomienie
+polecenia <code>cargo doc --open</code> zbuduje dokumentację dostarczoną przez wszystkie
+Twoje zależności lokalnie i otworzy ją w Twojej przeglądarce. Jeśli interesuje
+Cię inna funkcjonalność w “crate’cie” <code>rand</code>, na przykład, uruchom
+<code>cargo doc --open</code> i kliknij <code>rand</code> na pasku bocznym po lewej stronie.</p>
+</section>
+<p>Druga nowa linia wyświetla tajną liczbę. Jest to przydatne podczas
+opracowywania programu, aby móc go przetestować, ale usuniemy ją z ostatecznej
+wersji. Nie ma sensu grać, jeśli program wyświetla odpowiedź zaraz po
+uruchomieniu!</p>
+<p>Spróbuj uruchomić program kilka razy:</p>
+<!-- manual-regeneration
+cd listings/ch02-guessing-game-tutorial/listing-02-03/
+cargo run
+4
+cargo run
+5
+-->
+<pre><code class="language-console">$ cargo run
+   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s
+     Running `target/debug/guessing_game`
+Guess the number!
+The secret number is: 7
+Please input your guess.
+4
+You guessed: 4
+
+$ cargo run
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s
+     Running `target/debug/guessing_game`
+Guess the number!
+The secret number is: 83
+Please input your guess.
+5
+You guessed: 5
+</code></pre>
+<p>Powinieneś otrzymać różne liczby losowe, i wszystkie powinny być liczbami
+pomiędzy 1 a 100. Świetna robota!</p>
+<h2 id="porównywanie-strzału-z-tajną-liczbą"><a class="header" href="#porównywanie-strzału-z-tajną-liczbą">Porównywanie strzału z tajną liczbą</a></h2>
+<p>Teraz, gdy mamy dane wejściowe od użytkownika i liczbę losową, możemy je
+porównać. Ten krok jest pokazany w Listingu 2-4. Zauważ, że ten kod na razie
+się nie skompiluje, co wyjaśnimy.</p>
+<figure class="listing" id="listing-2-4">
+<span class="file-name">Nazwa pliku: src/main.rs</span>
+<pre><code class="language-rust ignore does_not_compile">use std::cmp::Ordering;
+use std::io;
+
+use rand::Rng;
+
+fn main() {
+    // --snip--
+<span class="boring">    println!("Guess the number!");
+</span><span class="boring">
+</span><span class="boring">    let secret_number = rand::thread_rng().gen_range(1..=100);
+</span><span class="boring">
+</span><span class="boring">    println!("The secret number is: {secret_number}");
+</span><span class="boring">
+</span><span class="boring">    println!("Please input your guess.");
+</span><span class="boring">
+</span><span class="boring">    let mut guess = String::new();
+</span><span class="boring">
+</span><span class="boring">    io::stdin()
+</span><span class="boring">        .read_line(&amp;mut guess)
+</span><span class="boring">        .expect("Failed to read line");
+</span>
+    println!("You guessed: {guess}");
+
+    match guess.cmp(&amp;secret_number) {
+        Ordering::Less =&gt; println!("Too small!"),
+        Ordering::Greater =&gt; println!("Too big!"),
+        Ordering::Equal =&gt; println!("You win!"),
+    }
+}</code></pre>
+<figcaption><a href="#listing-2-4">Listing 2-4</a>: Obsługa możliwych wartości zwracanych przez porównywanie dwóch liczb</figcaption>
+</figure>
+<p>Najpierw dodajemy kolejną instrukcję <code>use</code>, wprowadzając typ o nazwie
+<code>std::cmp::Ordering</code> do zakresu ze standardowej biblioteki. Typ <code>Ordering</code> to
+kolejne wyliczenie (<code>enum</code>) i ma warianty <code>Less</code>, <code>Greater</code> i <code>Equal</code>. Są to
+trzy możliwe wyniki porównania dwóch wartości.</p>
+<p>Następnie dodajemy pięć nowych linii na dole, które używają typu <code>Ordering</code>.
+Metoda <code>cmp</code> porównuje dwie wartości i może być wywołana na wszystkim, co
+można porównać. Przyjmuje referencję do tego, z czym chcesz porównać: tutaj
+porównuje <code>guess</code> z <code>secret_number</code>. Następnie zwraca wariant wyliczenia
+<code>Ordering</code>, które wprowadziliśmy do zakresu za pomocą instrukcji <code>use</code>.
+Używamy wyrażenia <a href="ch06-02-match.html"><code>match</code></a><!-- ignore -->, aby zdecydować, co zrobić
+dalej, w oparciu o to, który wariant <code>Ordering</code> został zwrócony z wywołania
+<code>cmp</code> z wartościami w <code>guess</code> i <code>secret_number</code>.</p>
+<p>Wyrażenie <code>match</code> składa się z <em>ramion</em>. Ramię składa się z <em>wzorca</em>, z którym
+ma być dopasowywana wartość, oraz kodu, który powinien zostać uruchomiony, jeśli
+wartość podana do <code>match</code> pasuje do wzorca tego ramienia. Rust pobiera wartość
+podaną do <code>match</code> i kolejno przegląda wzorce każdego ramienia. Patrzy na
+wzorzec pierwszego ramienia, <code>Ordering::Less</code>, i widzi, że wartość
+<code>Ordering::Greater</code> nie pasuje do <code>Ordering::Less</code>, więc ignoruje kod w tym
+ramieniu i przechodzi do następnego ramienia. Wzorzec następnego ramienia to
+<code>Ordering::Greater</code>, który <em>pasuje</em> do <code>Ordering::Greater</code>! Powiązany kod w
+tym ramieniu zostanie wykonany i wyświetli na ekranie <code>Too big!</code>. Wyrażenie
+<code>match</code> kończy się po pierwszym udanym dopasowaniu, więc w tym scenariuszu
+nie będzie patrzeć na ostatnie ramię.</p>
+<p>Jednak kod w Listingu 2-4 jeszcze się nie skompiluje. Spróbujmy:</p>
+<!--
+The error numbers in this output should be that of the code **WITHOUT** the
+anchor or snip comments
+-->
+<pre><code class="language-console">$ cargo build
+   Compiling libc v0.2.86
+   Compiling getrandom v0.2.2
+   Compiling cfg-if v1.0.0
+   Compiling ppv-lite86 v0.2.10
+   Compiling rand_core v0.6.2
+   Compiling rand_chacha v0.3.0
+   Compiling rand v0.8.5
+   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+error[E0308]: mismatched types
+  --&gt; src/main.rs:23:21
+   |
+23 |     match guess.cmp(&amp;secret_number) {
+   |                 --- ^^^^^^^^^^^^^^ expected `&amp;String`, found `&amp;{integer}`
+   |                 |
+   |                 arguments to this method are incorrect
+   |
+   = note: expected reference `&amp;String`
+              found reference `&amp;{integer}`
+note: method defined here
+  --&gt; /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/core/src/cmp.rs:979:8
+
+For more information about this error, try `rustc --explain E0308`.
+error: could not compile `guessing_game` (bin "guessing_game") due to 1 previous error
+</code></pre>
+<p>Rdzeń błędu stwierdza, że występują <em>niezgodne typy</em>. Rust ma silny, statyczny
+system typów. Jednak ma również inferencję typów. Kiedy napisaliśmy
+<code>let mut guess = String::new()</code>, Rust był w stanie wywnioskować, że <code>guess</code>
+powinno być <code>String</code> i nie kazał nam pisać tego typu. <code>secret_number</code> natomiast
+jest typem liczbowym. Kilka typów liczbowych Rusta może mieć wartość pomiędzy
+1 a 100: <code>i32</code>, liczba 32-bitowa; <code>u32</code>, niepodpisana liczba 32-bitowa; <code>i64</code>,
+liczba 64-bitowa; oraz inne. O ile nie określono inaczej, Rust domyślnie używa
+<code>i32</code>, który jest typem <code>secret_number</code>, chyba że dodasz informacje o typie w
+innym miejscu, co spowodowałoby, że Rust wywnioskowałby inny typ liczbowy.
+Powodem błędu jest to, że Rust nie może porównywać ciągu znaków i typu
+liczbowego.</p>
+<p>Ostatecznie chcemy przekonwertować <code>String</code>, którą program odczytuje jako dane
+wejściowe, na typ liczbowy, abyśmy mogli porównać ją numerycznie z tajną
+liczbą. Robimy to, dodając tę linię do ciała funkcji <code>main</code>:</p>
+<p><span class="filename">Nazwa pliku: src/main.rs</span></p>
+<pre><code class="language-rust ignore"><span class="boring">use std::cmp::Ordering;
+</span><span class="boring">use std::io;
+</span><span class="boring">
+</span><span class="boring">use rand::Rng;
+</span><span class="boring">
+</span><span class="boring">fn main() {
+</span><span class="boring">    println!("Guess the number!");
+</span><span class="boring">
+</span><span class="boring">    let secret_number = rand::thread_rng().gen_range(1..=100);
+</span><span class="boring">
+</span><span class="boring">    println!("The secret number is: {secret_number}");
+</span><span class="boring">
+</span><span class="boring">    println!("Please input your guess.");
+</span><span class="boring">
+</span>    // --snip--
+
+    let mut guess = String::new();
+
+    io::stdin()
+        .read_line(&amp;mut guess)
+        .expect("Failed to read line");
+
+    let guess: u32 = guess.trim().parse().expect("Please type a number!");
+
+    println!("You guessed: {guess}");
+
+    match guess.cmp(&amp;secret_number) {
+        Ordering::Less =&gt; println!("Too small!"),
+        Ordering::Greater =&gt; println!("Too big!"),
+        Ordering::Equal =&gt; println!("You win!"),
+    }
+<span class="boring">}</span></code></pre>
+<p>Linia to:</p>
+<pre><code class="language-rust ignore">let guess: u32 = guess.trim().parse().expect("Please type a number!");</code></pre>
+<p>Tworzymy zmienną o nazwie <code>guess</code>. Ale chwila, czy program nie ma już zmiennej
+o nazwie <code>guess</code>? Tak, ale Rust pozwala nam w korzystny sposób zacienić
+poprzednią wartość <code>guess</code> nową. <em>Zacienianie</em> pozwala nam ponownie użyć nazwy
+zmiennej <code>guess</code>, zamiast zmuszać nas do tworzenia dwóch unikalnych zmiennych,
+takich jak <code>guess_str</code> i <code>guess</code>, na przykład. Omówimy to szczegółowo w
+<a href="ch03-01-variables-and-mutability.html#shadowing">Rozdziale 3</a><!-- ignore -->, ale na razie wiedz, że ta funkcja jest
+często używana, gdy chcesz przekonwertować wartość z jednego typu na inny.</p>
+<p>Wiązamy tę nową zmienną z wyrażeniem <code>guess.trim().parse()</code>. <code>guess</code> w
+wyrażeniu odnosi się do oryginalnej zmiennej <code>guess</code>, która zawierała dane
+wejściowe jako ciąg znaków. Metoda <code>trim</code> na instancji <code>String</code> usunie
+wszelkie białe znaki na początku i na końcu, co musimy zrobić, zanim
+przekonwertujemy ciąg znaków na <code>u32</code>, który może zawierać tylko dane
+liczbowe. Użytkownik musi nacisnąć <kbd>enter</kbd>, aby zadowolić <code>read_line</code> i
+wprowadzić swój strzał, co dodaje znak nowej linii do ciągu znaków. Na
+przykład, jeśli użytkownik wpisze <kbd>5</kbd> i naciśnie <kbd>enter</kbd>, <code>guess</code>
+będzie wyglądało tak: <code>5\n</code>. <code>\n</code> oznacza “nową linię”. (W systemie Windows
+naciśnięcie <kbd>enter</kbd> powoduje powrót karetki i nową linię, <code>\r\n</code>.) Metoda
+<code>trim</code> usuwa <code>\n</code> lub <code>\r\n</code>, pozostawiając tylko <code>5</code>.</p>
+<p>Metoda <a href="../std/primitive.str.html#method.parse"><code>parse</code> na ciągach znaków</a><!-- ignore --> konwertuje ciąg
+znaków na inny typ. Tutaj używamy jej do konwersji z ciągu znaków na liczbę.
+Musimy powiedzieć Rustowi dokładny typ liczbowy, którego chcemy, używając
+<code>let guess: u32</code>. Dwukropek (<code>:</code>) po <code>guess</code> mówi Rustowi, że będziemy
+anotować typ zmiennej. Rust ma kilka wbudowanych typów liczbowych; <code>u32</code>
+widziane tutaj to niepodpisana, 32-bitowa liczba całkowita. Jest to dobry
+domyślny wybór dla małej liczby dodatniej. O innych typach liczbowych dowiesz
+się w <a href="ch03-02-data-types.html#integer-types">Rozdziale 3</a><!-- ignore -->.</p>
+<p>Dodatkowo, adnotacja <code>u32</code> w tym przykładzie programu i porównanie z
+<code>secret_number</code> oznacza, że Rust wywnioskuje, iż <code>secret_number</code> również
+powinno być <code>u32</code>. Tak więc, teraz porównanie będzie dotyczyło dwóch wartości
+tego samego typu!</p>
+<p>Metoda <code>parse</code> będzie działać tylko na znakach, które można logicznie
+przekształcić na liczby i dlatego może łatwo powodować błędy. Gdyby, na
+przykład, ciąg znaków zawierał <code>A👍%</code>, nie byłoby sposobu na przekształcenie
+tego na liczbę. Ponieważ może to zakończyć się niepowodzeniem, metoda <code>parse</code>
+zwraca typ <code>Result</code>, podobnie jak metoda <code>read_line</code> (omówiona wcześniej w
+sekcji <a href="#handling-potential-failure-with-the-result-type">„Obsługa potencjalnych błędów za pomocą <code>Result</code>”</a><!-- ignore -->).
+Będziemy traktować ten <code>Result</code> w ten sam sposób, ponownie używając metody
+<code>expect</code>. Jeśli <code>parse</code> zwróci wariant <code>Err</code> <code>Result</code>, ponieważ nie udało się
+utworzyć liczby z ciągu znaków, wywołanie <code>expect</code> spowoduje awarię gry i
+wyświetli komunikat, który mu podamy. Jeśli <code>parse</code> z powodzeniem przekonwertuje
+ciąg znaków na liczbę, zwróci wariant <code>Ok</code> <code>Result</code>, a <code>expect</code> zwróci liczbę,
+której chcemy z wartości <code>Ok</code>.</p>
+<p>Uruchommy teraz program:</p>
+<!-- manual-regeneration
+cd listings/ch02-guessing-game-tutorial/no-listing-03-convert-string-to-number/
+touch src/main.rs
+cargo run
+  76
+-->
+<pre><code class="language-console">$ cargo run
+   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.26s
+     Running `target/debug/guessing_game`
+Guess the number!
+The secret number is: 58
+Please input your guess.
+  76
+You guessed: 76
+Too big!
+</code></pre>
+<p>Świetnie! Mimo że przed zgadywaną liczbą dodano spacje, program nadal
+rozpoznał, że użytkownik zgadł 76. Uruchom program kilka razy, aby sprawdzić
+różne zachowania z różnymi rodzajami danych wejściowych: zgadnij liczbę
+poprawnie, zgadnij liczbę, która jest za wysoka, i zgadnij liczbę, która jest
+za niska.</p>
+<p>Mamy już większość gry działającą, ale użytkownik może wykonać tylko jeden
+strzał. Zmieńmy to, dodając pętlę!</p>
+<h2 id="zezwalanie-na-wielokrotne-zgadywanie-za-pomocą-pętli"><a class="header" href="#zezwalanie-na-wielokrotne-zgadywanie-za-pomocą-pętli">Zezwalanie na wielokrotne zgadywanie za pomocą pętli</a></h2>
+<p>Słowo kluczowe <code>loop</code> tworzy nieskończoną pętlę. Dodamy pętlę, aby dać
+użytkownikom więcej szans na odgadnięcie liczby:</p>
+<p><span class="filename">Nazwa pliku: src/main.rs</span></p>
+<pre><code class="language-rust ignore"><span class="boring">use std::cmp::Ordering;
+</span><span class="boring">use std::io;
+</span><span class="boring">
+</span><span class="boring">use rand::Rng;
+</span><span class="boring">
+</span><span class="boring">fn main() {
+</span><span class="boring">    println!("Guess the number!");
+</span><span class="boring">
+</span><span class="boring">    let secret_number = rand::thread_rng().gen_range(1..=100);
+</span><span class="boring">
+</span>    // --snip--
+
+    println!("The secret number is: {secret_number}");
+
+    loop {
+        println!("Please input your guess.");
+
+        // --snip--
+
+<span class="boring">
+</span><span class="boring">        let mut guess = String::new();
+</span><span class="boring">
+</span><span class="boring">        io::stdin()
+</span><span class="boring">            .read_line(&amp;mut guess)
+</span><span class="boring">            .expect("Failed to read line");
+</span><span class="boring">
+</span><span class="boring">        let guess: u32 = guess.trim().parse().expect("Please type a number!");
+</span><span class="boring">
+</span><span class="boring">        println!("You guessed: {guess}");
+</span><span class="boring">
+</span>        match guess.cmp(&amp;secret_number) {
+            Ordering::Less =&gt; println!("Too small!"),
+            Ordering::Greater =&gt; println!("Too big!"),
+            Ordering::Equal =&gt; println!("You win!"),
+        }
+    }
+}</code></pre>
+<p>Jak widać, przenieśliśmy wszystko od monitu o wprowadzenie zgadywanej liczby
+dalej do pętli. Upewnij się, że wciśniesz każdą linię wewnątrz pętli o kolejne
+cztery spacje i ponownie uruchom program. Program będzie teraz prosił o kolejny
+strzał w nieskończoność, co wprowadza nowy problem. Wygląda na to, że
+użytkownik nie może wyjść!</p>
+<p>Użytkownik zawsze mógł przerwać program za pomocą skrótu klawiaturowego
+<kbd>ctrl</kbd>-<kbd>C</kbd>. Ale jest inny sposób na ucieczkę przed tym
+nienasyconym potworem, jak wspomniano w dyskusji o <code>parse</code> w sekcji
+<a href="#comparing-the-guess-to-the-secret-number">„Porównywanie strzału z tajną liczbą”</a><!-- ignore -->: jeśli użytkownik wprowadzi
+dane nieliczbowe, program ulegnie awarii. Możemy to wykorzystać, aby pozwolić
+użytkownikowi wyjść, jak pokazano tutaj:</p>
+<!-- manual-regeneration
+cd listings/ch02-guessing-game-tutorial/no-listing-04-looping/
+touch src/main.rs
+cargo run
+(too small guess)
+(too big guess)
+(correct guess)
+quit
+-->
+<pre><code class="language-console">$ cargo run
+   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.23s
+     Running `target/debug/guessing_game`
+Guess the number!
+The secret number is: 59
+Please input your guess.
+45
+You guessed: 45
+Too small!
+Please input your guess.
+60
+You guessed: 60
+Too big!
+Please input your guess.
+59
+You guessed: 59
+You win!
+Please input your guess.
+quit
+
+thread 'main' panicked at src/main.rs:28:47:
+Please type a number!: ParseIntError { kind: InvalidDigit }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+</code></pre>
+<p>Wpisanie <code>quit</code> spowoduje wyjście z gry, ale jak zauważysz, tak samo zadziała
+wprowadzenie dowolnych innych danych nieliczbowych. Jest to, delikatnie mówiąc,
+nieoptymalne; chcemy, aby gra zatrzymywała się również po odgadnięciu
+prawidłowej liczby.</p>
+<h3 id="zakończenie-po-prawidłowym-strzale"><a class="header" href="#zakończenie-po-prawidłowym-strzale">Zakończenie po prawidłowym strzale</a></h3>
+<p>Zaprogramujmy grę tak, aby kończyła się, gdy użytkownik wygra, dodając instrukcję
+<code>break</code>:</p>
+<p><span class="filename">Nazwa pliku: src/main.rs</span></p>
+<pre><code class="language-rust ignore"><span class="boring">use std::cmp::Ordering;
+</span><span class="boring">use std::io;
+</span><span class="boring">
+</span><span class="boring">use rand::Rng;
+</span><span class="boring">
+</span><span class="boring">fn main() {
+</span><span class="boring">    println!("Guess the number!");
+</span><span class="boring">
+</span><span class="boring">    let secret_number = rand::thread_rng().gen_range(1..=100);
+</span><span class="boring">
+</span><span class="boring">    println!("The secret number is: {secret_number}");
+</span><span class="boring">
+</span><span class="boring">    loop {
+</span><span class="boring">        println!("Please input your guess.");
+</span><span class="boring">
+</span><span class="boring">        let mut guess = String::new();
+</span><span class="boring">
+</span><span class="boring">        io::stdin()
+</span><span class="boring">            .read_line(&amp;mut guess)
+</span><span class="boring">            .expect("Failed to read line");
+</span><span class="boring">
+</span><span class="boring">        let guess: u32 = guess.trim().parse().expect("Please type a number!");
+</span><span class="boring">
+</span><span class="boring">        println!("You guessed: {guess}");
+</span><span class="boring">
+</span>        // --snip--
+
+        match guess.cmp(&amp;secret_number) {
+            Ordering::Less =&gt; println!("Too small!"),
+            Ordering::Greater =&gt; println!("Too big!"),
+            Ordering::Equal =&gt; {
+                println!("You win!");
+                break;
+            }
+        }
+    }
+}</code></pre>
+<p>Dodanie linii <code>break</code> po <code>You win!</code> powoduje, że program wychodzi z pętli, gdy
+użytkownik poprawnie odgadnie tajną liczbę. Wyjście z pętli oznacza również
+wyjście z programu, ponieważ pętla jest ostatnią częścią <code>main</code>.</p>
+<h3 id="obsługa-nieprawidłowych-danych-wejściowych"><a class="header" href="#obsługa-nieprawidłowych-danych-wejściowych">Obsługa nieprawidłowych danych wejściowych</a></h3>
+<p>Aby jeszcze bardziej dopracować zachowanie gry, zamiast zawieszać program,
+gdy użytkownik wprowadzi dane nieliczbowe, niech gra ignoruje takie dane,
+umożliwiając użytkownikowi dalsze zgadywanie. Możemy to zrobić, zmieniając
+linię, w której <code>guess</code> jest konwertowane z <code>String</code> na <code>u32</code>, jak pokazano
+w Listingu 2-5.</p>
+<figure class="listing" id="listing-2-5">
+<span class="file-name">Nazwa pliku: src/main.rs</span>
+<pre><code class="language-rust ignore"><span class="boring">use std::cmp::Ordering;
+</span><span class="boring">use std::io;
+</span><span class="boring">
+</span><span class="boring">use rand::Rng;
+</span><span class="boring">
+</span><span class="boring">fn main() {
+</span><span class="boring">    println!("Guess the number!");
+</span><span class="boring">
+</span><span class="boring">    let secret_number = rand::thread_rng().gen_range(1..=100);
+</span><span class="boring">
+</span><span class="boring">    println!("The secret number is: {secret_number}");
+</span><span class="boring">
+</span><span class="boring">    loop {
+</span><span class="boring">        println!("Please input your guess.");
+</span><span class="boring">
+</span><span class="boring">        let mut guess = String::new();
+</span><span class="boring">
+</span>        // --snip--
+
+        io::stdin()
+            .read_line(&amp;mut guess)
+            .expect("Failed to read line");
+
+        let guess: u32 = match guess.trim().parse() {
+            Ok(num) =&gt; num,
+            Err(_) =&gt; continue,
+        };
+
+        println!("You guessed: {guess}");
+
+        // --snip--
+<span class="boring">
+</span><span class="boring">        match guess.cmp(&amp;secret_number) {
+</span><span class="boring">            Ordering::Less =&gt; println!("Too small!"),
+</span><span class="boring">            Ordering::Greater =&gt; println!("Too big!"),
+</span><span class="boring">            Ordering::Equal =&gt; {
+</span><span class="boring">                println!("You win!");
+</span><span class="boring">                break;
+</span><span class="boring">            }
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">}</span></code></pre>
+<figcaption><a href="#listing-2-5">Listing 2-5</a>: Ignorowanie zgadywanej liczby nieliczbowej i prośba o kolejną zgadywaną liczbę zamiast zawieszenia programu</figcaption>
+</figure>
+<p>Zmieniamy wywołanie <code>expect</code> na wyrażenie <code>match</code>, aby zamiast zawieszenia
+w przypadku błędu, obsłużyć błąd. Pamiętaj, że <code>parse</code> zwraca typ <code>Result</code>,
+a <code>Result</code> jest wyliczeniem, które ma warianty <code>Ok</code> i <code>Err</code>. Używamy tutaj
+wyrażenia <code>match</code>, tak jak to robiliśmy z wynikiem <code>Ordering</code> metody <code>cmp</code>.</p>
+<p>Jeśli <code>parse</code> jest w stanie pomyślnie przekształcić ciąg znaków w liczbę,
+zwróci wartość <code>Ok</code>, która będzie zawierać wynikową liczbę. Ta wartość <code>Ok</code>
+będzie pasować do wzorca pierwszego ramienia, a wyrażenie <code>match</code> po prostu
+zwróci wartość <code>num</code>, którą <code>parse</code> wyprodukowało i umieściło w wartości <code>Ok</code>.
+Ta liczba trafi dokładnie tam, gdzie chcemy, do nowej zmiennej <code>guess</code>, którą
+tworzymy.</p>
+<p>Jeśli <code>parse</code> <em>nie</em> jest w stanie przekształcić ciągu znaków w liczbę,
+zwróci wartość <code>Err</code>, która zawiera więcej informacji o błędzie. Wartość <code>Err</code>
+nie pasuje do wzorca <code>Ok(num)</code> w pierwszym ramieniu <code>match</code>, ale pasuje do
+wzorca <code>Err(_)</code> w drugim ramieniu. Podkreślnik <code>_</code> to wartość
+„chwyć-wszystko”; w tym przykładzie mówimy, że chcemy dopasować wszystkie
+wartości <code>Err</code>, niezależnie od tego, jakie informacje zawierają. Zatem program
+wykona kod drugiego ramienia, <code>continue</code>, co nakazuje programowi przejść do
+następnej iteracji <code>loop</code> i poprosić o kolejny strzał. Tak więc, efektywnie,
+program ignoruje wszystkie błędy, jakie <code>parse</code> może napotkać!</p>
+<p>Teraz wszystko w programie powinno działać zgodnie z oczekiwaniami. Spróbujmy:</p>
+<!-- manual-regeneration
+cd listings/ch02-guessing-game-tutorial/listing-02-05/
+cargo run
+(too small guess)
+(too big guess)
+foo
+(correct guess)
+-->
+<pre><code class="language-console">$ cargo run
+   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.13s
+     Running `target/debug/guessing_game`
+Guess the number!
+The secret number is: 61
+Please input your guess.
+10
+You guessed: 10
+Too small!
+Please input your guess.
+99
+You guessed: 99
+Too big!
+Please input your guess.
+foo
+Please input your guess.
+61
+You guessed: 61
+You win!
+</code></pre>
+<p>Cudownie! Z drobną, ostatnią poprawką, zakończymy grę w zgadywanie. Przypomnij
+sobie, że program nadal wyświetla tajną liczbę. To dobrze działało podczas
+testowania, ale psuje grę. Usuńmy <code>println!</code>, które wyświetla tajną liczbę.
+Listing 2-6 pokazuje ostateczny kod.</p>
+<figure class="listing" id="listing-2-6">
+<span class="file-name">Nazwa pliku: src/main.rs</span>
+<pre><code class="language-rust ignore">use std::cmp::Ordering;
+use std::io;
+
+use rand::Rng;
+
+fn main() {
+    println!("Guess the number!");
+
+    let secret_number = rand::thread_rng().gen_range(1..=100);
+
+    loop {
+        println!("Please input your guess.");
+
+        let mut guess = String::new();
+
+        io::stdin()
+            .read_line(&amp;mut guess)
+            .expect("Failed to read line");
+
+        let guess: u32 = match guess.trim().parse() {
+            Ok(num) =&gt; num,
+            Err(_) =&gt; continue,
+        };
+
+        println!("You guessed: {guess}");
+
+        match guess.cmp(&amp;secret_number) {
+            Ordering::Less =&gt; println!("Too small!"),
+            Ordering::Greater =&gt; println!("Too big!"),
+            Ordering::Equal =&gt; {
+                println!("You win!");
+                break;
+            }
+        }
+    }
+}</code></pre>
+<figcaption><a href="#listing-2-6">Listing 2-6</a>: Kompletny kod gry w zgadywanie</figcaption>
+</figure>
+<p>W tym momencie pomyślnie zbudowałeś grę w zgadywanie. Gratulacje!</p>
+<h2 id="podsumowanie"><a class="header" href="#podsumowanie">Podsumowanie</a></h2>
+<p>Ten projekt był praktycznym sposobem na wprowadzenie cię w wiele nowych
+koncepcji Rusta: <code>let</code>, <code>match</code>, funkcje, użycie zewnętrznych pakietów i
+wiele innych. W kolejnych rozdziałach dowiesz się o tych koncepcjach bardziej
+szczegółowo. Rozdział 3 obejmuje koncepcje, które posiadają większość języków
+programowania, takie jak zmienne, typy danych i funkcje, i pokazuje, jak ich
+używać w Ruście. Rozdział 4 bada własność, cechę, która odróżnia Rusta od
+innych języków. Rozdział 5 omawia struktury i składnię metod, a Rozdział 6
+wyjaśnia, jak działają wyliczenia (enums).</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="ch01-03-hello-cargo.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="ch03-00-common-programming-concepts.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="ch01-03-hello-cargo.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="ch03-00-common-programming-concepts.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="ferris-2317480c.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

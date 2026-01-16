@@ -1,0 +1,510 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Wprowadzanie ścieżek do zasięgu za pomocą słowa kluczowego use - Język programowania Rust</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="ferris-d33b75bf.css">
+        <link rel="stylesheet" href="theme/2018-edition-4e126c62.css">
+        <link rel="stylesheet" href="theme/semantic-notes-9b5766c0.css">
+        <link rel="stylesheet" href="theme/listing-cab26221.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-773dca2f.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-039e37ba.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Język programowania Rust</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/rust-lang/book" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h2 id="wprowadzanie-ścieżek-do-zasięgu-za-pomocą-słowa-kluczowego-use"><a class="header" href="#wprowadzanie-ścieżek-do-zasięgu-za-pomocą-słowa-kluczowego-use">Wprowadzanie ścieżek do zasięgu za pomocą słowa kluczowego <code>use</code></a></h2>
+<p>Konieczność wypisywania pełnych ścieżek do wywoływania funkcji może być uciążliwa i powtarzalna. W Listing 7-7, niezależnie od tego, czy wybraliśmy ścieżkę absolutną, czy względną do funkcji <code>add_to_waitlist</code>, za każdym razem, gdy chcieliśmy wywołać <code>add_to_waitlist</code>, musieliśmy również określać <code>front_of_house</code> i <code>hosting</code>. Na szczęście istnieje sposób na uproszczenie tego procesu: Możemy utworzyć skrót do ścieżki za pomocą słowa kluczowego <code>use</code> raz, a następnie używać krótszej nazwy wszędzie indziej w danym zasięgu.</p>
+<p>W Listing 7-11 wprowadzamy moduł <code>crate::front_of_house::hosting</code> do zasięgu funkcji <code>eat_at_restaurant</code>, tak abyśmy musieli określać jedynie <code>hosting::add_to_waitlist</code>, aby wywołać funkcję <code>add_to_waitlist</code> w <code>eat_at_restaurant</code>.</p>
+<listing number="7-11" file-name="src/lib.rs" caption="Wprowadzanie modułu do zasięgu za pomocą `use`">
+<pre><code class="language-rust noplayground test_harness">mod front_of_house {
+    pub mod hosting {
+        pub fn add_to_waitlist() {}
+    }
+}
+
+use crate::front_of_house::hosting;
+
+pub fn eat_at_restaurant() {
+    hosting::add_to_waitlist();
+}</code></pre>
+</listing>
+<p>Dodanie <code>use</code> i ścieżki w zasięgu jest podobne do tworzenia dowiązania symbolicznego w systemie plików. Dodając <code>use crate::front_of_house::hosting</code> w katalogu głównym skrzynki, <code>hosting</code> jest teraz prawidłową nazwą w tym zasięgu, tak jakby moduł <code>hosting</code> został zdefiniowany w katalogu głównym skrzynki. Ścieżki wprowadzone do zasięgu za pomocą <code>use</code> również sprawdzają prywatność, tak jak każda inna ścieżka.</p>
+<p>Zwróć uwagę, że <code>use</code> tworzy skrót tylko dla konkretnego zasięgu, w którym występuje <code>use</code>. Listing 7-12 przenosi funkcję <code>eat_at_restaurant</code> do nowego modułu potomnego o nazwie <code>customer</code>, który jest wówczas innym zasięgiem niż instrukcja <code>use</code>, więc ciało funkcji nie skompiluje się.</p>
+<listing number="7-12" file-name="src/lib.rs" caption="Instrukcja `use` ma zastosowanie tylko w zasięgu, w którym się znajduje.">
+<pre><code class="language-rust noplayground test_harness does_not_compile ignore">mod front_of_house {
+    pub mod hosting {
+        pub fn add_to_waitlist() {}
+    }
+}
+
+use crate::front_of_house::hosting;
+
+mod customer {
+    pub fn eat_at_restaurant() {
+        hosting::add_to_waitlist();
+    }
+}</code></pre>
+</listing>
+<p>Błąd kompilatora pokazuje, że skrót nie ma już zastosowania w module <code>customer</code>:</p>
+<pre><code class="language-console">$ cargo build
+   Compiling restaurant v0.1.0 (file:///projects/restaurant)
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `hosting`
+  --&gt; src/lib.rs:11:9
+   |
+11 |         hosting::add_to_waitlist();
+   |         ^^^^^^^ use of unresolved module or unlinked crate `hosting`
+   |
+   = help: if you wanted to use a crate named `hosting`, use `cargo add hosting` to add it to your `Cargo.toml`
+help: consider importing this module through its public re-export
+   |
+10 +     use crate::hosting;
+   |
+
+warning: unused import: `crate::front_of_house::hosting`
+ --&gt; src/lib.rs:7:5
+  |
+7 | use crate::front_of_house::hosting;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+For more information about this error, try `rustc --explain E0433`.
+warning: `restaurant` (lib) generated 1 warning
+error: could not compile `restaurant` (lib) due to 1 previous error; 1 warning emitted
+</code></pre>
+<p>Zauważ, że pojawiło się również ostrzeżenie, że <code>use</code> nie jest już używane w swoim zasięgu! Aby rozwiązać ten problem, przenieś <code>use</code> również do modułu <code>customer</code> lub odwołaj się do skrótu w module nadrzędnym za pomocą <code>super::hosting</code> w module potomnym <code>customer</code>.</p>
+<h3 id="tworzenie-idiomatycznych-ścieżek-use"><a class="header" href="#tworzenie-idiomatycznych-ścieżek-use">Tworzenie idiomatycznych ścieżek <code>use</code></a></h3>
+<p>W Listing 7-11 mogłeś się zastanawiać, dlaczego określiliśmy <code>use crate::front_of_house::hosting</code>, a następnie wywołaliśmy <code>hosting::add_to_waitlist</code> w <code>eat_at_restaurant</code>, zamiast określać ścieżkę <code>use</code> aż do funkcji <code>add_to_waitlist</code>, aby osiągnąć ten sam rezultat, jak w Listing 7-13.</p>
+<listing number="7-13" file-name="src/lib.rs" caption="Wprowadzanie funkcji `add_to_waitlist` do zasięgu za pomocą `use`, co jest nieidiomatyczne">
+<pre><code class="language-rust noplayground test_harness">mod front_of_house {
+    pub mod hosting {
+        pub fn add_to_waitlist() {}
+    }
+}
+
+use crate::front_of_house::hosting::add_to_waitlist;
+
+pub fn eat_at_restaurant() {
+    add_to_waitlist();
+}</code></pre>
+</listing>
+<p>Chociaż zarówno Listing 7-11, jak i Listing 7-13 wykonują to samo zadanie, Listing 7-11 jest idiomatycznym sposobem wprowadzania funkcji do zasięgu za pomocą <code>use</code>. Wprowadzenie modułu nadrzędnego funkcji do zasięgu za pomocą <code>use</code> oznacza, że musimy określić moduł nadrzędny podczas wywoływania funkcji. Określanie modułu nadrzędnego podczas wywoływania funkcji jasno informuje, że funkcja nie jest zdefiniowana lokalnie, jednocześnie minimalizując powtarzanie pełnej ścieżki. Kod w Listing 7-13 niejasno określa, gdzie zdefiniowano <code>add_to_waitlist</code>.</p>
+<p>Z drugiej strony, podczas wprowadzania struktur, wyliczeń i innych elementów za pomocą <code>use</code>, idiomatyczne jest określanie pełnej ścieżki. Listing 7-14 pokazuje idiomatyczny sposób wprowadzania struktury <code>HashMap</code> ze standardowej biblioteki do zasięgu skrzynki binarnej.</p>
+<listing number="7-14" file-name="src/main.rs" caption="Idiomatyczne wprowadzanie `HashMap` do zasięgu">
+<pre class="playground"><code class="language-rust edition2024">use std::collections::HashMap;
+
+fn main() {
+    let mut map = HashMap::new();
+    map.insert(1, 2);
+}</code></pre>
+</listing>
+<p>Nie ma mocnego powodu, dla którego ten idiom: to po prostu konwencja, która się wykształciła, a ludzie przyzwyczaili się do czytania i pisania kodu w Rust w ten sposób.</p>
+<p>Wyjątkiem od tego idiomu jest sytuacja, gdy wprowadzamy dwa elementy o tej samej nazwie do zasięgu za pomocą instrukcji <code>use</code>, ponieważ Rust na to nie pozwala. Listing 7-15 pokazuje, jak wprowadzić dwa typy <code>Result</code> do zasięgu, które mają tę samą nazwę, ale różne moduły nadrzędne, oraz jak się do nich odwoływać.</p>
+<listing number="7-15" file-name="src/lib.rs" caption="Wprowadzanie dwóch typów o tej samej nazwie do tego samego zasięgu wymaga użycia ich modułów nadrzędnych.">
+<pre><code class="language-rust noplayground">use std::fmt;
+use std::io;
+
+fn function1() -&gt; fmt::Result {
+    // --snip--
+<span class="boring">    Ok(())
+</span>}
+
+fn function2() -&gt; io::Result&lt;()&gt; {
+    // --snip--
+<span class="boring">    Ok(())
+</span>}</code></pre>
+</listing>
+<p>Jak widać, użycie modułów nadrzędnych odróżnia dwa typy <code>Result</code>. Gdybyśmy zamiast tego określili <code>use std::fmt::Result</code> i <code>use std::io::Result</code>, mielibyśmy dwa typy <code>Result</code> w tym samym zasięgu, a Rust nie wiedziałby, o który nam chodzi, gdybyśmy użyli <code>Result</code>.</p>
+<h3 id="nadawanie-nowych-nazw-za-pomocą-słowa-kluczowego-as"><a class="header" href="#nadawanie-nowych-nazw-za-pomocą-słowa-kluczowego-as">Nadawanie nowych nazw za pomocą słowa kluczowego <code>as</code></a></h3>
+<p>Istnieje inne rozwiązanie problemu wprowadzania dwóch typów o tej samej nazwie do tego samego zasięgu za pomocą <code>use</code>: Po ścieżce możemy określić <code>as</code> i nową lokalną nazwę, czyli <em>alias</em>, dla typu. Listing 7-16 pokazuje inny sposób napisania kodu z Listing 7-15 poprzez zmianę nazwy jednego z dwóch typów <code>Result</code> za pomocą <code>as</code>.</p>
+<listing number="7-16" file-name="src/lib.rs" caption="Zmiana nazwy typu po wprowadzeniu go do zasięgu za pomocą słowa kluczowego `as`">
+<pre><code class="language-rust noplayground">use std::fmt::Result;
+use std::io::Result as IoResult;
+
+fn function1() -&gt; Result {
+    // --snip--
+<span class="boring">    Ok(())
+</span>}
+
+fn function2() -&gt; IoResult&lt;()&gt; {
+    // --snip--
+<span class="boring">    Ok(())
+</span>}</code></pre>
+</listing>
+<p>W drugiej instrukcji <code>use</code> wybraliśmy nową nazwę <code>IoResult</code> dla typu <code>std::io::Result</code>, która nie będzie kolidować z <code>Result</code> z <code>std::fmt</code>, który również wprowadziliśmy do zasięgu. Listing 7-15 i Listing 7-16 są uważane za idiomatyczne, więc wybór należy do Ciebie!</p>
+<h3 id="ponowne-eksportowanie-nazw-za-pomocą-pub-use"><a class="header" href="#ponowne-eksportowanie-nazw-za-pomocą-pub-use">Ponowne eksportowanie nazw za pomocą <code>pub use</code></a></h3>
+<p>Kiedy wprowadzamy nazwę do zasięgu za pomocą słowa kluczowego <code>use</code>, nazwa jest prywatna dla zasięgu, do którego ją zaimportowaliśmy. Aby umożliwić kodowi spoza tego zasięgu odwoływanie się do tej nazwy tak, jakby została zdefiniowana w tym zasięgu, możemy połączyć <code>pub</code> i <code>use</code>. Ta technika nazywa się <em>re-eksportowaniem</em>, ponieważ wprowadzamy element do zasięgu, ale także udostępniamy ten element innym, aby mogli go wprowadzić do swojego zasięgu.</p>
+<p>Listing 7-17 pokazuje kod z Listing 7-11, w którym <code>use</code> w module głównym zostało zmienione na <code>pub use</code>.</p>
+<listing number="7-17" file-name="src/lib.rs" caption="Udostępnianie nazwy dowolnemu kodowi z nowego zasięgu za pomocą `pub use`">
+<pre><code class="language-rust noplayground test_harness">mod front_of_house {
+    pub mod hosting {
+        pub fn add_to_waitlist() {}
+    }
+}
+
+pub use crate::front_of_house::hosting;
+
+pub fn eat_at_restaurant() {
+    hosting::add_to_waitlist();
+}</code></pre>
+</listing>
+<p>Przed tą zmianą, kod zewnętrzny musiałby wywoływać funkcję <code>add_to_waitlist</code> używając ścieżki <code>restaurant::front_of_house::hosting::add_to_waitlist()</code>, co wymagałoby również, aby moduł <code>front_of_house</code> był oznaczony jako <code>pub</code>. Teraz, gdy <code>pub use</code> ponownie wyeksportowało moduł <code>hosting</code> z modułu głównego, kod zewnętrzny może zamiast tego używać ścieżki <code>restaurant::hosting::add_to_waitlist()</code>.</p>
+<p>Ponowny eksport jest przydatny, gdy wewnętrzna struktura kodu różni się od sposobu, w jaki programiści wywołujący kod myśleliby o domenie. Na przykład, w tej metaforze restauracji, osoby prowadzące restaurację myślą o „front of house” i „back of house”. Ale klienci odwiedzający restaurację prawdopodobnie nie będą myśleć o częściach restauracji w tych kategoriach. Dzięki <code>pub use</code> możemy pisać kod o jednej strukturze, ale udostępniać inną strukturę. Dzięki temu nasza biblioteka jest dobrze zorganizowana dla programistów pracujących nad biblioteką i programistów wywołujących bibliotekę. Inny przykład <code>pub use</code> i jego wpływu na dokumentację skrzynki omówimy w rozdziale 14 w sekcji <a href="ch14-02-publishing-to-crates-io.html#exporting-a-convenient-public-api">„Eksportowanie wygodnego publicznego API”</a>.<!-- ignore --></p>
+<h3 id="używanie-pakietów-zewnętrznych"><a class="header" href="#używanie-pakietów-zewnętrznych">Używanie pakietów zewnętrznych</a></h3>
+<p>W Rozdziale 2 programowaliśmy projekt gry zgadywanek, który używał zewnętrznego pakietu <code>rand</code> do generowania liczb losowych. Aby użyć <code>rand</code> w naszym projekcie, dodaliśmy następującą linię do <em>Cargo.toml</em>:</p>
+<!-- When updating the version of `rand` used, also update the version of
+`rand` used in these files so they all match:
+* ch02-00-guessing-game-tutorial.md
+* ch14-03-cargo-workspaces.md
+-->
+<listing file-name="Cargo.toml">
+<pre><code class="language-toml">rand = "0.8.5"
+</code></pre>
+</listing>
+<p>Dodanie <code>rand</code> jako zależności w <em>Cargo.toml</em> informuje Cargo, aby pobrał pakiet <code>rand</code> i wszystkie jego zależności z <a href="https://crates.io/">crates.io</a> i udostępnił <code>rand</code> naszemu projektowi.</p>
+<p>Następnie, aby wprowadzić definicje <code>rand</code> do zasięgu naszego pakietu, dodaliśmy linię <code>use</code> zaczynającą się od nazwy skrzynki, <code>rand</code>, i wymieniliśmy elementy, które chcieliśmy wprowadzić do zasięgu. Przypomnij sobie, że w sekcji <a href="ch02-00-guessing-game-tutorial.html#generating-a-random-number">„Generowanie liczby losowej”</a><!-- ignore --> w Rozdziale 2 wprowadziliśmy cechę <code>Rng</code> do zasięgu i wywołaliśmy funkcję <code>rand::thread_rng</code>:</p>
+<pre><code class="language-rust ignore"><span class="boring">use std::io;
+</span><span class="boring">
+</span>use rand::Rng;
+
+fn main() {
+<span class="boring">    println!("Guess the number!");
+</span><span class="boring">
+</span>    let secret_number = rand::thread_rng().gen_range(1..=100);
+<span class="boring">
+</span><span class="boring">    println!("The secret number is: {secret_number}");
+</span><span class="boring">
+</span><span class="boring">    println!("Please input your guess.");
+</span><span class="boring">
+</span><span class="boring">    let mut guess = String::new();
+</span><span class="boring">
+</span><span class="boring">    io::stdin()
+</span><span class="boring">        .read_line(&amp;mut guess)
+</span><span class="boring">        .expect("Failed to read line");
+</span><span class="boring">
+</span><span class="boring">    println!("You guessed: {guess}");
+</span>}</code></pre>
+<p>Członkowie społeczności Rust udostępnili wiele pakietów na <a href="https://crates.io/">crates.io</a>, a włączenie któregokolwiek z nich do Twojego pakietu obejmuje te same kroki: wymienienie ich w pliku <em>Cargo.toml</em> Twojego pakietu i użycie <code>use</code> do wprowadzenia elementów z ich skrzynek do zasięgu.</p>
+<p>Zauważ, że standardowa biblioteka <code>std</code> jest również skrzynką zewnętrzną dla naszego pakietu. Ponieważ standardowa biblioteka jest dostarczana z językiem Rust, nie musimy zmieniać <em>Cargo.toml</em>, aby uwzględnić <code>std</code>. Musimy jednak odwołać się do niej za pomocą <code>use</code>, aby wprowadzić z niej elementy do zasięgu naszego pakietu. Na przykład, w przypadku <code>HashMap</code> użylibyśmy tej linii:</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::collections::HashMap;
+<span class="boring">}</span></code></pre>
+<p>Jest to ścieżka absolutna zaczynająca się od <code>std</code>, nazwy skrzynki standardowej biblioteki.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="using-nested-paths-to-clean-up-large-use-lists"></a></p>
+<h3 id="używanie-zagnieżdżonych-ścieżek-do-porządkowania-list-use"><a class="header" href="#używanie-zagnieżdżonych-ścieżek-do-porządkowania-list-use">Używanie zagnieżdżonych ścieżek do porządkowania list <code>use</code></a></h3>
+<p>Jeśli używamy wielu elementów zdefiniowanych w tej samej skrzynce lub tym samym module, wymienianie każdego elementu w osobnej linii może zajmować dużo miejsca w naszych plikach. Na przykład, te dwie instrukcje <code>use</code> z gry zgadywanek w Listing 2-4 wprowadzają elementy z <code>std</code> do zasięgu:</p>
+<listing file-name="src/main.rs">
+<pre><code class="language-rust ignore"><span class="boring">use rand::Rng;
+</span>// --snip--
+use std::cmp::Ordering;
+use std::io;
+// --snip--
+<span class="boring">
+</span><span class="boring">fn main() {
+</span><span class="boring">    println!("Guess the number!");
+</span><span class="boring">
+</span><span class="boring">    let secret_number = rand::thread_rng().gen_range(1..=100);
+</span><span class="boring">
+</span><span class="boring">    println!("The secret number is: {secret_number}");
+</span><span class="boring">
+</span><span class="boring">    println!("Please input your guess.");
+</span><span class="boring">
+</span><span class="boring">    let mut guess = String::new();
+</span><span class="boring">
+</span><span class="boring">    io::stdin()
+</span><span class="boring">        .read_line(&amp;mut guess)
+</span><span class="boring">        .expect("Failed to read line");
+</span><span class="boring">
+</span><span class="boring">    println!("You guessed: {guess}");
+</span><span class="boring">
+</span><span class="boring">    match guess.cmp(&amp;secret_number) {
+</span><span class="boring">        Ordering::Less =&gt; println!("Too small!"),
+</span><span class="boring">        Ordering::Greater =&gt; println!("Too big!"),
+</span><span class="boring">        Ordering::Equal =&gt; println!("You win!"),
+</span><span class="boring">    }
+</span><span class="boring">}</span></code></pre>
+</listing>
+<p>Zamiast tego możemy użyć zagnieżdżonych ścieżek, aby wprowadzić te same elementy do zasięgu w jednej linii. Robimy to, określając wspólną część ścieżki, po której następują dwa dwukropki, a następnie nawiasy klamrowe wokół listy części ścieżek, które się różnią, jak pokazano w Listing 7-18.</p>
+<listing number="7-18" file-name="src/main.rs" caption="Określanie zagnieżdżonej ścieżki w celu wprowadzenia wielu elementów z tym samym prefiksem do zasięgu">
+<pre><code class="language-rust ignore"><span class="boring">use rand::Rng;
+</span>// --snip--
+use std::{cmp::Ordering, io};
+// --snip--
+<span class="boring">
+</span><span class="boring">fn main() {
+</span><span class="boring">    println!("Guess the number!");
+</span><span class="boring">
+</span><span class="boring">    let secret_number = rand::thread_rng().gen_range(1..=100);
+</span><span class="boring">
+</span><span class="boring">    println!("The secret number is: {secret_number}");
+</span><span class="boring">
+</span><span class="boring">    println!("Please input your guess.");
+</span><span class="boring">
+</span><span class="boring">    let mut guess = String::new();
+</span><span class="boring">
+</span><span class="boring">    io::stdin()
+</span><span class="boring">        .read_line(&amp;mut guess)
+</span><span class="boring">        .expect("Failed to read line");
+</span><span class="boring">
+</span><span class="boring">    let guess: u32 = guess.trim().parse().expect("Please type a number!");
+</span><span class="boring">
+</span><span class="boring">    println!("You guessed: {guess}");
+</span><span class="boring">
+</span><span class="boring">    match guess.cmp(&amp;secret_number) {
+</span><span class="boring">        Ordering::Less =&gt; println!("Too small!"),
+</span><span class="boring">        Ordering::Greater =&gt; println!("Too big!"),
+</span><span class="boring">        Ordering::Equal =&gt; println!("You win!"),
+</span><span class="boring">    }
+</span><span class="boring">}</span></code></pre>
+</listing>
+<p>W większych programach wprowadzanie wielu elementów do zasięgu z tej samej skrzynki lub modułu za pomocą zagnieżdżonych ścieżek może znacznie zmniejszyć liczbę oddzielnych instrukcji <code>use</code>!</p>
+<p>Możemy używać zagnieżdżonych ścieżek na dowolnym poziomie ścieżki, co jest przydatne przy łączeniu dwóch instrukcji <code>use</code>, które współdzielą podścieżkę. Na przykład, Listing 7-19 pokazuje dwie instrukcje <code>use</code>: jedna, która wprowadza <code>std::io</code> do zasięgu, i druga, która wprowadza <code>std::io::Write</code> do zasięgu.</p>
+<listing number="7-19" file-name="src/lib.rs" caption="Dwie instrukcje `use`, gdzie jedna jest podścieżką drugiej">
+<pre><code class="language-rust noplayground">use std::io;
+use std::io::Write;</code></pre>
+</listing>
+<p>Wspólną częścią tych dwóch ścieżek jest <code>std::io</code>, i to jest kompletna pierwsza ścieżka. Aby połączyć te dwie ścieżki w jedną instrukcję <code>use</code>, możemy użyć <code>self</code> w zagnieżdżonej ścieżce, jak pokazano w Listing 7-20.</p>
+<listing number="7-20" file-name="src/lib.rs" caption="Łączenie ścieżek z Listing 7-19 w jedną instrukcję `use`">
+<pre><code class="language-rust noplayground">use std::io::{self, Write};</code></pre>
+</listing>
+<p>Ta linia wprowadza <code>std::io</code> i <code>std::io::Write</code> do zasięgu.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="the-glob-operator"></a></p>
+<h3 id="importowanie-elementów-za-pomocą-operatora-glob"><a class="header" href="#importowanie-elementów-za-pomocą-operatora-glob">Importowanie elementów za pomocą operatora glob</a></h3>
+<p>Jeśli chcemy wprowadzić <em>wszystkie</em> publiczne elementy zdefiniowane w ścieżce do zasięgu, możemy określić tę ścieżkę, po której następuje operator glob <code>*</code>:</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::collections::*;
+<span class="boring">}</span></code></pre>
+<p>Ta instrukcja <code>use</code> wprowadza wszystkie publiczne elementy zdefiniowane w <code>std::collections</code> do bieżącego zasięgu. Zachowaj ostrożność podczas używania operatora glob! Glob może utrudnić określenie, jakie nazwy są w zasięgu i gdzie nazwa użyta w programie została zdefiniowana. Dodatkowo, jeśli zależność zmieni swoje definicje, to co zostało zaimportowane, również się zmieni, co może prowadzić do błędów kompilatora podczas aktualizacji zależności, jeśli zależność doda definicję o tej samej nazwie co Twoja definicja w tym samym zasięgu, na przykład.</p>
+<p>Operator glob jest często używany podczas testowania, aby wprowadzić wszystko, co jest testowane, do modułu <code>tests</code>; omówimy to w sekcji <a href="ch11-01-writing-tests.html#how-to-write-tests">„Jak pisać testy”</a><!-- ignore --> w Rozdziale 11. Operator glob jest również czasami używany jako część wzorca preludium: zobacz <a href="../std/prelude/index.html#other-preludes">dokumentację standardowej biblioteki</a><!-- ignore -->, aby uzyskać więcej informacji na temat tego wzorca.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="ch07-05-separating-modules-into-different-files.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="ch07-05-separating-modules-into-different-files.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="ferris-2317480c.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

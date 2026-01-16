@@ -1,0 +1,423 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Przetwarzanie serii elementów za pomocą iteratorów - Język programowania Rust</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="ferris-d33b75bf.css">
+        <link rel="stylesheet" href="theme/2018-edition-4e126c62.css">
+        <link rel="stylesheet" href="theme/semantic-notes-9b5766c0.css">
+        <link rel="stylesheet" href="theme/listing-cab26221.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-773dca2f.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-039e37ba.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Język programowania Rust</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/rust-lang/book" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h2 id="przetwarzanie-serii-elementów-za-pomocą-iteratorów"><a class="header" href="#przetwarzanie-serii-elementów-za-pomocą-iteratorów">Przetwarzanie serii elementów za pomocą iteratorów</a></h2>
+<p>Wzorzec iteratora pozwala na wykonywanie określonego zadania na sekwencji elementów po kolei. Iterator jest odpowiedzialny za logikę iterowania po każdym elemencie i określanie, kiedy sekwencja się zakończyła. Kiedy używasz iteratorów, nie musisz samodzielnie ponownie implementować tej logiki.</p>
+<p>W Rust iteratory są <em>lenistwe</em>, co oznacza, że nie mają żadnego efektu, dopóki nie wywołasz metod, które zużywają iterator. Na przykład, kod w Listing 13-10 tworzy iterator po elementach w wektorze <code>v1</code>, wywołując metodę <code>iter</code> zdefiniowaną dla <code>Vec&lt;T&gt;</code>. Sam ten kod nie robi nic użytecznego.</p>
+<listing number="13-10" file-name="src/main.rs" caption="Tworzenie iteratora">
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span>    let v1 = vec![1, 2, 3];
+
+    let v1_iter = v1.iter();
+<span class="boring">}</span></code></pre>
+</listing>
+<p>Iterator jest przechowywany w zmiennej <code>v1_iter</code>. Po utworzeniu iteratora możemy go używać na różne sposoby. W Listing 3-5 iterowaliśmy po tablicy za pomocą pętli <code>for</code>, aby wykonać jakiś kod na każdym z jej elementów. Pod spodem, to niejawnie utworzyło, a następnie zużyło iterator, ale pomijaliśmy dokładne działanie tego mechanizmu aż do teraz.</p>
+<p>W przykładzie z Listing 13-11 oddzielamy tworzenie iteratora od używania iteratora w pętli <code>for</code>. Kiedy pętla <code>for</code> jest wywoływana z użyciem iteratora w <code>v1_iter</code>, każdy element iteratora jest używany w jednej iteracji pętli, która wypisuje każdą wartość.</p>
+<listing number="13-11" file-name="src/main.rs" caption="Używanie iteratora w pętli `for`">
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span>    let v1 = vec![1, 2, 3];
+
+    let v1_iter = v1.iter();
+
+    for val in v1_iter {
+        println!("Otrzymano: {val}");
+    }
+<span class="boring">}</span></code></pre>
+</listing>
+<p>W językach, które nie mają iteratorów dostarczanych przez ich standardowe biblioteki, prawdopodobnie napisałbyś tę samą funkcjonalność, rozpoczynając zmienną od indeksu 0, używając tej zmiennej do indeksowania wektora w celu uzyskania wartości i zwiększając wartość zmiennej w pętli, dopóki nie osiągnęłaby całkowitej liczby elementów w wektorze.</p>
+<p>Iteratory obsługują całą tę logikę za Ciebie, zmniejszając ilość powtarzającego się kodu, który mógłbyś potencjalnie zepsuć. Iteratory dają większą elastyczność w używaniu tej samej logiki z wieloma różnymi rodzajami sekwencji, a nie tylko ze strukturami danych, do których można indeksować, takimi jak wektory. Przyjrzyjmy się, jak to robią iteratory.</p>
+<h3 id="cecha-iterator-i-metoda-next"><a class="header" href="#cecha-iterator-i-metoda-next">Cecha <code>Iterator</code> i metoda <code>next</code></a></h3>
+<p>Wszystkie iteratory implementują cechę o nazwie <code>Iterator</code>, która jest zdefiniowana w standardowej bibliotece. Definicja cechy wygląda następująco:</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub trait Iterator {
+    type Item;
+
+    fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt;;
+
+    // metody z domyślnymi implementacjami pominięte
+}
+<span class="boring">}</span></code></pre>
+<p>Zauważ, że ta definicja używa nowej składni: <code>type Item</code> i <code>Self::Item</code>, które definiują typ skojarzony z tą cechą. Szczegółowo omówimy typy skojarzone w Rozdziale 20. Na razie wystarczy wiedzieć, że ten kod mówi, że implementacja cechy <code>Iterator</code> wymaga również zdefiniowania typu <code>Item</code>, a ten typ <code>Item</code> jest używany w typie zwracanym przez metodę <code>next</code>. Innymi słowy, typ <code>Item</code> będzie typem zwracanym przez iterator.</p>
+<p>Cecha <code>Iterator</code> wymaga od implementatorów zdefiniowania tylko jednej metody: metody <code>next</code>, która zwraca po jednym elemencie iteratora na raz, opakowanym w <code>Some</code>, a po zakończeniu iteracji zwraca <code>None</code>.</p>
+<p>Możemy wywoływać metodę <code>next</code> bezpośrednio na iteratorach; Listing 13-12 pokazuje, jakie wartości są zwracane z wielokrotnych wywołań <code>next</code> na iteratorze utworzonym z wektora.</p>
+<listing number="13-12" file-name="src/lib.rs" caption="Wywoływanie metody `next` na iteratorze">
+<pre><code class="language-rust noplayground"><span class="boring">#[cfg(test)]
+</span><span class="boring">mod tests {
+</span>    #[test]
+    fn iterator_demonstration() {
+        let v1 = vec![1, 2, 3];
+
+        let mut v1_iter = v1.iter();
+
+        assert_eq!(v1_iter.next(), Some(&amp;1));
+        assert_eq!(v1_iter.next(), Some(&amp;2));
+        assert_eq!(v1_iter.next(), Some(&amp;3));
+        assert_eq!(v1_iter.next(), None);
+    }
+<span class="boring">}</span></code></pre>
+</listing>
+<p>Zauważ, że musieliśmy uczynić <code>v1_iter</code> zmiennym: wywołanie metody <code>next</code> na iteratorze zmienia wewnętrzny stan, którego iterator używa do śledzenia swojej pozycji w sekwencji. Innymi słowy, ten kod <em>zużywa</em>, czyli wykorzystuje, iterator. Każde wywołanie <code>next</code> pobiera element z iteratora. Nie musieliśmy uczynić <code>v1_iter</code> zmiennym, gdy używaliśmy pętli <code>for</code>, ponieważ pętla przejmowała własność <code>v1_iter</code> i czyniła go zmiennym za kulisami.</p>
+<p>Zauważ również, że wartości, które otrzymujemy z wywołań <code>next</code>, to niezmienne referencje do wartości w wektorze. Metoda <code>iter</code> produkuje iterator po niezmiennych referencjach. Jeśli chcemy stworzyć iterator, który przejmuje własność <code>v1</code> i zwraca posiadane wartości, możemy zamiast <code>iter</code> wywołać <code>into_iter</code>. Podobnie, jeśli chcemy iterować po zmiennych referencjach, możemy zamiast <code>iter</code> wywołać <code>iter_mut</code>.</p>
+<h3 id="metody-które-zużywają-iterator"><a class="header" href="#metody-które-zużywają-iterator">Metody, które zużywają iterator</a></h3>
+<p>Cecha <code>Iterator</code> ma szereg różnych metod z domyślnymi implementacjami dostarczonymi przez standardową bibliotekę; o tych metodach możesz dowiedzieć się, przeglądając dokumentację API standardowej biblioteki dla cechy <code>Iterator</code>. Niektóre z tych metod wywołują metodę <code>next</code> w swojej definicji, dlatego jesteś zobowiązany do zaimplementowania metody <code>next</code> przy implementacji cechy <code>Iterator</code>.</p>
+<p>Metody, które wywołują <code>next</code>, nazywane są <em>konsumującymi adapterami</em>, ponieważ ich wywołanie zużywa iterator. Jednym z przykładów jest metoda <code>sum</code>, która przejmuje własność iteratora i iteruje przez elementy, wielokrotnie wywołując <code>next</code>, zużywając tym samym iterator. Podczas iteracji dodaje każdy element do bieżącej sumy i zwraca sumę po zakończeniu iteracji. Listing 13-13 zawiera test ilustrujący użycie metody <code>sum</code>.</p>
+<listing number="13-13" file-name="src/lib.rs" caption="Wywoływanie metody `sum` w celu uzyskania sumy wszystkich elementów w iteratorze">
+<pre><code class="language-rust noplayground"><span class="boring">#[cfg(test)]
+</span><span class="boring">mod tests {
+</span>    #[test]
+    fn iterator_sum() {
+        let v1 = vec![1, 2, 3];
+
+        let v1_iter = v1.iter();
+
+        let total: i32 = v1_iter.sum();
+
+        assert_eq!(total, 6);
+    }
+<span class="boring">}</span></code></pre>
+</listing>
+<p>Nie możemy użyć <code>v1_iter</code> po wywołaniu <code>sum</code>, ponieważ <code>sum</code> przejmuje własność iteratora, na którym jest wywoływana.</p>
+<h3 id="metody-które-produkują-inne-iteratory"><a class="header" href="#metody-które-produkują-inne-iteratory">Metody, które produkują inne iteratory</a></h3>
+<p><em>Adaptery iteratora</em> to metody zdefiniowane na cesze <code>Iterator</code>, które nie zużywają iteratora. Zamiast tego produkują one inne iteratory, zmieniając jakiś aspekt oryginalnego iteratora.</p>
+<p>Listing 13-14 pokazuje przykład wywołania metody adaptera iteratora <code>map</code>, która przyjmuje domknięcie do wywołania na każdym elemencie w trakcie iteracji. Metoda <code>map</code> zwraca nowy iterator, który produkuje zmodyfikowane elementy. Domknięcie tutaj tworzy nowy iterator, w którym każdy element z wektora zostanie zwiększony o 1.</p>
+<listing number="13-14" file-name="src/main.rs" caption="Wywołanie adaptera iteratora `map` w celu utworzenia nowego iteratora">
+<pre class="playground"><code class="language-rust not_desired_behavior edition2024"><span class="boring">fn main() {
+</span>    let v1: Vec&lt;i32&gt; = vec![1, 2, 3];
+
+    v1.iter().map(|x| x + 1);
+<span class="boring">}</span></code></pre>
+</listing>
+<p>Jednak ten kod generuje ostrzeżenie:</p>
+<pre><code class="language-console">$ cargo run
+   Compiling iterators v0.1.0 (file:///projects/iterators)
+warning: unused `Map` that must be used
+ --&gt; src/main.rs:4:5
+  |
+4 |     v1.iter().map(|x| x + 1);
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: iterators are lazy and do nothing unless consumed
+  = note: `#[warn(unused_must_use)]` on by default
+help: use `let _ = ...` to ignore the resulting value
+  |
+4 |     let _ = v1.iter().map(|x| x + 1);
+  |     +++++++
+
+warning: `iterators` (bin "iterators") generated 1 warning
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.47s
+     Running `target/debug/iterators`
+</code></pre>
+<p>Kod w Listing 13-14 nic nie robi; określone przez nas domknięcie nigdy nie jest wywoływane. Ostrzeżenie przypomina nam, dlaczego: adaptery iteratorów są leniwe, i musimy tutaj skonsumować iterator.</p>
+<p>Aby naprawić to ostrzeżenie i skonsumować iterator, użyjemy metody <code>collect</code>, której użyliśmy z <code>env::args</code> w Listing 12-1. Ta metoda zużywa iterator i zbiera wynikowe wartości do typu danych kolekcji.</p>
+<p>W Listing 13-15 zbieramy wyniki iteracji po iteratorze zwróconym z wywołania <code>map</code> do wektora. Ten wektor będzie zawierał każdy element z oryginalnego wektora, zwiększony o 1.</p>
+<listing number="13-15" file-name="src/main.rs" caption="Wywoływanie metody `map` w celu utworzenia nowego iteratora, a następnie wywoływanie metody `collect` w celu zużycia nowego iteratora i utworzenia wektora">
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span>    let v1: Vec&lt;i32&gt; = vec![1, 2, 3];
+
+    let v2: Vec&lt;_&gt; = v1.iter().map(|x| x + 1).collect();
+
+    assert_eq!(v2, vec![2, 3, 4]);
+<span class="boring">}</span></code></pre>
+</listing>
+<p>Ponieważ <code>map</code> przyjmuje domknięcie, możemy określić dowolną operację, którą chcemy wykonać na każdym elemencie. Jest to doskonały przykład tego, jak domknięcia pozwalają dostosować pewne zachowanie, jednocześnie ponownie wykorzystując zachowanie iteracji, które zapewnia cecha <code>Iterator</code>.</p>
+<p>Można łączyć wiele wywołań adapterów iteratora, aby wykonywać złożone działania w czytelny sposób. Ponieważ jednak wszystkie iteratory są leniwe, należy wywołać jedną z metod adaptera konsumującego, aby uzyskać wyniki z wywołań adapterów iteratora.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="using-closures-that-capture-their-environment"></a></p>
+<h3 id="domknięcia-które-przechwytują-swoje-środowisko"><a class="header" href="#domknięcia-które-przechwytują-swoje-środowisko">Domknięcia, które przechwytują swoje środowisko</a></h3>
+<p>Wiele adapterów iteratora przyjmuje domknięcia jako argumenty, a często domknięcia, które będziemy określać jako argumenty dla adapterów iteratora, będą domknięciami, które przechwytują ich środowisko.</p>
+<p>W tym przykładzie użyjemy metody <code>filter</code>, która przyjmuje domknięcie. Domknięcie pobiera element z iteratora i zwraca <code>bool</code>. Jeśli domknięcie zwraca <code>true</code>, wartość zostanie włączona do iteracji wyprodukowanej przez <code>filter</code>. Jeśli domknięcie zwraca <code>false</code>, wartość nie zostanie włączona.</p>
+<p>W Listing 13-16 używamy <code>filter</code> z domknięciem, które przechwytuje zmienną <code>shoe_size</code> ze swojego środowiska, aby iterować po kolekcji instancji struktury <code>Shoe</code>. Zwróci tylko buty o określonym rozmiarze.</p>
+<listing number="13-16" file-name="src/lib.rs" caption="Użycie metody `filter` z domknięciem, które przechwytuje `shoe_size`">
+<pre><code class="language-rust noplayground">#[derive(PartialEq, Debug)]
+struct Shoe {
+    size: u32,
+    style: String,
+}
+
+fn shoes_in_size(shoes: Vec&lt;Shoe&gt;, shoe_size: u32) -&gt; Vec&lt;Shoe&gt; {
+    shoes.into_iter().filter(|s| s.size == shoe_size).collect()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn filters_by_size() {
+        let shoes = vec![
+            Shoe {
+                size: 10,
+                style: String::from("sneaker"),
+            },
+            Shoe {
+                size: 13,
+                style: String::from("sandal"),
+            },
+            Shoe {
+                size: 10,
+                style: String::from("boot"),
+            },
+        ];
+
+        let in_my_size = shoes_in_size(shoes, 10);
+
+        assert_eq!(
+            in_my_size,
+            vec![
+                Shoe {
+                    size: 10,
+                    style: String::from("sneaker")
+                },
+                Shoe {
+                    size: 10,
+                    style: String::from("boot")
+                },
+            ]
+        );
+    }
+}</code></pre>
+</listing>
+<p>Funkcja <code>shoes_in_size</code> przejmuje własność wektora butów i rozmiaru buta jako parametry. Zwraca wektor zawierający tylko buty o określonym rozmiarze.</p>
+<p>W ciele <code>shoes_in_size</code> wywołujemy <code>into_iter</code>, aby stworzyć iterator, który przejmuje własność wektora. Następnie wywołujemy <code>filter</code>, aby dostosować ten iterator do nowego iteratora, który zawiera tylko elementy, dla których domknięcie zwraca <code>true</code>.</p>
+<p>Domknięcie przechwytuje parametr <code>shoe_size</code> ze środowiska i porównuje wartość z rozmiarem każdego buta, zachowując tylko buty o określonym rozmiarze. Na koniec wywołanie <code>collect</code> zbiera wartości zwrócone przez dostosowany iterator do wektora, który jest zwracany przez funkcję.</p>
+<p>Test pokazuje, że po wywołaniu <code>shoes_in_size</code> otrzymujemy z powrotem tylko buty, które mają ten sam rozmiar, co określona przez nas wartość.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="ch13-01-closures.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="ch13-03-improving-our-io-project.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="ch13-01-closures.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="ch13-03-improving-our-io-project.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="ferris-2317480c.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,529 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Praca z dowolną liczbą futures - Język programowania Rust</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="ferris-d33b75bf.css">
+        <link rel="stylesheet" href="theme/2018-edition-4e126c62.css">
+        <link rel="stylesheet" href="theme/semantic-notes-9b5766c0.css">
+        <link rel="stylesheet" href="theme/listing-cab26221.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-773dca2f.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-039e37ba.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Język programowania Rust</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/rust-lang/book" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <!-- Old headings. Do not remove or links may break. -->
+<p><a id="yielding"></a></p>
+<h3 id="przekazywanie-kontroli-do-środowiska-wykonawczego"><a class="header" href="#przekazywanie-kontroli-do-środowiska-wykonawczego">Przekazywanie kontroli do środowiska wykonawczego</a></h3>
+<p>Przypomnijmy z sekcji <a href="ch17-01-futures-and-syntax.html#our-first-async-program">„Nasz pierwszy program asynchroniczny”</a><!-- ignore -->, że w każdym punkcie <code>await</code> Rust daje środowisku wykonawczemu szansę na wstrzymanie zadania i przełączenie się na inne, jeśli oczekiwany future nie jest gotowy. Odwrotność jest również prawdziwa: Rust <em>tylko</em> wstrzymuje bloki asynchroniczne i przekazuje kontrolę środowisku wykonawczemu w punkcie <code>await</code>. Wszystko pomiędzy punktami <code>await</code> jest synchroniczne.</p>
+<p>Oznacza to, że jeśli wykonasz dużo pracy w bloku asynchronicznym bez punktu <code>await</code>, ten future zablokuje postęp innych futures. Czasami usłyszysz, że jeden future <em>zagładza</em> inne futures. W niektórych przypadkach może to nie być duży problem. Jednak jeśli wykonujesz jakąś kosztowną konfigurację lub długotrwałą pracę, albo jeśli masz future, które będzie wykonywać pewne zadanie w nieskończoność, będziesz musiał pomyśleć o tym, kiedy i gdzie przekazać kontrolę środowisku wykonawczemu.</p>
+<p>Zasymulujmy długotrwałą operację, aby zilustrować problem zagładzania, a następnie zbadajmy, jak go rozwiązać. Listing 17-14 wprowadza funkcję <code>slow</code>.</p>
+<listing number="17-14" caption="Użycie `thread::sleep` do symulacji wolnych operacji" file-name="src/main.rs">
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">extern crate trpl; // required for mdbook test
+</span><span class="boring">
+</span><span class="boring">use std::{thread, time::Duration};
+</span><span class="boring">
+</span><span class="boring">fn main() {
+</span><span class="boring">    trpl::block_on(async {
+</span><span class="boring">        // We will call `slow` here later
+</span><span class="boring">    });
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn slow(name: &amp;str, ms: u64) {
+    thread::sleep(Duration::from_millis(ms));
+    println!("'{name}' ran for {ms}ms");
+}</code></pre>
+</listing>
+<p>Ten kod używa <code>std::thread::sleep</code> zamiast <code>trpl::sleep</code>, więc wywołanie <code>slow</code> zablokuje bieżący wątek na określoną liczbę milisekund. Możemy użyć <code>slow</code> do reprezentowania rzeczywistych operacji, które są zarówno długotrwałe, jak i blokujące.</p>
+<p>W Listing 17-15 używamy <code>slow</code> do emulacji tego rodzaju pracy związanej z CPU w parze futures.</p>
+<listing number="17-15" caption="Wywoływanie funkcji `slow` w celu symulacji wolnych operacji" file-name="src/main.rs">
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">extern crate trpl; // required for mdbook test
+</span><span class="boring">
+</span><span class="boring">use std::{thread, time::Duration};
+</span><span class="boring">
+</span><span class="boring">fn main() {
+</span><span class="boring">    trpl::block_on(async {
+</span>        let a = async {
+            println!("'a' started.");
+            slow("a", 30);
+            slow("a", 10);
+            slow("a", 20);
+            trpl::sleep(Duration::from_millis(50)).await;
+            println!("'a' finished.");
+        };
+
+        let b = async {
+            println!("'b' started.");
+            slow("b", 75);
+            slow("b", 10);
+            slow("b", 15);
+            slow("b", 350);
+            trpl::sleep(Duration::from_millis(50)).await;
+            println!("'b' finished.");
+        };
+
+        trpl::select(a, b).await;
+<span class="boring">    });
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">fn slow(name: &amp;str, ms: u64) {
+</span><span class="boring">    thread::sleep(Duration::from_millis(ms));
+</span><span class="boring">    println!("'{name}' ran for {ms}ms");
+</span><span class="boring">}</span></code></pre>
+</listing>
+<p>Każdy future przekazuje kontrolę środowisku wykonawczemu dopiero <em>po</em> wykonaniu szeregu wolnych operacji. Jeśli uruchomisz ten kod, zobaczysz następujący wynik:</p>
+<!-- manual-regeneration
+cd listings/ch17-async-await/listing-17-15/
+cargo run
+copy just the output
+-->
+<pre><code class="language-text">'a' started.
+'a' ran for 30ms
+'a' ran for 10ms
+'a' ran for 20ms
+'b' started.
+'b' ran for 75ms
+'b' ran for 10ms
+'b' ran for 15ms
+'b' ran for 350ms
+'a' finished.
+</code></pre>
+<p>Podobnie jak w Listing 17-5, gdzie użyliśmy <code>trpl::select</code> do współzawodnictwa futures pobierających dwa adresy URL, <code>select</code> nadal kończy działanie, gdy tylko <code>a</code> zostanie zakończone. Nie ma jednak przeplatania między wywołaniami <code>slow</code> w dwóch futures. Future <code>a</code> wykonuje całą swoją pracę, dopóki nie zostanie oczekiwane wywołanie <code>trpl::sleep</code>, następnie future <code>b</code> wykonuje całą swoją pracę, dopóki nie zostanie oczekiwane jego własne wywołanie <code>trpl::sleep</code>, a na koniec future <code>a</code> zostaje zakończone. Aby umożliwić obu futures postęp między ich wolnymi zadaniami, potrzebujemy punktów <code>await</code>, abyśmy mogli przekazać kontrolę środowisku wykonawczemu. Oznacza to, że potrzebujemy czegoś, na co możemy czekać!</p>
+<p>Już widzimy, jak tego rodzaju przekazywanie dzieje się w Listing 17-15: gdybyśmy usunęli <code>trpl::sleep</code> na końcu future <code>a</code>, zostałoby ono zakończone bez <em>jakiegokolwiek</em> uruchomienia future <code>b</code>. Spróbujmy użyć funkcji <code>trpl::sleep</code> jako punktu wyjścia do umożliwienia operacjom przełączania się w celu osiągania postępu, jak pokazano w Listing 17-16.</p>
+<listing number="17-16" caption="Użycie `trpl::sleep` do umożliwienia operacjom przełączania się w celu osiągania postępu" file-name="src/main.rs">
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">extern crate trpl; // required for mdbook test
+</span><span class="boring">
+</span><span class="boring">use std::{thread, time::Duration};
+</span><span class="boring">
+</span><span class="boring">fn main() {
+</span><span class="boring">    trpl::block_on(async {
+</span>        let one_ms = Duration::from_millis(1);
+
+        let a = async {
+            println!("'a' started.");
+            slow("a", 30);
+            trpl::sleep(one_ms).await;
+            slow("a", 10);
+            trpl::sleep(one_ms).await;
+            slow("a", 20);
+            trpl::sleep(one_ms).await;
+            println!("'a' finished.");
+        };
+
+        let b = async {
+            println!("'b' started.");
+            slow("b", 75);
+            trpl::sleep(one_ms).await;
+            slow("b", 10);
+            trpl::sleep(one_ms).await;
+            slow("b", 15);
+            trpl::sleep(one_ms).await;
+            slow("b", 350);
+            trpl::sleep(one_ms).await;
+            println!("'b' finished.");
+        };
+<span class="boring">
+</span><span class="boring">        trpl::select(a, b).await;
+</span><span class="boring">    });
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">fn slow(name: &amp;str, ms: u64) {
+</span><span class="boring">    thread::sleep(Duration::from_millis(ms));
+</span><span class="boring">    println!("'{name}' ran for {ms}ms");
+</span><span class="boring">}</span></code></pre>
+</listing>
+<p>Dodaliśmy wywołania <code>trpl::sleep</code> z punktami <code>await</code> między każdym wywołaniem <code>slow</code>. Teraz praca obu futures jest przeplatana:</p>
+<!-- manual-regeneration
+cd listings/ch17-async-await/listing-17-16
+cargo run
+copy just the output
+-->
+<pre><code class="language-text">'a' started.
+'a' ran for 30ms
+'b' started.
+'b' ran for 75ms
+'a' ran for 10ms
+'b' ran for 10ms
+'a' ran for 20ms
+'b' ran for 15ms
+'a' finished.
+</code></pre>
+<p>Future <code>a</code> nadal działa przez chwilę, zanim przekaże kontrolę do <code>b</code>, ponieważ wywołuje <code>slow</code> przed wywołaniem <code>trpl::sleep</code>, ale potem futures zamieniają się miejscami za każdym razem, gdy jedna z nich osiąga punkt <code>await</code>. W tym przypadku zrobiliśmy to po każdym wywołaniu <code>slow</code>, ale mogliśmy podzielić pracę w sposób, który miałby dla nas największy sens.</p>
+<p>Nie chcemy jednak tutaj faktycznie <em>spać</em>: chcemy postępować tak szybko, jak to możliwe. Po prostu musimy przekazać kontrolę środowisku wykonawczemu. Możemy to zrobić bezpośrednio, używając funkcji <code>trpl::yield_now</code>. W Listing 17-17 zastępujemy wszystkie te wywołania <code>trpl::sleep</code> wywołaniami <code>trpl::yield_now</code>.</p>
+<listing number="17-17" caption="Użycie `yield_now` do umożliwienia operacjom przełączania się w celu osiągania postępu" file-name="src/main.rs">
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">extern crate trpl; // required for mdbook test
+</span><span class="boring">
+</span><span class="boring">use std::{thread, time::Duration};
+</span><span class="boring">
+</span><span class="boring">fn main() {
+</span><span class="boring">    trpl::block_on(async {
+</span>        let a = async {
+            println!("'a' started.");
+            slow("a", 30);
+            trpl::yield_now().await;
+            slow("a", 10);
+            trpl::yield_now().await;
+            slow("a", 20);
+            trpl::yield_now().await;
+            println!("'a' finished.");
+        };
+
+        let b = async {
+            println!("'b' started.");
+            slow("b", 75);
+            trpl::yield_now().await;
+            slow("b", 10);
+            trpl::yield_now().await;
+            slow("b", 15);
+            trpl::yield_now().await;
+            slow("b", 350);
+            trpl::yield_now().await;
+            println!("'b' finished.");
+        };
+<span class="boring">
+</span><span class="boring">        trpl::select(a, b).await;
+</span><span class="boring">    });
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">fn slow(name: &amp;str, ms: u64) {
+</span><span class="boring">    thread::sleep(Duration::from_millis(ms));
+</span><span class="boring">    println!("'{name}' ran for {ms}ms");
+</span><span class="boring">}</span></code></pre>
+</listing>
+<p>Ten kod jest zarówno jaśniejszy pod względem rzeczywistego zamiaru, jak i może być znacznie szybszy niż użycie <code>sleep</code>, ponieważ timery takie jak ten używany przez <code>sleep</code> często mają ograniczenia co do tego, jak granularne mogą być. Na przykład, wersja <code>sleep</code>, której używamy, zawsze będzie spać przez co najmniej milisekundę, nawet jeśli przekażemy jej <code>Duration</code> o długości jednej nanosekundy. Ponownie, nowoczesne komputery są <em>szybkie</em>: mogą zrobić wiele w ciągu jednej milisekundy!</p>
+<p>Oznacza to, że async może być użyteczne nawet dla zadań związanych z obliczeniami, w zależności od tego, co jeszcze robi twój program, ponieważ dostarcza przydatne narzędzie do strukturyzowania relacji między różnymi częściami programu (ale kosztem narzutu maszyny stanów async). Jest to forma <em>wielozadaniowości kooperacyjnej</em>, gdzie każdy future ma moc decydowania, kiedy przekaże kontrolę za pośrednictwem punktów <code>await</code>. Każdy future ponosi zatem również odpowiedzialność za unikanie zbyt długiego blokowania. W niektórych wbudowanych systemach operacyjnych opartych na Rust jest to <em>jedyny</em> rodzaj wielozadaniowości!</p>
+<p>W rzeczywistym kodzie oczywiście nie będziesz na każdej linii przeplatać wywołań funkcji z punktami <code>await</code>. Chociaż przekazywanie kontroli w ten sposób jest stosunkowo niedrogie, nie jest darmowe. W wielu przypadkach próba podziału zadania intensywnie obciążającego CPU może znacznie je spowolnić, więc czasami dla <em>ogólnej</em> wydajności lepiej jest pozwolić operacji na krótkie zablokowanie. Zawsze mierz, aby zobaczyć, gdzie są rzeczywiste wąskie gardła wydajności twojego kodu. Ważne jest jednak, aby pamiętać o podstawowej dynamice, jeśli <em>widzisz</em> dużo pracy wykonywanej szeregowo, a spodziewałeś się, że będzie ona wykonywana równolegle!</p>
+<h3 id="budowanie-własnych-abstrakcji-asynchronicznych"><a class="header" href="#budowanie-własnych-abstrakcji-asynchronicznych">Budowanie własnych abstrakcji asynchronicznych</a></h3>
+<p>Możemy również łączyć futures, aby tworzyć nowe wzorce. Na przykład możemy zbudować funkcję <code>timeout</code> z już posiadanych asynchronicznych bloków konstrukcyjnych. Kiedy skończymy, wynik będzie kolejnym blokiem konstrukcyjnym, którego moglibyśmy użyć do tworzenia jeszcze bardziej asynchronicznych abstrakcji.</p>
+<p>Listing 17-18 pokazuje, jak ten <code>timeout</code> powinien działać z wolnym future.</p>
+<listing number="17-18" caption="Użycie naszego wyobrażonego `timeout` do uruchomienia wolnej operacji z limitem czasu" file-name="src/main.rs">
+<pre><code class="language-rust ignore does_not_compile"><span class="boring">extern crate trpl; // required for mdbook test
+</span><span class="boring">
+</span><span class="boring">use std::time::Duration;
+</span><span class="boring">
+</span><span class="boring">fn main() {
+</span><span class="boring">    trpl::block_on(async {
+</span>        let slow = async {
+            trpl::sleep(Duration::from_secs(5)).await;
+            "Finally finished"
+        };
+
+        match timeout(slow, Duration::from_secs(2)).await {
+            Ok(message) =&gt; println!("Succeeded with '{message}'"),
+            Err(duration) =&gt; {
+                println!("Failed after {} seconds", duration.as_secs())
+            }
+        }
+<span class="boring">    });
+</span><span class="boring">}</span></code></pre>
+</listing>
+<p>Zaimplementujmy to! Na początek pomyślmy o API dla <code>timeout</code>:</p>
+<ul>
+<li>Musi to być funkcja asynchroniczna sama w sobie, abyśmy mogli na nią czekać (<code>await</code>).</li>
+<li>Jej pierwszy parametr powinien być futurem do uruchomienia. Możemy uczynić go generycznym, aby mógł działać z dowolnym futurem.</li>
+<li>Jej drugi parametr będzie maksymalnym czasem oczekiwania. Jeśli użyjemy <code>Duration</code>, ułatwi to przekazanie do <code>trpl::sleep</code>.</li>
+<li>Powinna zwracać <code>Result</code>. Jeśli future zakończy się pomyślnie, <code>Result</code> będzie <code>Ok</code> z wartością wyprodukowaną przez future. Jeśli limit czasu upłynie wcześniej, <code>Result</code> będzie <code>Err</code> z czasem trwania, na który timeout czekał.</li>
+</ul>
+<p>Listing 17-19 pokazuje tę deklarację.</p>
+<!-- This is not tested because it intentionally does not compile. -->
+<listing number="17-19" caption="Definiowanie sygnatury `timeout`" file-name="src/main.rs">
+<pre><code class="language-rust ignore does_not_compile"><span class="boring">extern crate trpl; // required for mdbook test
+</span><span class="boring">
+</span><span class="boring">use std::time::Duration;
+</span><span class="boring">
+</span><span class="boring">fn main() {
+</span><span class="boring">    trpl::block_on(async {
+</span><span class="boring">        let slow = async {
+</span><span class="boring">            trpl::sleep(Duration::from_secs(5)).await;
+</span><span class="boring">            "Finally finished"
+</span><span class="boring">        };
+</span><span class="boring">
+</span><span class="boring">        match timeout(slow, Duration::from_secs(2)).await {
+</span><span class="boring">            Ok(message) =&gt; println!("Succeeded with '{message}'"),
+</span><span class="boring">            Err(duration) =&gt; {
+</span><span class="boring">                println!("Failed after {} seconds", duration.as_secs())
+</span><span class="boring">            }
+</span><span class="boring">        }
+</span><span class="boring">    });
+</span><span class="boring">}
+</span><span class="boring">
+</span>async fn timeout&lt;F: Future&gt;(
+    future_to_try: F,
+    max_time: Duration,
+) -&gt; Result&lt;F::Output, Duration&gt; {
+    // Here is where our implementation will go!
+}</code></pre>
+</listing>
+<p>To spełnia nasze cele dotyczące typów. Teraz pomyślmy o <em>zachowaniu</em>, którego potrzebujemy: chcemy, aby future przekazane w tle konkurowało z czasem trwania. Możemy użyć <code>trpl::sleep</code>, aby utworzyć future timera z czasu trwania, i użyć <code>trpl::select</code>, aby uruchomić ten timer z futurem przekazanym przez wywołującego.</p>
+<p>W Listing 17-20 implementujemy <code>timeout</code> poprzez dopasowanie do wyniku oczekiwania (<code>await</code>) na <code>trpl::select</code>.</p>
+<listing number="17-20" caption="Definiowanie `timeout` za pomocą `select` i `sleep`" file-name="src/main.rs">
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">extern crate trpl; // required for mdbook test
+</span><span class="boring">
+</span><span class="boring">use std::time::Duration;
+</span><span class="boring">
+</span>use trpl::Either;
+
+// --snip--
+
+<span class="boring">fn main() {
+</span><span class="boring">    trpl::block_on(async {
+</span><span class="boring">        let slow = async {
+</span><span class="boring">            trpl::sleep(Duration::from_secs(5)).await;
+</span><span class="boring">            "Finally finished"
+</span><span class="boring">        };
+</span><span class="boring">
+</span><span class="boring">        match timeout(slow, Duration::from_secs(2)).await {
+</span><span class="boring">            Ok(message) =&gt; println!("Succeeded with '{message}'"),
+</span><span class="boring">            Err(duration) =&gt; {
+</span><span class="boring">                println!("Failed after {} seconds", duration.as_secs())
+</span><span class="boring">            }
+</span><span class="boring">        }
+</span><span class="boring">    });
+</span><span class="boring">}
+</span><span class="boring">
+</span>async fn timeout&lt;F: Future&gt;(
+    future_to_try: F,
+    max_time: Duration,
+) -&gt; Result&lt;F::Output, Duration&gt; {
+    match trpl::select(future_to_try, trpl::sleep(max_time)).await {
+        Either::Left(output) =&gt; Ok(output),
+        Either::Right(_) =&gt; Err(max_time),
+    }
+}</code></pre>
+</listing>
+<p>Implementacja <code>trpl::select</code> nie jest sprawiedliwa: zawsze odpytuje argumenty w kolejności, w jakiej zostały przekazane (inne implementacje <code>select</code> losowo wybierają, który argument odpytać jako pierwszy). W ten sposób przekazujemy <code>future_to_try</code> do <code>select</code> jako pierwszy, aby miał szansę na ukończenie, nawet jeśli <code>max_time</code> jest bardzo krótkim czasem trwania. Jeśli <code>future_to_try</code> zakończy się jako pierwszy, <code>select</code> zwróci <code>Left</code> z wynikiem z <code>future_to_try</code>. Jeśli <code>timer</code> zakończy się jako pierwszy, <code>select</code> zwróci <code>Right</code> z wynikiem timera <code>()</code>.</p>
+<p>Jeśli <code>future_to_try</code> zakończy się sukcesem i otrzymamy <code>Left(output)</code>, zwracamy <code>Ok(output)</code>. Jeśli zamiast tego upłynie czas timera uśpienia i otrzymamy <code>Right(())</code>, ignorujemy <code>()</code> za pomocą <code>_</code> i zamiast tego zwracamy <code>Err(max_time)</code>.</p>
+<p>Dzięki temu mamy działającą funkcję <code>timeout</code> zbudowaną z dwóch innych asynchronicznych pomocników. Jeśli uruchomimy nasz kod, wydrukuje on tryb awarii po upływie limitu czasu:</p>
+<pre><code class="language-text">Failed after 2 seconds
+</code></pre>
+<p>Ponieważ futures komponują się z innymi futures, możesz budować naprawdę potężne narzędzia, używając mniejszych asynchronicznych bloków konstrukcyjnych. Na przykład, możesz użyć tego samego podejścia do łączenia limitów czasu z ponownymi próbami, a z kolei używać ich z operacjami takimi jak wywołania sieciowe (takie jak te w Listing 17-5).</p>
+<p>W praktyce zazwyczaj będziesz pracować bezpośrednio z <code>async</code> i <code>await</code>, a w drugiej kolejności z funkcjami takimi jak <code>select</code> i makrami takimi jak makro <code>join!</code> do kontrolowania sposobu wykonywania zewnętrznych futures.</p>
+<p>Widzieliśmy już wiele sposobów pracy z wieloma futures jednocześnie. Następnie przyjrzymy się, jak możemy pracować z wieloma futures w sekwencji w czasie za pomocą <em>strumieni</em>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="ch17-02-concurrency-with-async.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="ch17-04-streams.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="ch17-02-concurrency-with-async.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="ch17-04-streams.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="ferris-2317480c.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

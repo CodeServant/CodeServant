@@ -1,0 +1,667 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Walidacja referencji za pomocą czasów życia - Język programowania Rust</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="ferris-d33b75bf.css">
+        <link rel="stylesheet" href="theme/2018-edition-4e126c62.css">
+        <link rel="stylesheet" href="theme/semantic-notes-9b5766c0.css">
+        <link rel="stylesheet" href="theme/listing-cab26221.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-773dca2f.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-039e37ba.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Język programowania Rust</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/rust-lang/book" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h2 id="walidacja-referencji-za-pomocą-czasów-życia"><a class="header" href="#walidacja-referencji-za-pomocą-czasów-życia">Walidacja referencji za pomocą czasów życia</a></h2>
+<p>Czasy życia to kolejny rodzaj generyków, których już używaliśmy. Zamiast zapewniać, że typ ma pożądane przez nas zachowanie, czasy życia zapewniają, że referencje są ważne tak długo, jak tego potrzebujemy.</p>
+<p>Jednym szczegółem, o którym nie rozmawialiśmy w sekcji <a href="ch04-02-references-and-borrowing.html#references-and-borrowing">„Referencje i pożyczanie”</a><!-- ignore --> w Rozdziale 4, jest to, że każda referencja w Rust ma czas życia, który jest zasięgiem, w którym ta referencja jest ważna. Przez większość czasu, czasy życia są domyślne i wnioskowane, tak jak przez większość czasu, typy są wnioskowane. Jesteśmy zobowiązani do adnotowania typów tylko wtedy, gdy możliwych jest wiele typów. W podobny sposób musimy adnotować czasy życia, gdy czasy życia referencji mogą być powiązane na kilka różnych sposobów. Rust wymaga od nas adnotowania relacji za pomocą ogólnych parametrów czasów życia, aby zapewnić, że rzeczywiste referencje używane w czasie wykonania będą z pewnością ważne.</p>
+<p>Adnotowanie czasów życia nie jest nawet koncepcją, którą posiada większość innych języków programowania, więc będzie to wydawać się nieznane. Chociaż w tym rozdziale nie omówimy czasów życia w całości, to jednak przedstawimy typowe sposoby, w jakie można napotkać składnię czasów życia, aby można było się z nią oswoić.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="preventing-dangling-references-with-lifetimes"></a></p>
+<h3 id="wiszące-referencje"><a class="header" href="#wiszące-referencje">Wiszące referencje</a></h3>
+<p>Głównym celem czasów życia jest zapobieganie wiszącym referencjom, które, gdyby były dozwolone, spowodowałyby, że program odnosiłby się do danych innych niż te, do których miał się odnosić. Rozważ program z Listingu 10-16, który ma zasięg zewnętrzny i zasięg wewnętrzny.</p>
+<listing number="10-16" caption="Próba użycia referencji, której wartość wyszła poza zasięg">
+<pre><code class="language-rust ignore does_not_compile">fn main() {
+    let r;
+
+    {
+        let x = 5;
+        r = &amp;x;
+    }
+
+    println!("r: {r}");
+}</code></pre>
+</listing>
+<blockquote>
+<p>Uwaga: Przykłady z Listingów 10-16, 10-17 i 10-23 deklarują zmienne bez nadawania im wartości początkowej, więc nazwa zmiennej istnieje w zasięgu zewnętrznym. Na pierwszy rzut oka może to wydawać się sprzeczne z tym, że Rust nie ma wartości null. Jednakże, jeśli spróbujemy użyć zmiennej przed nadaniem jej wartości, otrzymamy błąd kompilacji, co pokazuje, że Rust faktycznie nie zezwala na wartości null.</p>
+</blockquote>
+<p>Zasięg zewnętrzny deklaruje zmienną <code>r</code> bez wartości początkowej, a zasięg wewnętrzny deklaruje zmienną <code>x</code> z wartością początkową <code>5</code>. Wewnątrz zasięgu wewnętrznego próbujemy ustawić wartość <code>r</code> jako referencję do <code>x</code>. Następnie zasięg wewnętrzny kończy się, a my próbujemy wypisać wartość <code>r</code>. Ten kod nie skompiluje się, ponieważ wartość, do której odnosi się <code>r</code>, wyszła poza zasięg, zanim spróbowaliśmy jej użyć. Oto komunikat o błędzie:</p>
+<pre><code class="language-console">$ cargo run
+   Compiling chapter10 v0.1.0 (file:///projects/chapter10)
+error[E0597]: `x` does not live long enough
+ --&gt; src/main.rs:6:13
+  |
+5 |         let x = 5;
+  |             - binding `x` declared here
+6 |         r = &amp;x;
+  |             ^^ borrowed value does not live long enough
+7 |     }
+  |     - `x` dropped here while still borrowed
+8 |
+9 |     println!("r: {r}");
+  |                   - borrow later used here
+
+For more information about this error, try `rustc --explain E0597`.
+error: could not compile `chapter10` (bin "chapter10") due to 1 previous error
+</code></pre>
+<p>Komunikat o błędzie mówi, że zmienna <code>x</code> „nie żyje wystarczająco długo”. Powodem jest to, że <code>x</code> wyjdzie poza zasięg, gdy zasięg wewnętrzny zakończy się w wierszu 7. Ale <code>r</code> jest nadal ważne dla zasięgu zewnętrznego; ponieważ jego zasięg jest większy, mówimy, że „żyje dłużej”. Gdyby Rust pozwolił na działanie tego kodu, <code>r</code> odwoływałoby się do pamięci, która została zwolniona, gdy <code>x</code> wyszło poza zasięg, a wszystko, co próbowalibyśmy zrobić z <code>r</code>, nie działałoby poprawnie. Jak więc Rust ustala, że ten kod jest nieprawidłowy? Używa sprawdzacza pożyczeń.</p>
+<h3 id="sprawdzacz-pożyczeń"><a class="header" href="#sprawdzacz-pożyczeń">Sprawdzacz pożyczeń</a></h3>
+<p>Kompilator Rust posiada <em>sprawdzacz pożyczeń</em>, który porównuje zasięgi, aby określić, czy wszystkie pożyczki są ważne. Listing 10-17 przedstawia ten sam kod co Listing 10-16, ale z adnotacjami pokazującymi czasy życia zmiennych.</p>
+<listing number="10-17" caption="Adnotacje czasów życia `r` i `x`, nazwane odpowiednio `&#39;a` i `&#39;b`">
+<pre><code class="language-rust ignore does_not_compile">fn main() {
+    let r;                // ---------+-- 'a
+                          //          |
+    {                     //          |
+        let x = 5;        // -+-- 'b  |
+        r = &amp;x;           //  |       |
+    }                     // -+       |
+                          //          |
+    println!("r: {r}");   //          |
+}                         // ---------+</code></pre>
+</listing>
+<p>Tutaj oznaczyliśmy czas życia <code>r</code> jako <code>'a</code>, a czas życia <code>x</code> jako <code>'b</code>. Jak widać, wewnętrzny blok <code>'b</code> jest znacznie mniejszy niż zewnętrzny blok czasu życia <code>'a</code>. W czasie kompilacji Rust porównuje rozmiar tych dwóch czasów życia i widzi, że <code>r</code> ma czas życia <code>'a</code>, ale odnosi się do pamięci z czasem życia <code>'b</code>. Program jest odrzucany, ponieważ <code>'b</code> jest krótsze niż <code>'a</code>: podmiot referencji nie żyje tak długo, jak sama referencja.</p>
+<p>Listing 10-18 naprawia kod, tak aby nie miał wiszącej referencji i kompilował się bez żadnych błędów.</p>
+<listing number="10-18" caption="Prawidłowa referencja, ponieważ dane mają dłuższy czas życia niż referencja">
+<pre class="playground"><code class="language-rust edition2024">fn main() {
+    let x = 5;            // ----------+-- 'b
+                          //           |
+    let r = &amp;x;           // --+-- 'a  |
+                          //   |       |
+    println!("r: {r}");   //   |       |
+                          // --+       |
+}                         // ----------+</code></pre>
+</listing>
+<p>Tutaj <code>x</code> ma czas życia <code>'b</code>, który w tym przypadku jest większy niż <code>'a</code>. Oznacza to, że <code>r</code> może odwoływać się do <code>x</code>, ponieważ Rust wie, że referencja w <code>r</code> zawsze będzie ważna, dopóki <code>x</code> jest ważne.</p>
+<p>Teraz, gdy wiesz, gdzie znajdują się czasy życia referencji i jak Rust analizuje czasy życia, aby zapewnić, że referencje zawsze będą ważne, przejdźmy do ogólnych czasów życia w parametrach funkcji i wartościach zwracanych.</p>
+<h3 id="ogólne-czasy-życia-w-funkcjach"><a class="header" href="#ogólne-czasy-życia-w-funkcjach">Ogólne czasy życia w funkcjach</a></h3>
+<p>Napiszemy funkcję, która zwraca dłuższy z dwóch wycinków ciągów znaków. Funkcja ta przyjmie dwa wycinki ciągów znaków i zwróci pojedynczy wycinek ciągu znaków. Po zaimplementowaniu funkcji <code>longest</code>, kod z Listingu 10-19 powinien wypisać <code>The longest string is abcd</code>.</p>
+<listing number="10-19" file-name="src/main.rs" caption="Funkcja `main` wywołująca funkcję `longest` w celu znalezienia dłuższego z dwóch wycinków ciągów znaków">
+<pre><code class="language-rust ignore">fn main() {
+    let string1 = String::from("abcd");
+    let string2 = "xyz";
+
+    let result = longest(string1.as_str(), string2);
+    println!("The longest string is {result}");
+}</code></pre>
+</listing>
+<p>Zauważ, że chcemy, aby funkcja przyjmowała wycinki ciągów znaków, które są referencjami, a nie ciągami znaków, ponieważ nie chcemy, aby funkcja <code>longest</code> przejmowała własność swoich parametrów. Więcej informacji na temat tego, dlaczego parametry użyte w Listingu 10-19 są tymi, których chcemy, znajduje się w sekcji <a href="ch04-03-slices.html#string-slices-as-parameters">„Wycinki ciągów znaków jako parametry”</a><!-- ignore --> w Rozdziale 4.</p>
+<p>Jeśli spróbujemy zaimplementować funkcję <code>longest</code> tak, jak pokazano w Listingu 10-20, nie skompiluje się ona.</p>
+<listing number="10-20" file-name="src/main.rs" caption="Implementacja funkcji `longest`, która zwraca dłuższy z dwóch wycinków ciągów znaków, ale jeszcze się nie kompiluje">
+<pre><code class="language-rust ignore does_not_compile"><span class="boring">fn main() {
+</span><span class="boring">    let string1 = String::from("abcd");
+</span><span class="boring">    let string2 = "xyz";
+</span><span class="boring">
+</span><span class="boring">    let result = longest(string1.as_str(), string2);
+</span><span class="boring">    println!("The longest string is {result}");
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn longest(x: &amp;str, y: &amp;str) -&gt; &amp;str {
+    if x.len() &gt; y.len() { x } else { y }
+}</code></pre>
+</listing>
+<p>Zamiast tego otrzymujemy następujący błąd, który dotyczy czasów życia:</p>
+<pre><code class="language-console">$ cargo run
+   Compiling chapter10 v0.1.0 (file:///projects/chapter10)
+error[E0106]: missing lifetime specifier
+ --&gt; src/main.rs:9:33
+  |
+9 | fn longest(x: &amp;str, y: &amp;str) -&gt; &amp;str {
+  |               ----     ----     ^ expected named lifetime parameter
+  |
+  = help: this function's return type contains a borrowed value, but the signature does not say whether it is borrowed from `x` or `y`
+help: consider introducing a named lifetime parameter
+  |
+9 | fn longest&lt;'a&gt;(x: &amp;'a str, y: &amp;'a str) -&gt; &amp;'a str {
+  |           ++++     ++          ++          ++
+
+For more information about this error, try `rustc --explain E0106`.
+error: could not compile `chapter10` (bin "chapter10") due to 1 previous error
+</code></pre>
+<p>Tekst pomocy ujawnia, że typ zwracany wymaga parametru ogólnego czasu życia, ponieważ Rust nie może określić, czy zwracana referencja odnosi się do <code>x</code> czy do <code>y</code>. Tak naprawdę my też tego nie wiemy, ponieważ blok <code>if</code> w ciele tej funkcji zwraca referencję do <code>x</code>, a blok <code>else</code> zwraca referencję do <code>y</code>!</p>
+<p>Kiedy definiujemy tę funkcję, nie znamy konkretnych wartości, które zostaną do niej przekazane, więc nie wiemy, czy wykona się przypadek <code>if</code> czy <code>else</code>. Nie znamy również konkretnych czasów życia referencji, które zostaną przekazane, więc nie możemy spojrzeć na zasięgi, jak to zrobiliśmy w Listingach 10-17 i 10-18, aby określić, czy zwracana referencja będzie zawsze ważna. Sprawdzacz pożyczeń również nie może tego ustalić, ponieważ nie wie, jak czasy życia <code>x</code> i <code>y</code> odnoszą się do czasu życia wartości zwracanej. Aby naprawić ten błąd, dodamy ogólne parametry czasów życia, które zdefiniują relację między referencjami, aby sprawdzacz pożyczeń mógł przeprowadzić swoją analizę.</p>
+<h3 id="składnia-adnotacji-czasów-życia"><a class="header" href="#składnia-adnotacji-czasów-życia">Składnia adnotacji czasów życia</a></h3>
+<p>Adnotacje czasów życia nie zmieniają długości życia żadnych referencji. Raczej opisują one relacje między czasami życia wielu referencji, nie wpływając na same czasy życia. Tak jak funkcje mogą przyjmować dowolny typ, gdy sygnatura określa ogólny parametr typu, tak samo funkcje mogą przyjmować referencje z dowolnym czasem życia, określając ogólny parametr czasu życia.</p>
+<p>Adnotacje czasów życia mają nieco nietypową składnię: nazwy parametrów czasu życia muszą zaczynać się od apostrofu (<code>'</code>) i zazwyczaj są małymi literami i bardzo krótkie, podobnie jak typy ogólne. Większość ludzi używa nazwy <code>'a</code> dla pierwszej adnotacji czasu życia. Adnotacje parametrów czasu życia umieszczamy po <code>&amp;</code> referencji, używając spacji do oddzielenia adnotacji od typu referencji.</p>
+<p>Oto kilka przykładów – referencja do <code>i32</code> bez parametru czasu życia, referencja do <code>i32</code> z parametrem czasu życia o nazwie <code>'a</code>, oraz zmienna referencja do <code>i32</code>, która również ma czas życia <code>'a</code>:</p>
+<pre><code class="language-rust ignore">&amp;i32        // referencja
+&amp;'a i32     // referencja z jawnym czasem życia
+&amp;'a mut i32 // zmienna referencja z jawnym czasem życia</code></pre>
+<p>Jedna adnotacja czasu życia sama w sobie nie ma większego znaczenia, ponieważ adnotacje mają na celu poinformowanie Rust, jak ogólne parametry czasu życia wielu referencji odnoszą się do siebie. Przyjrzyjmy się, jak adnotacje czasu życia odnoszą się do siebie w kontekście funkcji <code>longest</code>.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="lifetime-annotations-in-function-signatures"></a></p>
+<h3 id="w-sygnaturach-funkcji"><a class="header" href="#w-sygnaturach-funkcji">W sygnaturach funkcji</a></h3>
+<p>Aby używać adnotacji czasów życia w sygnaturach funkcji, musimy zadeklarować ogólne parametry czasów życia w nawiasach kątowych między nazwą funkcji a listą parametrów, tak jak robiliśmy to z ogólnymi parametrami typów.</p>
+<p>Chcemy, aby sygnatura wyrażała następujące ograniczenie: zwracana referencja będzie ważna tak długo, jak długo oba parametry są ważne. Jest to relacja między czasami życia parametrów a wartością zwracaną. Nazwiemy czas życia <code>'a</code>, a następnie dodamy go do każdej referencji, jak pokazano w Listingu 10-21.</p>
+<listing number="10-21" file-name="src/main.rs" caption="Definicja funkcji `longest` określająca, że wszystkie referencje w sygnaturze muszą mieć ten sam czas życia `&#39;a`">
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span><span class="boring">    let string1 = String::from("abcd");
+</span><span class="boring">    let string2 = "xyz";
+</span><span class="boring">
+</span><span class="boring">    let result = longest(string1.as_str(), string2);
+</span><span class="boring">    println!("The longest string is {result}");
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn longest&lt;'a&gt;(x: &amp;'a str, y: &amp;'a str) -&gt; &amp;'a str {
+    if x.len() &gt; y.len() { x } else { y }
+}</code></pre>
+</listing>
+<p>Ten kod powinien się skompilować i dać pożądany rezultat, gdy użyjemy go z funkcją <code>main</code> z Listingu 10-19.</p>
+<p>Sygnatura funkcji informuje teraz Rust, że dla pewnego czasu życia <code>'a</code>, funkcja przyjmuje dwa parametry, z których oba są wycinkami ciągów znaków, które żyją co najmniej tak długo, jak czas życia <code>'a</code>. Sygnatura funkcji informuje również Rust, że wycinek ciągu znaków zwrócony z funkcji będzie żył co najmniej tak długo, jak czas życia <code>'a</code>. W praktyce oznacza to, że czas życia referencji zwróconej przez funkcję <code>longest</code> jest taki sam, jak krótszy z czasów życia wartości, do których odwołują się argumenty funkcji. Te relacje to to, czego chcemy, aby Rust używał podczas analizy tego kodu.</p>
+<p>Pamiętaj, że kiedy określamy parametry czasu życia w sygnaturze tej funkcji, nie zmieniamy czasów życia żadnych wartości przekazanych ani zwracanych. Raczej określamy, że sprawdzacz pożyczeń powinien odrzucić wszelkie wartości, które nie przestrzegają tych ograniczeń. Zauważ, że funkcja <code>longest</code> nie musi dokładnie wiedzieć, jak długo będą żyły <code>x</code> i <code>y</code>, tylko że pewien zasięg może zostać podstawiony za <code>'a</code>, który spełni tę sygnaturę.</p>
+<p>Podczas adnotowania czasów życia w funkcjach, adnotacje umieszcza się w sygnaturze funkcji, a nie w jej ciele. Adnotacje czasów życia stają się częścią kontraktu funkcji, podobnie jak typy w sygnaturze. Posiadanie sygnatur funkcji zawierających kontrakt czasów życia oznacza, że analiza wykonywana przez kompilator Rust może być prostsza. Jeśli wystąpi problem z adnotacją funkcji lub sposobem jej wywołania, błędy kompilatora mogą wskazać precyzyjniej na część naszego kodu i ograniczenia. Gdyby kompilator Rust wyciągał więcej wniosków na temat tego, jakie relacje czasów życia zamierzaliśmy, kompilator mógłby wskazać tylko na użycie naszego kodu wiele kroków od przyczyny problemu.</p>
+<p>Kiedy przekazujemy konkretne referencje do <code>longest</code>, konkretny czas życia, który jest podstawiany za <code>'a</code>, to część zasięgu <code>x</code>, która nakłada się na zasięg <code>y</code>. Innymi słowy, ogólny czas życia <code>'a</code> przyjmie konkretny czas życia, który jest równy krótszemu z czasów życia <code>x</code> i <code>y</code>. Ponieważ oznaczyliśmy zwracaną referencję tym samym parametrem czasu życia <code>'a</code>, zwracana referencja będzie również ważna przez czas trwania krótszego z czasów życia <code>x</code> i <code>y</code>.</p>
+<p>Przyjrzyjmy się, jak adnotacje czasów życia ograniczają funkcję <code>longest</code> poprzez przekazywanie referencji, które mają różne konkretne czasy życia. Listing 10-22 to prosty przykład.</p>
+<listing number="10-22" file-name="src/main.rs" caption="Używanie funkcji `longest` z referencjami do wartości `String`, które mają różne konkretne czasy życia">
+<pre class="playground"><code class="language-rust edition2024">fn main() {
+    let string1 = String::from("long string is long");
+
+    {
+        let string2 = String::from("xyz");
+        let result = longest(string1.as_str(), string2.as_str());
+        println!("The longest string is {result}");
+    }
+}
+<span class="boring">
+</span><span class="boring">fn longest&lt;'a&gt;(x: &amp;'a str, y: &amp;'a str) -&gt; &amp;'a str {
+</span><span class="boring">    if x.len() &gt; y.len() { x } else { y }
+</span><span class="boring">}</span></code></pre>
+</listing>
+<p>W tym przykładzie <code>string1</code> jest ważne do końca zewnętrznego zasięgu, <code>string2</code> jest ważne do końca wewnętrznego zasięgu, a <code>result</code> odwołuje się do czegoś, co jest ważne do końca wewnętrznego zasięgu. Uruchom ten kod, a zobaczysz, że sprawdzacz pożyczeń zatwierdza; skompiluje się i wypisze <code>The longest string is long string is long</code>.</p>
+<p>Następnie spróbujmy przykładu, który pokazuje, że czas życia referencji w <code>result</code> musi być krótszym czasem życia z dwóch argumentów. Przeniesiemy deklarację zmiennej <code>result</code> poza zasięg wewnętrzny, ale pozostawimy przypisanie wartości do zmiennej <code>result</code> wewnątrz zasięgu z <code>string2</code>. Następnie przeniesiemy <code>println!</code>, które używa <code>result</code>, poza zasięg wewnętrzny, po zakończeniu zasięgu wewnętrznego. Kod z Listingu 10-23 nie skompiluje się.</p>
+<listing number="10-23" file-name="src/main.rs" caption="Próba użycia `result` po tym, jak `string2` wyszło poza zasięg">
+<pre><code class="language-rust ignore does_not_compile">fn main() {
+    let string1 = String::from("long string is long");
+    let result;
+    {
+        let string2 = String::from("xyz");
+        result = longest(string1.as_str(), string2.as_str());
+    }
+    println!("The longest string is {result}");
+}
+<span class="boring">
+</span><span class="boring">fn longest&lt;'a&gt;(x: &amp;'a str, y: &amp;'a str) -&gt; &amp;'a str {
+</span><span class="boring">    if x.len() &gt; y.len() { x } else { y }
+</span><span class="boring">}</span></code></pre>
+</listing>
+<p>Kiedy próbujemy skompilować ten kod, otrzymujemy następujący błąd:</p>
+<pre><code class="language-console">$ cargo run
+   Compiling chapter10 v0.1.0 (file:///projects/chapter10)
+error[E0597]: `string2` does not live long enough
+ --&gt; src/main.rs:6:44
+  |
+5 |         let string2 = String::from("xyz");
+  |             ------- binding `string2` declared here
+6 |         result = longest(string1.as_str(), string2.as_str());
+  |                                            ^^^^^^^ borrowed value does not live long enough
+7 |     }
+  |     - `string2` dropped here while still borrowed
+8 |     println!("The longest string is {result}");
+  |                                      ------ borrow later used here
+
+For more information about this error, try `rustc --explain E0597`.
+error: could not compile `chapter10` (bin "chapter10") due to 1 previous error
+</code></pre>
+<p>Błąd pokazuje, że aby <code>result</code> było ważne dla instrukcji <code>println!</code>, <code>string2</code> musiałoby być ważne do końca zasięgu zewnętrznego. Rust wie o tym, ponieważ oznaczyliśmy czasy życia parametrów funkcji i wartości zwracanych, używając tego samego parametru czasu życia <code>'a</code>.</p>
+<p>Jako ludzie, możemy spojrzeć na ten kod i zobaczyć, że <code>string1</code> jest dłuższe niż <code>string2</code>, a zatem <code>result</code> będzie zawierać referencję do <code>string1</code>. Ponieważ <code>string1</code> nie wyszło jeszcze poza zasięg, referencja do <code>string1</code> będzie nadal ważna dla instrukcji <code>println!</code>. Jednak kompilator nie widzi, że referencja jest ważna w tym przypadku. Powiedzieliśmy Rust, że czas życia referencji zwróconej przez funkcję <code>longest</code> jest taki sam, jak krótszy z czasów życia referencji przekazanych. Dlatego sprawdzacz pożyczeń nie zezwala na kod z Listingu 10-23, ponieważ może on zawierać nieprawidłową referencję.</p>
+<p>Spróbuj zaprojektować więcej eksperymentów, które zmieniają wartości i czasy życia referencji przekazywanych do funkcji <code>longest</code> oraz sposób użycia zwróconej referencji. Postaw hipotezy, czy Twoje eksperymenty przejdą sprawdzacz pożyczeń, zanim skompilujesz; następnie sprawdź, czy masz rację!</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="thinking-in-terms-of-lifetimes"></a></p>
+<h3 id="relacje"><a class="header" href="#relacje">Relacje</a></h3>
+<p>Sposób, w jaki musisz określić parametry czasu życia, zależy od tego, co robi twoja funkcja. Na przykład, gdybyśmy zmienili implementację funkcji <code>longest</code> tak, aby zawsze zwracała pierwszy parametr zamiast najdłuższego wycinka ciągu znaków, nie musielibyśmy określać czasu życia dla parametru <code>y</code>. Poniższy kod skompiluje się:</p>
+<listing file-name="src/main.rs">
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span><span class="boring">    let string1 = String::from("abcd");
+</span><span class="boring">    let string2 = "efghijklmnopqrstuvwxyz";
+</span><span class="boring">
+</span><span class="boring">    let result = longest(string1.as_str(), string2);
+</span><span class="boring">    println!("The longest string is {result}");
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn longest&lt;'a&gt;(x: &amp;'a str, y: &amp;str) -&gt; &amp;'a str {
+    x
+}</code></pre>
+</listing>
+<p>Określiliśmy parametr czasu życia <code>'a</code> dla parametru <code>x</code> i typu zwracanego, ale nie dla parametru <code>y</code>, ponieważ czas życia <code>y</code> nie ma żadnego związku z czasem życia <code>x</code> ani wartością zwracaną.</p>
+<p>Podczas zwracania referencji z funkcji, parametr czasu życia dla typu zwracanego musi odpowiadać parametrowi czasu życia jednego z parametrów. Jeśli zwracana referencja <em>nie</em> odnosi się do jednego z parametrów, musi odnosić się do wartości utworzonej wewnątrz tej funkcji. Byłaby to jednak wisząca referencja, ponieważ wartość wyjdzie poza zasięg na końcu funkcji. Rozważ tę próbę implementacji funkcji <code>longest</code>, która się nie skompiluje:</p>
+<listing file-name="src/main.rs">
+<pre><code class="language-rust ignore does_not_compile"><span class="boring">fn main() {
+</span><span class="boring">    let string1 = String::from("abcd");
+</span><span class="boring">    let string2 = "xyz";
+</span><span class="boring">
+</span><span class="boring">    let result = longest(string1.as_str(), string2);
+</span><span class="boring">    println!("The longest string is {result}");
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn longest&lt;'a&gt;(x: &amp;str, y: &amp;str) -&gt; &amp;'a str {
+    let result = String::from("really long string");
+    result.as_str()
+}</code></pre>
+</listing>
+<p>Tutaj, mimo że określiliśmy parametr czasu życia <code>'a</code> dla typu zwracanego, ta implementacja nie skompiluje się, ponieważ czas życia wartości zwracanej nie jest w ogóle powiązany z czasem życia parametrów. Oto komunikat o błędzie, który otrzymujemy:</p>
+<pre><code class="language-console">$ cargo run
+   Compiling chapter10 v0.1.0 (file:///projects/chapter10)
+error[E0515]: cannot return value referencing local variable `result`
+  --&gt; src/main.rs:11:5
+   |
+11 |     result.as_str()
+   |     ------^^^^^^^^^
+   |     |
+   |     returns a value referencing data owned by the current function
+   |     `result` is borrowed here
+
+For more information about this error, try `rustc --explain E0515`.
+error: could not compile `chapter10` (bin "chapter10") due to 1 previous error
+</code></pre>
+<p>Problem polega na tym, że <code>result</code> wychodzi poza zasięg i zostaje oczyszczone na końcu funkcji <code>longest</code>. Próbujemy również zwrócić referencję do <code>result</code> z funkcji. Nie ma sposobu, abyśmy mogli określić parametry czasu życia, które zmieniłyby wiszącą referencję, a Rust nie pozwoli nam na utworzenie wiszącej referencji. W tym przypadku najlepszym rozwiązaniem byłoby zwrócenie własnego typu danych zamiast referencji, tak aby funkcja wywołująca była odpowiedzialna za oczyszczenie wartości.</p>
+<p>Ostatecznie składnia czasów życia służy do łączenia czasów życia różnych parametrów i wartości zwracanych funkcji. Po ich połączeniu Rust ma wystarczające informacje, aby zezwalać na operacje bezpieczne dla pamięci i odrzucać operacje, które mogłyby stworzyć wiszące wskaźniki lub w inny sposób naruszyć bezpieczeństwo pamięci.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="lifetime-annotations-in-struct-definitions"></a></p>
+<h3 id="w-definicjach-struktur"><a class="header" href="#w-definicjach-struktur">W definicjach struktur</a></h3>
+<p>Dotychczasowe struktury, które zdefiniowaliśmy, zawsze przechowywały typy posiadane. Możemy zdefiniować struktury, które przechowują referencje, ale w takim przypadku musielibyśmy dodać adnotację czasu życia do każdej referencji w definicji struktury. Listing 10-24 przedstawia strukturę o nazwie <code>ImportantExcerpt</code>, która przechowuje wycinek ciągu znaków.</p>
+<listing number="10-24" file-name="src/main.rs" caption="Struktura, która przechowuje referencję, wymagająca adnotacji czasu życia">
+<pre class="playground"><code class="language-rust edition2024">struct ImportantExcerpt&lt;'a&gt; {
+    part: &amp;'a str,
+}
+
+fn main() {
+    let novel = String::from("Call me Ishmael. Some years ago...");
+    let first_sentence = novel.split('.').next().unwrap();
+    let i = ImportantExcerpt {
+        part: first_sentence,
+    };
+}</code></pre>
+</listing>
+<p>Ta struktura ma jedno pole <code>part</code>, które przechowuje wycinek ciągu znaków, czyli referencję. Podobnie jak w przypadku ogólnych typów danych, nazwę ogólnego parametru czasu życia deklarujemy w nawiasach kątowych po nazwie struktury, abyśmy mogli użyć parametru czasu życia w ciele definicji struktury. Ta adnotacja oznacza, że instancja <code>ImportantExcerpt</code> nie może przeżyć referencji, którą przechowuje w swoim polu <code>part</code>.</p>
+<p>Funkcja <code>main</code> tworzy tutaj instancję struktury <code>ImportantExcerpt</code>, która przechowuje referencję do pierwszego zdania <code>String</code> będącego własnością zmiennej <code>novel</code>. Dane w <code>novel</code> istnieją przed utworzeniem instancji <code>ImportantExcerpt</code>. Ponadto <code>novel</code> nie wychodzi poza zasięg, dopóki <code>ImportantExcerpt</code> nie wyjdzie poza zasięg, więc referencja w instancji <code>ImportantExcerpt</code> jest ważna.</p>
+<h3 id="elizja-czasów-życia"><a class="header" href="#elizja-czasów-życia">Elizja czasów życia</a></h3>
+<p>Dowiedziałeś się, że każda referencja ma czas życia i że musisz określić parametry czasu życia dla funkcji lub struktur, które używają referencji. Jednak w Listingu 4-9 mieliśmy funkcję, ponownie pokazaną w Listingu 10-25, która kompilowała się bez adnotacji czasów życia.</p>
+<listing number="10-25" file-name="src/lib.rs" caption="Funkcja, którą zdefiniowaliśmy w Listingu 4-9, skompilowała się bez adnotacji czasów życia, mimo że parametr i typ zwracany są referencjami">
+<pre class="playground"><code class="language-rust edition2024">fn first_word(s: &amp;str) -&gt; &amp;str {
+    let bytes = s.as_bytes();
+
+    for (i, &amp;item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &amp;s[0..i];
+        }
+    }
+
+    &amp;s[..]
+}
+<span class="boring">
+</span><span class="boring">fn main() {
+</span><span class="boring">    let my_string = String::from("hello world");
+</span><span class="boring">
+</span><span class="boring">    // first_word works on slices of `String`s
+</span><span class="boring">    let word = first_word(&amp;my_string[..]);
+</span><span class="boring">
+</span><span class="boring">    let my_string_literal = "hello world";
+</span><span class="boring">
+</span><span class="boring">    // first_word works on slices of string literals
+</span><span class="boring">    let word = first_word(&amp;my_string_literal[..]);
+</span><span class="boring">
+</span><span class="boring">    // Because string literals *are* string slices already,
+</span><span class="boring">    // this works too, without the slice syntax!
+</span><span class="boring">    let word = first_word(my_string_literal);
+</span><span class="boring">}</span></code></pre>
+</listing>
+<p>Powodem, dla którego ta funkcja kompiluje się bez adnotacji czasów życia, jest historia: we wczesnych wersjach (przed 1.0) Rust, ten kod by się nie skompilował, ponieważ każda referencja wymagała jawnego czasu życia. W tamtym czasie sygnatura funkcji byłaby napisana tak:</p>
+<pre><code class="language-rust ignore">fn first_word&lt;'a&gt;(s: &amp;'a str) -&gt; &amp;'a str {</code></pre>
+<p>Po napisaniu dużej ilości kodu w Rust, zespół Rust odkrył, że programiści Rust wpisywali te same adnotacje czasów życia wielokrotnie w konkretnych sytuacjach. Sytuacje te były przewidywalne i postępowały zgodnie z kilkoma deterministycznymi wzorcami. Deweloperzy zaprogramowali te wzorce w kodzie kompilatora, aby sprawdzacz pożyczeń mógł wnioskować o czasach życia w tych sytuacjach i nie potrzebował jawnych adnotacji.</p>
+<p>Ten kawałek historii Rust jest istotny, ponieważ możliwe jest, że pojawi się więcej deterministycznych wzorców i zostanie dodanych do kompilatora. W przyszłości może być wymagane jeszcze mniej adnotacji czasów życia.</p>
+<p>Wzorce zaprogramowane w analizie referencji przez Rust nazywane są <em>zasadami elizji czasów życia</em>. Nie są to zasady, którymi programiści mają się kierować; to zbiór konkretnych przypadków, które kompilator weźmie pod uwagę, a jeśli twój kod pasuje do tych przypadków, nie musisz jawnie pisać czasów życia.</p>
+<p>Zasady elizji nie zapewniają pełnego wnioskowania. Jeśli po zastosowaniu zasad nadal istnieje niejasność co do czasów życia referencji, kompilator nie zgadnie, jakie powinny być czasy życia pozostałych referencji. Zamiast zgadywać, kompilator wyświetli błąd, który można rozwiązać, dodając adnotacje czasów życia.</p>
+<p>Czasy życia na parametrach funkcji lub metod nazywane są <em>czasami życia wejściowymi</em>, a czasy życia na wartościach zwracanych nazywane są <em>czasami życia wyjściowymi</em>.</p>
+<p>Kompilator używa trzech zasad, aby ustalić czasy życia referencji, gdy nie ma jawnych adnotacji. Pierwsza zasada dotyczy czasów życia wejściowych, a druga i trzecia zasada dotyczą czasów życia wyjściowych. Jeśli kompilator dojdzie do końca trzech zasad, a nadal istnieją referencje, dla których nie może ustalić czasów życia, kompilator zatrzyma się z błędem. Zasady te mają zastosowanie zarówno do definicji <code>fn</code>, jak i bloków <code>impl</code>.</p>
+<p>Pierwsza zasada mówi, że kompilator przypisuje parametr czasu życia każdemu parametrowi, który jest referencją. Innymi słowy, funkcja z jednym parametrem otrzymuje jeden parametr czasu życia: <code>fn foo&lt;'a&gt;(x: &amp;'a i32)</code>; funkcja z dwoma parametrami otrzymuje dwa oddzielne parametry czasu życia: <code>fn foo&lt;'a, 'b&gt;(x: &amp;'a i32, y: &amp;'b i32)</code>; i tak dalej.</p>
+<p>Druga zasada mówi, że jeśli istnieje dokładnie jeden parametr czasu życia wejściowego, to ten czas życia jest przypisywany do wszystkich parametrów czasu życia wyjściowego: <code>fn foo&lt;'a&gt;(x: &amp;'a i32) -&gt; &amp;'a i32</code>.</p>
+<p>Trzecia zasada mówi, że jeśli istnieje wiele parametrów czasu życia wejściowego, ale jeden z nich to <code>&amp;self</code> lub <code>&amp;mut self</code>, ponieważ jest to metoda, czas życia <code>self</code> jest przypisywany do wszystkich parametrów czasu życia wyjściowego. Ta trzecia zasada sprawia, że metody są znacznie przyjemniejsze w czytaniu i pisaniu, ponieważ potrzeba mniej symboli.</p>
+<p>Udawajmy, że jesteśmy kompilatorem. Zastosujemy te zasady, aby ustalić czasy życia referencji w sygnaturze funkcji <code>first_word</code> z Listingu 10-25. Sygnatura zaczyna się bez żadnych czasów życia przypisanych do referencji:</p>
+<pre><code class="language-rust ignore">fn first_word(s: &amp;str) -&gt; &amp;str {</code></pre>
+<p>Następnie kompilator stosuje pierwszą zasadę, która określa, że każdy parametr otrzymuje swój własny czas życia. Nazwiemy go jak zwykle <code>'a</code>, więc sygnatura wygląda teraz tak:</p>
+<pre><code class="language-rust ignore">fn first_word&lt;'a&gt;(s: &amp;'a str) -&gt; &amp;str {</code></pre>
+<p>Druga zasada ma zastosowanie, ponieważ istnieje dokładnie jeden czas życia wejściowego. Druga zasada określa, że czas życia jednego parametru wejściowego jest przypisywany do czasu życia wyjściowego, więc sygnatura wygląda teraz tak:</p>
+<pre><code class="language-rust ignore">fn first_word&lt;'a&gt;(s: &amp;'a str) -&gt; &amp;'a str {</code></pre>
+<p>Teraz wszystkie referencje w sygnaturze tej funkcji mają czasy życia, a kompilator może kontynuować swoją analizę bez potrzeby, aby programista adnotował czasy życia w sygnaturze tej funkcji.</p>
+<p>Przyjrzyjmy się innemu przykładowi, tym razem używając funkcji <code>longest</code>, która nie miała parametrów czasu życia, kiedy zaczęliśmy z nią pracować w Listingu 10-20:</p>
+<pre><code class="language-rust ignore">fn longest(x: &amp;str, y: &amp;str) -&gt; &amp;str {</code></pre>
+<p>Zastosujmy pierwszą zasadę: każdy parametr otrzymuje swój własny czas życia. Tym razem mamy dwa parametry zamiast jednego, więc mamy dwa czasy życia:</p>
+<pre><code class="language-rust ignore">fn longest&lt;'a, 'b&gt;(x: &amp;'a str, y: &amp;'b str) -&gt; &amp;str {</code></pre>
+<p>Widzisz, że druga zasada nie ma zastosowania, ponieważ istnieje więcej niż jeden czas życia wejściowego. Trzecia zasada również nie ma zastosowania, ponieważ <code>longest</code> jest funkcją, a nie metodą, więc żaden z parametrów nie jest <code>self</code>. Po przejściu przez wszystkie trzy zasady, nadal nie ustaliliśmy, jaki jest czas życia typu zwracanego. Dlatego otrzymaliśmy błąd podczas próby kompilacji kodu z Listingu 10-20: kompilator przeanalizował zasady elizji czasów życia, ale nadal nie był w stanie ustalić wszystkich czasów życia referencji w sygnaturze.</p>
+<p>Ponieważ trzecia zasada dotyczy tak naprawdę tylko sygnatur metod, przyjrzyjmy się teraz czasom życia w tym kontekście, aby zobaczyć, dlaczego trzecia zasada oznacza, że nie musimy zbyt często adnotować czasów życia w sygnaturach metod.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="lifetime-annotations-in-method-definitions"></a></p>
+<h3 id="w-definicjach-metod"><a class="header" href="#w-definicjach-metod">W definicjach metod</a></h3>
+<p>Kiedy implementujemy metody w strukturze z czasami życia, używamy tej samej składni co w przypadku ogólnych parametrów typów, jak pokazano w Listingu 10-11. Gdzie deklarujemy i używamy parametrów czasu życia, zależy od tego, czy są one związane z polami struktury, czy z parametrami metody i wartościami zwracanymi.</p>
+<p>Nazwy czasów życia dla pól struktury zawsze muszą być deklarowane po słowie kluczowym <code>impl</code>, a następnie używane po nazwie struktury, ponieważ te czasy życia są częścią typu struktury.</p>
+<p>W sygnaturach metod w bloku <code>impl</code>, referencje mogą być powiązane z czasem życia referencji w polach struktury, lub mogą być niezależne. Ponadto, zasady elizji czasów życia często powodują, że adnotacje czasów życia nie są konieczne w sygnaturach metod. Przyjrzyjmy się kilku przykładom, używając struktury <code>ImportantExcerpt</code>, którą zdefiniowaliśmy w Listingu 10-24.</p>
+<p>Najpierw użyjemy metody o nazwie <code>level</code>, której jedynym parametrem jest referencja do <code>self</code>, a zwracana wartość to <code>i32</code>, która nie jest referencją do niczego:</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">struct ImportantExcerpt&lt;'a&gt; {
+</span><span class="boring">    part: &amp;'a str,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl&lt;'a&gt; ImportantExcerpt&lt;'a&gt; {
+    fn level(&amp;self) -&gt; i32 {
+        3
+    }
+}
+<span class="boring">
+</span><span class="boring">impl&lt;'a&gt; ImportantExcerpt&lt;'a&gt; {
+</span><span class="boring">    fn announce_and_return_part(&amp;self, announcement: &amp;str) -&gt; &amp;str {
+</span><span class="boring">        println!("Attention please: {announcement}");
+</span><span class="boring">        self.part
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">fn main() {
+</span><span class="boring">    let novel = String::from("Call me Ishmael. Some years ago...");
+</span><span class="boring">    let first_sentence = novel.split('.').next().unwrap();
+</span><span class="boring">    let i = ImportantExcerpt {
+</span><span class="boring">        part: first_sentence,
+</span><span class="boring">    };
+</span><span class="boring">}</span></code></pre>
+<p>Deklaracja parametru czasu życia po <code>impl</code> i jego użycie po nazwie typu są wymagane, ale ze względu na pierwszą zasadę elizji, nie musimy adnotować czasu życia referencji do <code>self</code>.</p>
+<p>Oto przykład, w którym ma zastosowanie trzecia zasada elizji czasu życia:</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">struct ImportantExcerpt&lt;'a&gt; {
+</span><span class="boring">    part: &amp;'a str,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl&lt;'a&gt; ImportantExcerpt&lt;'a&gt; {
+</span><span class="boring">    fn level(&amp;self) -&gt; i32 {
+</span><span class="boring">        3
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl&lt;'a&gt; ImportantExcerpt&lt;'a&gt; {
+    fn announce_and_return_part(&amp;self, announcement: &amp;str) -&gt; &amp;str {
+        println!("Attention please: {announcement}");
+        self.part
+    }
+}
+<span class="boring">
+</span><span class="boring">fn main() {
+</span><span class="boring">    let novel = String::from("Call me Ishmael. Some years ago...");
+</span><span class="boring">    let first_sentence = novel.split('.').next().unwrap();
+</span><span class="boring">    let i = ImportantExcerpt {
+</span><span class="boring">        part: first_sentence,
+</span><span class="boring">    };
+</span><span class="boring">}</span></code></pre>
+<p>Istnieją dwa wejściowe czasy życia, więc Rust stosuje pierwszą zasadę elizji czasu życia i nadaje zarówno <code>&amp;self</code>, jak i <code>announcement</code> ich własne czasy życia. Następnie, ponieważ jeden z parametrów to <code>&amp;self</code>, typ zwracany otrzymuje czas życia <code>&amp;self</code>, a wszystkie czasy życia zostały uwzględnione.</p>
+<h3 id="statyczny-czas-życia"><a class="header" href="#statyczny-czas-życia">Statyczny czas życia</a></h3>
+<p>Jeden specjalny czas życia, o którym musimy porozmawiać, to <code>'static</code>, który oznacza, że dotknięta referencja <em>może</em> żyć przez cały czas trwania programu. Wszystkie literały ciągów znaków mają czas życia <code>'static</code>, który możemy adnotować w następujący sposób:</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let s: &amp;'static str = "I have a static lifetime.";
+<span class="boring">}</span></code></pre>
+<p>Tekst tego ciągu znaków jest przechowywany bezpośrednio w pliku binarnym programu, który jest zawsze dostępny. Dlatego czas życia wszystkich literałów ciągów znaków jest <code>'static</code>.</p>
+<p>Możesz zobaczyć sugestie w komunikatach o błędach, aby użyć czasu życia <code>'static</code>. Ale zanim określisz <code>'static</code> jako czas życia dla referencji, zastanów się, czy referencja, którą masz, faktycznie żyje przez cały czas trwania twojego programu i czy tego chcesz. Przez większość czasu komunikat o błędzie sugerujący czas życia <code>'static</code> wynika z próby utworzenia wiszącej referencji lub niezgodności dostępnych czasów życia. W takich przypadkach rozwiązaniem jest naprawienie tych problemów, a nie określanie czasu życia <code>'static</code>.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="generic-type-parameters-trait-bounds-and-lifetimes-together"></a></p>
+<h2 id="ogólne-parametry-typów-ograniczenia-cech-i-czasy-życia"><a class="header" href="#ogólne-parametry-typów-ograniczenia-cech-i-czasy-życia">Ogólne parametry typów, ograniczenia cech i czasy życia</a></h2>
+<p>Przyjrzyjmy się krótko składni określania ogólnych parametrów typów, ograniczeń cech i czasów życia w jednej funkcji!</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span><span class="boring">    let string1 = String::from("abcd");
+</span><span class="boring">    let string2 = "xyz";
+</span><span class="boring">
+</span><span class="boring">    let result = longest_with_an_announcement(
+</span><span class="boring">        string1.as_str(),
+</span><span class="boring">        string2,
+</span><span class="boring">        "Today is someone's birthday!",
+</span><span class="boring">    );
+</span><span class="boring">    println!("The longest string is {result}");
+</span><span class="boring">}
+</span><span class="boring">
+</span>use std::fmt::Display;
+
+fn longest_with_an_announcement&lt;'a, T&gt;(
+    x: &amp;'a str,
+    y: &amp;'a str,
+    ann: T,
+) -&gt; &amp;'a str
+where
+    T: Display,
+{
+    println!("Announcement! {ann}");
+    if x.len() &gt; y.len() { x } else { y }
+}</code></pre>
+<p>To funkcja <code>longest</code> z Listingu 10-21, która zwraca dłuższy z dwóch wycinków ciągów znaków. Ale teraz ma dodatkowy parametr o nazwie <code>ann</code> typu ogólnego <code>T</code>, który może być wypełniony dowolnym typem implementującym cechę <code>Display</code>, zgodnie z klauzulą <code>where</code>. Ten dodatkowy parametr zostanie wypisany za pomocą <code>{}</code>, dlatego konieczne jest ograniczenie cechy <code>Display</code>. Ponieważ czasy życia są rodzajem generyków, deklaracje parametru czasu życia <code>'a</code> i ogólnego parametru typu <code>T</code> znajdują się na tej samej liście w nawiasach kątowych po nazwie funkcji.</p>
+<h2 id="podsumowanie"><a class="header" href="#podsumowanie">Podsumowanie</a></h2>
+<p>W tym rozdziale omówiliśmy wiele zagadnień! Teraz, gdy znasz ogólne parametry typów, cechy i ograniczenia cech oraz ogólne parametry czasów życia, jesteś gotowy do pisania kodu bez powtórzeń, który działa w wielu różnych sytuacjach. Ogólne parametry typów pozwalają zastosować kod do różnych typów. Cechy i ograniczenia cech zapewniają, że mimo iż typy są ogólne, będą miały zachowanie, którego kod potrzebuje. Nauczyłeś się, jak używać adnotacji czasów życia, aby zapewnić, że ten elastyczny kod nie będzie miał żadnych wiszących referencji. I cała ta analiza odbywa się w czasie kompilacji, co nie wpływa na wydajność w czasie wykonania!</p>
+<p>Wierz lub nie, ale jest znacznie więcej do nauczenia się na tematy, które omówiliśmy w tym rozdziale: Rozdział 18 omawia obiekty cech, które są innym sposobem używania cech. Istnieją również bardziej złożone scenariusze związane z adnotacjami czasów życia, które będą ci potrzebne tylko w bardzo zaawansowanych przypadkach; w ich przypadku powinieneś przeczytać <a href="../reference/trait-bounds.html">Rust Reference</a>. Ale następnie dowiesz się, jak pisać testy w Rust, aby upewnić się, że twój kod działa tak, jak powinien.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="ch10-02-traits.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="ch11-00-testing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="ch10-02-traits.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="ch11-00-testing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="ferris-2317480c.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,626 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Typy danych - Język programowania Rust</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="ferris-d33b75bf.css">
+        <link rel="stylesheet" href="theme/2018-edition-4e126c62.css">
+        <link rel="stylesheet" href="theme/semantic-notes-9b5766c0.css">
+        <link rel="stylesheet" href="theme/listing-cab26221.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-773dca2f.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-039e37ba.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Język programowania Rust</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/rust-lang/book" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h2 id="typy-danych"><a class="header" href="#typy-danych">Typy danych</a></h2>
+<p>Każda wartość w Ruście ma określony <em>typ danych</em>, który informuje Rusta, jaki
+rodzaj danych jest określany, aby wiedział, jak z nimi pracować. Przyjrzymy się
+dwóm podzbiorom typów danych: skalarnym i złożonym.</p>
+<p>Pamiętaj, że Rust jest językiem <em>statycznie typowanym</em>, co oznacza, że musi
+znać typy wszystkich zmiennych w czasie kompilacji. Kompilator zazwyczaj może
+wywnioskować, jakiego typu chcemy użyć, na podstawie wartości i sposobu jej
+użycia. W przypadkach, gdy możliwych jest wiele typów, np. gdy konwertowaliśmy
+<code>String</code> na typ numeryczny za pomocą <code>parse</code> w sekcji <a href="ch02-00-guessing-game-tutorial.html#comparing-the-guess-to-the-secret-number">„Porównywanie strzału z
+tajną liczbą”</a><!-- ignore -->
+w Rozdziale 2, musimy dodać adnotację typu, taką jak ta:</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let guess: u32 = "42".parse().expect("Not a number!");
+<span class="boring">}</span></code></pre>
+<p>Jeśli nie dodamy adnotacji typu <code>: u32</code> pokazanej w poprzednim kodzie, Rust
+wyświetli następujący błąd, co oznacza, że kompilator potrzebuje od nas więcej
+informacji, aby wiedzieć, jakiego typu chcemy użyć:</p>
+<pre><code class="language-console">$ cargo build
+   Compiling no_type_annotations v0.1.0 (file:///projects/no_type_annotations)
+error[E0284]: type annotations needed
+ --&gt; src/main.rs:2:9
+  |
+2 |     let guess = "42".parse().expect("Not a number!");
+  |         ^^^^^        ----- type must be known at this point
+  |
+  = note: cannot satisfy `&lt;_ as FromStr&gt;::Err == _`
+help: consider giving `guess` an explicit type
+  |
+2 |     let guess: /* Type */ = "42".parse().expect("Not a number!");
+  |              ++++++++++++
+
+For more information about this error, try `rustc --explain E0284`.
+error: could not compile `no_type_annotations` (bin "no_type_annotations") due to 1 previous error
+</code></pre>
+<p>Zobaczysz różne adnotacje typów dla innych typów danych.</p>
+<h3 id="typy-skalarne"><a class="header" href="#typy-skalarne">Typy skalarne</a></h3>
+<p>Typ <em>skalarny</em> reprezentuje pojedynczą wartość. Rust ma cztery główne typy
+skalarne: liczby całkowite, liczby zmiennoprzecinkowe, wartości boolowskie i
+znaki. Możesz je rozpoznać z innych języków programowania. Przejdźmy do tego,
+jak działają w Rust.</p>
+<h4 id="typy-całkowite"><a class="header" href="#typy-całkowite">Typy całkowite</a></h4>
+<p><em>Liczba całkowita</em> to liczba bez części ułamkowej. Użyliśmy jednego typu
+całkowitego w Rozdziale 2, typu <code>u32</code>. Ta deklaracja typu wskazuje, że wartość,
+z którą jest skojarzona, powinna być niepodpisaną liczbą całkowitą (typy
+całkowite ze znakiem zaczynają się od <code>i</code> zamiast <code>u</code>), która zajmuje 32 bity
+pamięci. Tabela 3-1 pokazuje wbudowane typy całkowite w Rust. Możemy użyć
+dowolnego z tych wariantów do zadeklarowania typu wartości całkowitej.</p>
+<p><span class="caption">Tabela 3-1: Typy całkowite w Rust</span></p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Długość</th><th>Ze znakiem</th><th>Bez znaku</th></tr>
+</thead>
+<tbody>
+<tr><td>8-bitów</td><td><code>i8</code></td><td><code>u8</code></td></tr>
+<tr><td>16-bitów</td><td><code>i16</code></td><td><code>u16</code></td></tr>
+<tr><td>32-bitów</td><td><code>i32</code></td><td><code>u32</code></td></tr>
+<tr><td>64-bitów</td><td><code>i64</code></td><td><code>u64</code></td></tr>
+<tr><td>128-bitów</td><td><code>i128</code></td><td><code>u128</code></td></tr>
+<tr><td>Zależne od architektury</td><td><code>isize</code></td><td><code>usize</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>Każdy wariant może być ze znakiem lub bez znaku i ma wyraźny rozmiar.
+<em>Ze znakiem</em> i <em>bez znaku</em> odnoszą się do tego, czy liczba może być ujemna –
+inaczej mówiąc, czy liczba musi mieć znak (ze znakiem), czy zawsze będzie
+dodatnia i dlatego może być reprezentowana bez znaku (bez znaku). To jak
+pisanie liczb na papierze: gdy znak ma znaczenie, liczba jest pokazywana ze
+znakiem plus lub minus; jednak, gdy można bezpiecznie założyć, że liczba jest
+dodatnia, jest pokazywana bez znaku. Liczby ze znakiem są przechowywane za
+pomocą reprezentacji <a href="https://en.wikipedia.org/wiki/Two%27s_complement">dopełnienia do dwóch</a><!-- ignore -->.</p>
+<p>Każdy wariant ze znakiem może przechowywać liczby od −(2<sup>n − 1</sup>) do
+2<sup>n − 1</sup> − 1 włącznie, gdzie <em>n</em> to liczba bitów, które używa ten wariant.
+Tak więc <code>i8</code> może przechowywać liczby od −(2<sup>7</sup>) do 2<sup>7</sup> − 1,
+co równa się −128 do 127. Warianty bez znaku mogą przechowywać liczby od 0 do
+2<sup>n</sup> − 1, więc <code>u8</code> może przechowywać liczby od 0 do 2<sup>8</sup> − 1,
+co równa się 0 do 255.</p>
+<p>Dodatkowo, typy <code>isize</code> i <code>usize</code> zależą od architektury komputera, na którym
+działa Twój program: 64 bity, jeśli jesteś na architekturze 64-bitowej, i 32
+bity, jeśli jesteś na architekturze 32-bitowej.</p>
+<p>Literały całkowite można zapisywać w dowolnej z form pokazanych w tabeli 3-2.
+Zauważ, że literały liczbowe, które mogą być wieloma typami numerycznymi,
+dopuszczają sufiks typu, taki jak <code>57u8</code>, do określenia typu. Literały
+liczbowe mogą również używać <code>_</code> jako wizualnego separatora, aby ułatwić
+odczytanie liczby, np. <code>1_000</code>, która będzie miała taką samą wartość, jakbyś
+określił <code>1000</code>.</p>
+<p><span class="caption">Tabela 3-2: Literały całkowite w Rust</span></p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Literały liczbowe</th><th>Przykład</th></tr>
+</thead>
+<tbody>
+<tr><td>Dziesiętne</td><td><code>98_222</code></td></tr>
+<tr><td>Szesnastkowe</td><td><code>0xff</code></td></tr>
+<tr><td>Ósemkowe</td><td><code>0o77</code></td></tr>
+<tr><td>Binarne</td><td><code>0b1111_0000</code></td></tr>
+<tr><td>Bajtowe (tylko <code>u8</code>)</td><td><code>b'A'</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>Więc skąd wiesz, jakiego typu liczby całkowitej użyć? Jeśli nie jesteś pewien,
+domyślne ustawienia Rusta są zazwyczaj dobrym punktem wyjścia: typy całkowite
+domyślnie przyjmują <code>i32</code>. Główna sytuacja, w której użyłbyś <code>isize</code> lub
+<code>usize</code>, to indeksowanie jakiegoś rodzaju kolekcji.</p>
+<section class="note" aria-role="note">
+<h5 id="przepełnienie-liczby-całkowitej"><a class="header" href="#przepełnienie-liczby-całkowitej">Przepełnienie liczby całkowitej</a></h5>
+<p>Załóżmy, że masz zmienną typu <code>u8</code>, która może przechowywać wartości od 0 do
+255. Jeśli spróbujesz zmienić zmienną na wartość spoza tego zakresu, taką jak
+256, nastąpi <em>przepełnienie liczby całkowitej</em>, co może skutkować jednym z
+dwóch zachowań. Podczas kompilacji w trybie debugowania Rust zawiera
+sprawdzenia przepełnienia liczby całkowitej, które powodują, że program
+<em>panikuje</em> w czasie wykonywania, jeśli wystąpi takie zachowanie. Rust używa
+terminu <em>panicking</em>, gdy program kończy działanie z błędem; omówimy paniki
+bardziej szczegółowo w sekcji <a href="ch09-01-unrecoverable-errors-with-panic.html">„Błędy nie do odzyskania za pomocą
+<code>panic!</code>”</a><!-- ignore --> w Rozdziale 9.</p>
+<p>Podczas kompilacji w trybie wydania z flagą <code>--release</code>, Rust <em>nie</em> zawiera
+sprawdzeń przepełnienia liczby całkowitej, które powodują paniki. Zamiast
+tego, jeśli wystąpi przepełnienie, Rust wykonuje <em>zawijanie dopełnienia do
+dwóch</em>. Krótko mówiąc, wartości większe niż maksymalna wartość, jaką może
+przechowywać typ, „zawijają się” do minimalnej wartości, jaką może przechowywać
+typ. W przypadku <code>u8</code>, wartość 256 staje się 0, wartość 257 staje się 1 i tak
+dalej. Program nie będzie panikował, ale zmienna będzie miała wartość, która
+prawdopodobnie nie jest tym, czego się spodziewałeś. Opieranie się na zachowaniu
+zawijania przepełnienia liczby całkowitej jest uważane za błąd.</p>
+<p>Aby jawnie obsłużyć możliwość przepełnienia, możesz użyć tych rodzin metod
+dostarczanych przez standardową bibliotekę dla prymitywnych typów liczbowych:</p>
+<ul>
+<li>Zawijaj we wszystkich trybach za pomocą metod <code>wrapping_*</code>, takich jak
+<code>wrapping_add</code>.</li>
+<li>Zwracaj wartość <code>None</code>, jeśli wystąpi przepełnienie, za pomocą metod
+<code>checked_*</code>.</li>
+<li>Zwracaj wartość i wartość boolowską wskazującą, czy wystąpiło
+przepełnienie, za pomocą metod <code>overflowing_*</code>.</li>
+<li>Saturuj przy minimalnych lub maksymalnych wartościach typu za pomocą metod
+<code>saturating_*</code>.</li>
+</ul>
+</section>
+<h4 id="typy-zmiennoprzecinkowe"><a class="header" href="#typy-zmiennoprzecinkowe">Typy zmiennoprzecinkowe</a></h4>
+<p>Rust ma również dwa prymitywne typy dla <em>liczb zmiennoprzecinkowych</em>, które są
+liczbami z punktami dziesiętnymi. Typy zmiennoprzecinkowe Rusta to <code>f32</code> i <code>f64</code>,
+które mają odpowiednio 32 i 64 bity. Domyślnym typem jest <code>f64</code>, ponieważ na
+nowoczesnych procesorach ma on w przybliżeniu taką samą prędkość jak <code>f32</code>,
+ale jest w stanie zapewnić większą precyzję. Wszystkie typy zmiennoprzecinkowe
+są ze znakiem.</p>
+<p>Oto przykład, który pokazuje liczby zmiennoprzecinkowe w akcji:</p>
+<p><span class="filename">Nazwa pliku: src/main.rs</span></p>
+<pre class="playground"><code class="language-rust edition2024">fn main() {
+    let x = 2.0; // f64
+
+    let y: f32 = 3.0; // f32
+}</code></pre>
+<p>Liczby zmiennoprzecinkowe są reprezentowane zgodnie ze standardem IEEE-754.</p>
+<h4 id="operacje-numeryczne"><a class="header" href="#operacje-numeryczne">Operacje numeryczne</a></h4>
+<p>Rust obsługuje podstawowe operacje matematyczne, których można oczekiwać dla
+wszystkich typów liczbowych: dodawanie, odejmowanie, mnożenie, dzielenie i
+reszta z dzielenia. Dzielenie całkowite obcina w kierunku zera do
+najbliższej liczby całkowitej. Poniższy kod pokazuje, jak użyć każdej operacji
+numerycznej w instrukcji <code>let</code>:</p>
+<p><span class="filename">Nazwa pliku: src/main.rs</span></p>
+<pre class="playground"><code class="language-rust edition2024">fn main() {
+    // dodawanie
+    let sum = 5 + 10;
+
+    // odejmowanie
+    let difference = 95.5 - 4.3;
+
+    // mnożenie
+    let product = 4 * 30;
+
+    // dzielenie
+    let quotient = 56.7 / 32.2;
+    let truncated = -5 / 3; // Wynosi -1
+
+    // reszta z dzielenia
+    let remainder = 43 % 5;
+}</code></pre>
+<p>Każde wyrażenie w tych instrukcjach używa operatora matematycznego i ocenia
+się do pojedynczej wartości, która następnie jest wiązana ze zmienną. <a href="appendix-02-operators.html">Dodatek
+B</a><!-- ignore --> zawiera listę wszystkich operatorów,
+dostarczanych przez Rusta.</p>
+<h4 id="typ-boolowski"><a class="header" href="#typ-boolowski">Typ boolowski</a></h4>
+<p>Podobnie jak w większości innych języków programowania, typ boolowski w Rust
+ma dwie możliwe wartości: <code>true</code> i <code>false</code>. Wartości boolowskie mają rozmiar
+jednego bajta. Typ boolowski w Rust jest określany za pomocą <code>bool</code>. Na
+przykład:</p>
+<p><span class="filename">Nazwa pliku: src/main.rs</span></p>
+<pre class="playground"><code class="language-rust edition2024">fn main() {
+    let t = true;
+
+    let f: bool = false; // z jawną adnotacją typu
+}</code></pre>
+<p>Głównym sposobem używania wartości boolowskich jest poprzez warunki, takie jak
+wyrażenie <code>if</code>. Omówimy, jak działają wyrażenia <code>if</code> w Rust w sekcji <a href="ch03-05-control-flow.html#control-flow">„Sterowanie
+przepływem”</a><!-- ignore -->.</p>
+<h4 id="typ-znakowy"><a class="header" href="#typ-znakowy">Typ znakowy</a></h4>
+<p>Typ <code>char</code> w Rust jest najbardziej prymitywnym typem alfabetycznym języka.
+Oto kilka przykładów deklarowania wartości <code>char</code>:</p>
+<p><span class="filename">Nazwa pliku: src/main.rs</span></p>
+<pre class="playground"><code class="language-rust edition2024">fn main() {
+    let c = 'z';
+    let z: char = 'ℤ'; // z jawną adnotacją typu
+    let heart_eyed_cat = '😻';
+}</code></pre>
+<p>Zwróć uwagę, że literały <code>char</code> określamy pojedynczymi cudzysłowami, w
+przeciwieństwie do literałów stringowych, które używają podwójnych cudzysłowów.
+Typ <code>char</code> w Rust ma rozmiar 4 bajtów i reprezentuje skalarną wartość Unicode,
+co oznacza, że może reprezentować znacznie więcej niż tylko ASCII. Litery
+akcentowane; znaki chińskie, japońskie i koreańskie; emotikony; oraz spacje o
+zerowej szerokości są w Ruście prawidłowymi wartościami <code>char</code>. Skalarne
+wartości Unicode mieszczą się w zakresie od <code>U+0000</code> do <code>U+D7FF</code> oraz od <code>U+E000</code>
+do <code>U+10FFFF</code> włącznie. Jednak „znak” nie jest tak naprawdę koncepcją w Unicode,
+więc Twoja ludzka intuicja co do tego, czym jest „znak”, może nie pasować do
+tego, czym jest <code>char</code> w Rust. Omówimy ten temat szczegółowo w sekcji
+<a href="ch08-02-strings.html#storing-utf-8-encoded-text-with-strings">„Przechowywanie tekstu kodowanego UTF-8 za pomocą ciągów
+znaków”</a><!-- ignore --> w Rozdziale 8.</p>
+<h3 id="typy-złożone"><a class="header" href="#typy-złożone">Typy złożone</a></h3>
+<p><em>Typy złożone</em> mogą grupować wiele wartości w jeden typ. Rust ma dwa
+prymitywne typy złożone: krotki i tablice.</p>
+<h4 id="typ-krotki"><a class="header" href="#typ-krotki">Typ krotki</a></h4>
+<p><em>Krotka</em> to ogólny sposób grupowania wielu wartości o różnych typach w jeden
+typ złożony. Krotki mają stałą długość: po zadeklarowaniu nie mogą rosnąć ani
+kurczyć się.</p>
+<p>Tworzymy krotkę, pisząc listę wartości oddzielonych przecinkami w nawiasach.
+Każda pozycja w krotce ma typ, a typy różnych wartości w krotce nie muszą być
+takie same. W tym przykładzie dodaliśmy opcjonalne adnotacje typów:</p>
+<p><span class="filename">Nazwa pliku: src/main.rs</span></p>
+<pre class="playground"><code class="language-rust edition2024">fn main() {
+    let tup: (i32, f64, u8) = (500, 6.4, 1);
+}</code></pre>
+<p>Zmienna <code>tup</code> wiąże się z całą krotką, ponieważ krotka jest traktowana jako
+pojedynczy element złożony. Aby uzyskać poszczególne wartości z krotki, możemy
+użyć dopasowania wzorców do dekonstrukcji wartości krotki, w ten sposób:</p>
+<p><span class="filename">Nazwa pliku: src/main.rs</span></p>
+<pre class="playground"><code class="language-rust edition2024">fn main() {
+    let tup = (500, 6.4, 1);
+
+    let (x, y, z) = tup;
+
+    println!("The value of y is: {y}");
+}</code></pre>
+<p>Ten program najpierw tworzy krotkę i wiąże ją ze zmienną <code>tup</code>. Następnie używa
+wzorca z <code>let</code>, aby wziąć <code>tup</code> i zamienić ją w trzy oddzielne zmienne: <code>x</code>, <code>y</code>
+i <code>z</code>. Nazywa się to <em>dekonstrukcją</em>, ponieważ rozbija pojedynczą krotkę na
+trzy części. Na koniec program wypisuje wartość <code>y</code>, która wynosi <code>6.4</code>.</p>
+<p>Możemy również uzyskać dostęp do elementu krotki bezpośrednio, używając kropki
+(<code>.</code>) następującej po indeksie wartości, do której chcemy uzyskać dostęp. Na
+przykład:</p>
+<p><span class="filename">Nazwa pliku: src/main.rs</span></p>
+<pre class="playground"><code class="language-rust edition2024">fn main() {
+    let x: (i32, f64, u8) = (500, 6.4, 1);
+
+    let five_hundred = x.0;
+
+    let six_point_four = x.1;
+
+    let one = x.2;
+}</code></pre>
+<p>Ten program tworzy krotkę <code>x</code>, a następnie uzyskuje dostęp do każdego elementu
+krotki za pomocą ich odpowiednich indeksów. Podobnie jak w większości języków
+programowania, pierwszy indeks w krotce to 0.</p>
+<p>Krotka bez żadnych wartości ma specjalną nazwę, <em>jednostka</em>. Ta wartość i jej
+odpowiedni typ są zapisywane jako <code>()</code> i reprezentują pustą wartość lub pusty
+typ zwracany. Wyrażenia niejawnie zwracają wartość jednostkową, jeśli nie
+zwracają żadnej innej wartości.</p>
+<h4 id="typ-tablicowy"><a class="header" href="#typ-tablicowy">Typ tablicowy</a></h4>
+<p>Innym sposobem posiadania kolekcji wielu wartości jest <em>tablica</em>. W przeciwieństwie
+do krotki, każdy element tablicy musi mieć ten sam typ. W przeciwieństwie do
+tablic w niektórych innych językach, tablice w Rust mają stałą długość.</p>
+<p>Wartości w tablicy zapisujemy jako listę oddzieloną przecinkami w nawiasach
+kwadratowych:</p>
+<p><span class="filename">Nazwa pliku: src/main.rs</span></p>
+<pre class="playground"><code class="language-rust edition2024">fn main() {
+    let a = [1, 2, 3, 4, 5];
+}</code></pre>
+<p>Tablice są przydatne, gdy chcesz, aby dane były alokowane na stosie, tak jak
+inne typy, które widzieliśmy do tej pory, a nie na stercie (omówimy stos i
+sterę dokładniej w <a href="ch04-01-what-is-ownership.html#the-stack-and-the-heap">Rozdziale 4</a><!-- ignore -->) lub gdy
+chcesz zapewnić, że zawsze będziesz mieć stałą liczbę elementów. Tablica nie
+jest jednak tak elastyczna jak typ wektora. Wektor to podobny typ kolekcji
+dostarczany przez standardową bibliotekę, który <em>może</em> rosnąć lub kurczyć się
+w rozmiarze, ponieważ jego zawartość znajduje się na stercie. Jeśli nie masz
+pewności, czy użyć tablicy, czy wektora, prawdopodobnie powinieneś użyć wektora.
+<a href="ch08-01-vectors.html">Rozdział 8</a><!-- ignore --> omawia wektory bardziej szczegółowo.</p>
+<p>Jednak tablice są bardziej przydatne, gdy wiesz, że liczba elementów nie będzie
+musiała się zmieniać. Na przykład, jeśli używałbyś nazw miesięcy w programie,
+prawdopodobnie użyłbyś tablicy, a nie wektora, ponieważ wiesz, że zawsze będzie
+zawierać 12 elementów:</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let months = ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec",
+              "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"];
+<span class="boring">}</span></code></pre>
+<p>Typ tablicy zapisujesz, używając nawiasów kwadratowych z typem każdego
+elementu, średnika, a następnie liczby elementów w tablicy, w ten sposób:</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a: [i32; 5] = [1, 2, 3, 4, 5];
+<span class="boring">}</span></code></pre>
+<p>Tutaj <code>i32</code> jest typem każdego elementu. Po średniku liczba <code>5</code> wskazuje, że
+tablica zawiera pięć elementów.</p>
+<p>Możesz również zainicjalizować tablicę tak, aby zawierała tę samą wartość dla
+każdego elementu, określając wartość początkową, po której następuje średnik,
+a następnie długość tablicy w nawiasach kwadratowych, jak pokazano tutaj:</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a = [3; 5];
+<span class="boring">}</span></code></pre>
+<p>Tablica o nazwie <code>a</code> będzie zawierała <code>5</code> elementów, z których wszystkie
+początkowo zostaną ustawione na wartość <code>3</code>. Jest to to samo, co napisanie
+<code>let a = [3, 3, 3, 3, 3];</code>, ale w bardziej zwięzły sposób.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="accessing-array-elements"></a></p>
+<h4 id="dostęp-do-elementów-tablicy"><a class="header" href="#dostęp-do-elementów-tablicy">Dostęp do elementów tablicy</a></h4>
+<p>Tablica to pojedynczy blok pamięci o znanej, stałej wielkości, który może być
+alokowany na stosie. Możesz uzyskać dostęp do elementów tablicy za pomocą
+indeksowania, w ten sposób:</p>
+<p><span class="filename">Nazwa pliku: src/main.rs</span></p>
+<pre class="playground"><code class="language-rust edition2024">fn main() {
+    let a = [1, 2, 3, 4, 5];
+
+    let first = a[0];
+    let second = a[1];
+}</code></pre>
+<p>W tym przykładzie zmienna o nazwie <code>first</code> otrzyma wartość <code>1</code>, ponieważ jest
+to wartość pod indeksem <code>[0]</code> w tablicy. Zmienna o nazwie <code>second</code> otrzyma
+wartość <code>2</code> z indeksu <code>[1]</code> w tablicy.</p>
+<h4 id="nieprawidłowy-dostęp-do-elementów-tablicy"><a class="header" href="#nieprawidłowy-dostęp-do-elementów-tablicy">Nieprawidłowy dostęp do elementów tablicy</a></h4>
+<p>Zobaczmy, co się stanie, jeśli spróbujesz uzyskać dostęp do elementu tablicy,
+który wykracza poza jej koniec. Powiedzmy, że uruchamiasz ten kod, podobny do
+gry w zgadywanie z Rozdziału 2, aby uzyskać indeks tablicy od użytkownika:</p>
+<p><span class="filename">Nazwa pliku: src/main.rs</span></p>
+<pre><code class="language-rust ignore panics">use std::io;
+
+fn main() {
+    let a = [1, 2, 3, 4, 5];
+
+    println!("Please enter an array index.");
+
+    let mut index = String::new();
+
+    io::stdin()
+        .read_line(&amp;mut index)
+        .expect("Failed to read line");
+
+    let index: usize = index
+        .trim()
+        .parse()
+        .expect("Index entered was not a number");
+
+    let element = a[index];
+
+    println!("The value of the element at index {index} is: {element}");
+}</code></pre>
+<p>Ten kod kompiluje się pomyślnie. Jeśli uruchomisz ten kod za pomocą
+<code>cargo run</code> i wprowadzisz <code>0</code>, <code>1</code>, <code>2</code>, <code>3</code> lub <code>4</code>, program wyświetli
+odpowiednią wartość pod tym indeksem w tablicy. Jeśli zamiast tego wprowadzisz
+liczbę wykraczającą poza koniec tablicy, taką jak <code>10</code>, zobaczysz dane wyjściowe
+podobne do tego:</p>
+<!-- manual-regeneration
+cd listings/ch03-common-programming-concepts/no-listing-15-invalid-array-access
+cargo run
+10
+-->
+<pre><code class="language-console">thread 'main' panicked at src/main.rs:19:19:
+index out of bounds: the len is 5 but the index is 10
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+</code></pre>
+<p>Program spowodował błąd wykonawczy w momencie użycia nieprawidłowej wartości w
+operacji indeksowania. Program zakończył działanie z komunikatem o błędzie i
+nie wykonał końcowej instrukcji <code>println!</code>. Kiedy próbujesz uzyskać dostęp do
+elementu za pomocą indeksowania, Rust sprawdzi, czy podany indeks jest mniejszy
+niż długość tablicy. Jeśli indeks jest większy lub równy długości, Rust
+spanikuje. To sprawdzenie musi nastąpić w czasie wykonania, szczególnie w tym
+przypadku, ponieważ kompilator nie jest w stanie wiedzieć, jaką wartość
+użytkownik wprowadzi, gdy uruchomi kod później.</p>
+<p>Jest to przykład działania zasad bezpieczeństwa pamięci Rusta. W wielu
+niskopoziomowych językach ten rodzaj sprawdzenia nie jest wykonywany, a gdy
+podasz nieprawidłowy indeks, można uzyskać dostęp do nieprawidłowej pamięci.
+Rust chroni Cię przed tego rodzaju błędami, natychmiast kończąc działanie,
+zamiast pozwalać na dostęp do pamięci i kontynuować. Rozdział 9 omawia więcej
+o obsłudze błędów w Rust i o tym, jak pisać czytelny, bezpieczny kod, który ani
+nie panikuje, ani nie pozwala na dostęp do nieprawidłowej pamięci.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="ch03-01-variables-and-mutability.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="ch03-03-how-functions-work.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="ch03-01-variables-and-mutability.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="ch03-03-how-functions-work.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="ferris-2317480c.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

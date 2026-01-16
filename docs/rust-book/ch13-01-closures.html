@@ -1,0 +1,614 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Domknięcia - Język programowania Rust</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="ferris-d33b75bf.css">
+        <link rel="stylesheet" href="theme/2018-edition-4e126c62.css">
+        <link rel="stylesheet" href="theme/semantic-notes-9b5766c0.css">
+        <link rel="stylesheet" href="theme/listing-cab26221.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-773dca2f.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-039e37ba.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Język programowania Rust</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/rust-lang/book" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <!-- Old headings. Do not remove or links may break. -->
+<p><a id="closures-anonymous-functions-that-can-capture-their-environment"></a>
+<a id="closures-anonymous-functions-that-capture-their-environment"></a></p>
+<h2 id="domknięcia"><a class="header" href="#domknięcia">Domknięcia</a></h2>
+<p>Domknięcia w Rust to anonimowe funkcje, które można zapisać w zmiennej lub przekazać jako argumenty do innych funkcji. Można utworzyć domknięcie w jednym miejscu, a następnie wywołać je w innym, aby je ocenić w innym kontekście. W przeciwieństwie do funkcji, domknięcia mogą przechwytywać wartości ze środowiska, w którym są zdefiniowane. Zdemonstrujemy, jak te cechy domknięć pozwalają na ponowne użycie kodu i dostosowanie zachowania.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="creating-an-abstraction-of-behavior-with-closures"></a>
+<a id="refactoring-using-functions"></a>
+<a id="refactoring-with-closures-to-store-code"></a>
+<a id="capturing-the-environment-with-closures"></a></p>
+<h3 id="przechwytywanie-środowiska"><a class="header" href="#przechwytywanie-środowiska">Przechwytywanie środowiska</a></h3>
+<p>Najpierw zbadamy, jak możemy używać domknięć do przechwytywania wartości ze środowiska, w którym są zdefiniowane, do późniejszego użycia. Oto scenariusz: Co jakiś czas nasza firma produkująca koszulki rozdaje ekskluzywną koszulkę z limitowanej edycji osobie z naszej listy mailingowej w ramach promocji. Osoby z listy mailingowej mogą opcjonalnie dodać swój ulubiony kolor do swojego profilu. Jeśli osoba wybrana do darmowej koszulki ma ustawiony ulubiony kolor, otrzymuje koszulkę w tym kolorze. Jeśli osoba nie określiła ulubionego koloru, otrzymuje koszulkę w kolorze, którego firma ma obecnie najwięcej.</p>
+<p>Istnieje wiele sposobów na zaimplementowanie tego. W tym przykładzie użyjemy wyliczenia <code>ShirtColor</code>, które ma warianty <code>Red</code> i <code>Blue</code> (dla uproszczenia ograniczamy liczbę dostępnych kolorów). Reprezentujemy stan magazynowy firmy za pomocą struktury <code>Inventory</code>, która ma pole <code>shirts</code> zawierające <code>Vec&lt;ShirtColor&gt;</code> reprezentujące kolory koszulek aktualnie w magazynie. Metoda <code>giveaway</code> zdefiniowana dla <code>Inventory</code> pobiera opcjonalne preferencje koloru koszulki zwycięzcy darmowej koszulki i zwraca kolor koszulki, którą osoba otrzyma. Ta konfiguracja jest pokazana w Listing 13-1.</p>
+<listing number="13-1" file-name="src/main.rs" caption="Sytuacja z rozdawaniem koszulek przez firmę">
+<pre><code class="language-rust noplayground">#[derive(Debug, PartialEq, Copy, Clone)]
+enum ShirtColor {
+    Red,
+    Blue,
+}
+
+struct Inventory {
+    shirts: Vec&lt;ShirtColor&gt;,
+}
+
+impl Inventory {
+    fn giveaway(&amp;self, user_preference: Option&lt;ShirtColor&gt;) -&gt; ShirtColor {
+        user_preference.unwrap_or_else(|| self.most_stocked())
+    }
+
+    fn most_stocked(&amp;self) -&gt; ShirtColor {
+        let mut num_red = 0;
+        let mut num_blue = 0;
+
+        for color in &amp;self.shirts {
+            match color {
+                ShirtColor::Red =&gt; num_red += 1,
+                ShirtColor::Blue =&gt; num_blue += 1,
+            }
+        }
+        if num_red &gt; num_blue {
+            ShirtColor::Red
+        } else {
+            ShirtColor::Blue
+        }
+    }
+}
+
+fn main() {
+    let store = Inventory {
+        shirts: vec![ShirtColor::Blue, ShirtColor::Red, ShirtColor::Blue],
+    };
+
+    let user_pref1 = Some(ShirtColor::Red);
+    let giveaway1 = store.giveaway(user_pref1);
+    println!(
+        "Użytkownik z preferencją {:?} dostaje {:?}",
+        user_pref1, giveaway1
+    );
+
+    let user_pref2 = None;
+    let giveaway2 = store.giveaway(user_pref2);
+    println!(
+        "Użytkownik z preferencją {:?} dostaje {:?}",
+        user_pref2, giveaway2
+    );
+}</code></pre>
+</listing>
+<p><code>store</code> zdefiniowany w <code>main</code> ma dwie niebieskie i jedną czerwoną koszulkę do rozdania w ramach tej limitowanej promocji. Wywołujemy metodę <code>giveaway</code> dla użytkownika preferującego czerwoną koszulkę i dla użytkownika bez żadnych preferencji.</p>
+<p>Ponownie, ten kod mógłby być zaimplementowany na wiele sposobów, a tutaj, aby skupić się na domknięciach, trzymaliśmy się pojęć, które już znasz, z wyjątkiem ciała metody <code>giveaway</code>, która używa domknięcia. W metodzie <code>giveaway</code> otrzymujemy preferencję użytkownika jako parametr typu <code>Option&lt;ShirtColor&gt;</code> i wywołujemy metodę <code>unwrap_or_else</code> na <code>user_preference</code>. Metoda <a href="../std/option/enum.Option.html#method.unwrap_or_else"><code>unwrap_or_else</code> w <code>Option&lt;T&gt;</code></a><!-- ignore --> jest zdefiniowana przez standardową bibliotekę. Przyjmuje jeden argument: domknięcie bez żadnych argumentów, które zwraca wartość <code>T</code> (tego samego typu co przechowywany w wariancie <code>Some</code> <code>Option&lt;T&gt;</code>, w tym przypadku <code>ShirtColor</code>). Jeśli <code>Option&lt;T&gt;</code> jest wariantem <code>Some</code>, <code>unwrap_or_else</code> zwraca wartość z <code>Some</code>. Jeśli <code>Option&lt;T&gt;</code> jest wariantem <code>None</code>, <code>unwrap_or_else</code> wywołuje domknięcie i zwraca wartość zwróconą przez domknięcie.</p>
+<p>Określamy wyrażenie domknięcia <code>|| self.most_stocked()</code> jako argument dla <code>unwrap_or_else</code>. Jest to domknięcie, które samo nie przyjmuje parametrów (gdyby domknięcie miało parametry, pojawiłyby się one między dwoma pionowymi kreskami). Ciało domknięcia wywołuje <code>self.most_stocked()</code>. Definiujemy tutaj domknięcie, a implementacja <code>unwrap_or_else</code> oceni domknięcie później, jeśli wynik będzie potrzebny.</p>
+<p>Uruchomienie tego kodu wyświetli następujące informacje:</p>
+<pre><code class="language-console">$ cargo run
+   Compiling shirt-company v0.1.0 (file:///projects/shirt-company)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.27s
+     Running `target/debug/shirt-company`
+Użytkownik z preferencją Some(Red) dostaje Red
+Użytkownik z preferencją None dostaje Blue
+</code></pre>
+<p>Jednym interesującym aspektem jest to, że przekazaliśmy domknięcie, które wywołuje <code>self.most_stocked()</code> na bieżącej instancji <code>Inventory</code>. Standardowa biblioteka nie musiała wiedzieć nic o typach <code>Inventory</code> ani <code>ShirtColor</code>, które zdefiniowaliśmy, ani o logice, której chcemy użyć w tym scenariuszu. Domknięcie przechwytuje niezmienną referencję do instancji <code>self</code> <code>Inventory</code> i przekazuje ją z określonym przez nas kodem do metody <code>unwrap_or_else</code>. Funkcje natomiast nie są w stanie przechwytywać swojego środowiska w ten sposób.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="closure-type-inference-and-annotation"></a></p>
+<h3 id="wywnioskowanie-i-adnotowanie-typów-domknięć"><a class="header" href="#wywnioskowanie-i-adnotowanie-typów-domknięć">Wywnioskowanie i adnotowanie typów domknięć</a></h3>
+<p>Istnieje więcej różnic między funkcjami a domknięciami. Domknięcia zazwyczaj nie wymagają adnotowania typów parametrów ani wartości zwracanej, tak jak funkcje <code>fn</code>. Adnotacje typów są wymagane w funkcjach, ponieważ typy są częścią jawnego interfejsu udostępnianego użytkownikom. Sztywne definiowanie tego interfejsu jest ważne dla zapewnienia, że wszyscy zgadzają się co do tego, jakich typów wartości funkcja używa i zwraca. Domknięcia natomiast nie są używane w takim udostępnionym interfejsie: są przechowywane w zmiennych i używane bez nazywania ich i udostępniania użytkownikom naszej biblioteki.</p>
+<p>Domknięcia są zazwyczaj krótkie i istotne tylko w wąskim kontekście, a nie w dowolnym scenariuszu. W tych ograniczonych kontekstach kompilator może wywnioskować typy parametrów i typ zwracany, podobnie jak jest w stanie wywnioskować typy większości zmiennych (istnieją rzadkie przypadki, w których kompilator również potrzebuje adnotacji typów domknięć).</p>
+<p>Podobnie jak w przypadku zmiennych, możemy dodać adnotacje typów, jeśli chcemy zwiększyć jawność i klarowność kosztem większej szczegółowości, niż jest to ściśle konieczne. Adnotowanie typów dla domknięcia wyglądałoby jak definicja pokazana w Listing 13-2. W tym przykładzie definiujemy domknięcie i przechowujemy je w zmiennej, zamiast definiować domknięcie w miejscu, w którym przekazujemy je jako argument, jak to zrobiliśmy w Listing 13-1.</p>
+<listing number="13-2" file-name="src/main.rs" caption="Dodawanie opcjonalnych adnotacji typów parametrów i wartości zwracanych w domknięciu">
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">use std::thread;
+</span><span class="boring">use std::time::Duration;
+</span><span class="boring">
+</span><span class="boring">fn generate_workout(intensity: u32, random_number: u32) {
+</span>    let expensive_closure = |num: u32| -&gt; u32 {
+        println!("obliczanie powoli...");
+        thread::sleep(Duration::from_secs(2));
+        num
+    };
+<span class="boring">
+</span><span class="boring">    if intensity &lt; 25 {
+</span><span class="boring">        println!("Dziś, zrób {} pompek!", expensive_closure(intensity));
+</span><span class="boring">        println!("Następnie, zrób {} brzuszków!", expensive_closure(intensity));
+</span><span class="boring">    } else {
+</span><span class="boring">        if random_number == 3 {
+</span><span class="boring">            println!("Zrób sobie dziś przerwę! Pamiętaj o nawodnieniu!");
+</span><span class="boring">        } else {
+</span><span class="boring">            println!(
+</span><span class="boring">                "Dziś, biegnij przez {} minut!",
+</span><span class="boring">                expensive_closure(intensity)
+</span><span class="boring">            );
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">fn main() {
+</span><span class="boring">    let simulated_user_specified_value = 10;
+</span><span class="boring">    let simulated_random_number = 7;
+</span><span class="boring">
+</span><span class="boring">    generate_workout(simulated_user_specified_value, simulated_random_number);
+</span><span class="boring">}</span></code></pre>
+</listing>
+<p>Po dodaniu adnotacji typów składnia domknięć wygląda bardziej podobnie do składni funkcji. Tutaj definiujemy funkcję, która dodaje 1 do swojego parametru, i domknięcie, które ma takie samo zachowanie, dla porównania. Dodaliśmy kilka spacji, aby wyrównać odpowiednie części. Pokazuje to, jak składnia domknięcia jest podobna do składni funkcji, z wyjątkiem użycia pionowych kresek i ilości składni, która jest opcjonalna:</p>
+<pre><code class="language-rust ignore">fn  add_one_v1   (x: u32) -&gt; u32 { x + 1 }
+let add_one_v2 = |x: u32| -&gt; u32 { x + 1 };
+let add_one_v3 = |x|             { x + 1 };
+let add_one_v4 = |x|               x + 1  ;</code></pre>
+<p>Pierwsza linia pokazuje definicję funkcji, a druga definicję domknięcia z pełnymi adnotacjami. W trzeciej linii usuwamy adnotacje typów z definicji domknięcia. W czwartej linii usuwamy nawiasy klamrowe, które są opcjonalne, ponieważ ciało domknięcia ma tylko jedno wyrażenie. Wszystkie te definicje są poprawne i będą dawać to samo zachowanie po ich wywołaniu. Linie <code>add_one_v3</code> i <code>add_one_v4</code> wymagają oceny domknięć, aby mogły się skompilować, ponieważ typy zostaną wywnioskowane z ich użycia. Jest to podobne do <code>let v = Vec::new();</code>, które wymaga albo adnotacji typów, albo wartości jakiegoś typu do wstawienia do <code>Vec</code>, aby Rust mógł wywnioskować typ.</p>
+<p>Dla definicji domknięć kompilator wywnioskuje jeden konkretny typ dla każdego z ich parametrów i dla ich wartości zwracanej. Na przykład, Listing 13-3 pokazuje definicję krótkiego domknięcia, które po prostu zwraca wartość, którą otrzymuje jako parametr. To domknięcie nie jest zbyt użyteczne, z wyjątkiem celów tego przykładu. Zauważ, że nie dodaliśmy żadnych adnotacji typów do definicji. Ponieważ nie ma adnotacji typów, możemy wywołać domknięcie z dowolnym typem, co zrobiliśmy tutaj z <code>String</code> za pierwszym razem. Jeśli następnie spróbujemy wywołać <code>example_closure</code> z liczbą całkowitą, otrzymamy błąd.</p>
+<listing number="13-3" file-name="src/main.rs" caption="Próba wywołania domknięcia, którego typy są wywnioskowane, z dwoma różnymi typami">
+<pre><code class="language-rust ignore does_not_compile"><span class="boring">fn main() {
+</span>    let example_closure = |x| x;
+
+    let s = example_closure(String::from("hello"));
+    let n = example_closure(5);
+<span class="boring">}</span></code></pre>
+</listing>
+<p>Kompilator daje nam następujący błąd:</p>
+<pre><code class="language-console">$ cargo run
+   Compiling closure-example v0.1.0 (file:///projects/closure-example)
+error[E0308]: mismatched types
+ --&gt; src/main.rs:5:29
+  |
+5 |     let n = example_closure(5);
+  |             --------------- ^ expected `String`, found integer
+  |             |
+  |             arguments to this function are incorrect
+  |
+note: expected because the closure was earlier called with an argument of type `String`
+ --&gt; src/main.rs:4:29
+  |
+4 |     let s = example_closure(String::from("hello"));
+  |             --------------- ^^^^^^^^^^^^^^^^^^^^^ expected because this argument is of type `String`
+  |             |
+  |             in this closure call
+note: closure parameter defined here
+ --&gt; src/main.rs:2:28
+  |
+2 |     let example_closure = |x| x;
+  |                            ^
+help: try using a conversion method
+  |
+5 |     let n = example_closure(5.to_string());
+  |                              ++++++++++++
+
+For more information about this error, try `rustc --explain E0308`.
+error: could not compile `closure-example` (bin "closure-example") due to 1 previous error
+</code></pre>
+<p>Za pierwszym razem, gdy wywołujemy <code>example_closure</code> z wartością <code>String</code>, kompilator wywnioskowuje typ <code>x</code> i typ zwracany domknięcia jako <code>String</code>. Te typy są następnie zablokowane w domknięciu w <code>example_closure</code>, i otrzymujemy błąd typu, gdy następnym razem próbujemy użyć innego typu z tym samym domknięciem.</p>
+<h3 id="przechwytywanie-referencji-lub-przenoszenie-własności"><a class="header" href="#przechwytywanie-referencji-lub-przenoszenie-własności">Przechwytywanie referencji lub przenoszenie własności</a></h3>
+<p>Domknięcia mogą przechwytywać wartości ze swojego środowiska na trzy sposoby, które bezpośrednio odpowiadają trzem sposobom, w jakie funkcja może przyjąć parametr: pożyczanie niezmienne, pożyczanie zmienne i przejmowanie własności. Domknięcie zdecyduje, którego z nich użyć, w zależności od tego, co ciało funkcji robi z przechwyconymi wartościami.</p>
+<p>W Listing 13-4 definiujemy domknięcie, które przechwytuje niezmienną referencję do wektora o nazwie <code>list</code>, ponieważ potrzebuje jedynie niezmiennej referencji, aby wydrukować wartość.</p>
+<listing number="13-4" file-name="src/main.rs" caption="Definiowanie i wywoływanie domknięcia, które przechwytuje niezmienną referencję">
+<pre class="playground"><code class="language-rust edition2024">fn main() {
+    let list = vec![1, 2, 3];
+    println!("Przed zdefiniowaniem domknięcia: {list:?}");
+
+    let only_borrows = || println!("Z domknięcia: {list:?}");
+
+    println!("Przed wywołaniem domknięcia: {list:?}");
+    only_borrows();
+    println!("Po wywołaniu domknięcia: {list:?}");
+}</code></pre>
+</listing>
+<p>Ten przykład ilustruje również, że zmienna może być związana z definicją domknięcia, a później możemy wywołać domknięcie, używając nazwy zmiennej i nawiasów, tak jakby nazwa zmiennej była nazwą funkcji.</p>
+<p>Ponieważ możemy mieć jednocześnie wiele niezmiennych referencji do <code>list</code>, <code>list</code> jest nadal dostępny z kodu przed definicją domknięcia, po definicji domknięcia, ale przed wywołaniem domknięcia, i po wywołaniu domknięcia. Ten kod kompiluje się, uruchamia i drukuje:</p>
+<pre><code class="language-console">$ cargo run
+   Compiling closure-example v0.1.0 (file:///projects/closure-example)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.43s
+     Running `target/debug/closure-example`
+Przed zdefiniowaniem domknięcia: [1, 2, 3]
+Przed wywołaniem domknięcia: [1, 2, 3]
+Z domknięcia: [1, 2, 3]
+Po wywołaniu domknięcia: [1, 2, 3]
+</code></pre>
+<p>Następnie, w Listing 13-5, zmieniamy ciało domknięcia tak, aby dodawało element do wektora <code>list</code>. Domknięcie teraz przechwytuje zmienną referencję.</p>
+<listing number="13-5" file-name="src/main.rs" caption="Definiowanie i wywoływanie domknięcia, które przechwytuje zmienną referencję">
+<pre class="playground"><code class="language-rust edition2024">fn main() {
+    let mut list = vec![1, 2, 3];
+    println!("Przed zdefiniowaniem domknięcia: {list:?}");
+
+    let mut borrows_mutably = || list.push(7);
+
+    borrows_mutably();
+    println!("Po wywołaniu domknięcia: {list:?}");
+}</code></pre>
+</listing>
+<p>Ten kod kompiluje się, uruchamia i drukuje:</p>
+<pre><code class="language-console">$ cargo run
+   Compiling closure-example v0.1.0 (file:///projects/closure-example)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.43s
+     Running `target/debug/closure-example`
+Przed zdefiniowaniem domknięcia: [1, 2, 3]
+Po wywołaniu domknięcia: [1, 2, 3, 7]
+</code></pre>
+<p>Zauważ, że nie ma już <code>println!</code> między definicją a wywołaniem domknięcia <code>borrows_mutably</code>: Kiedy <code>borrows_mutably</code> jest zdefiniowane, przechwytuje zmienną referencję do <code>list</code>. Nie używamy domknięcia ponownie po jego wywołaniu, więc zmienna pożyczka się kończy. Między definicją domknięcia a wywołaniem domknięcia, niezmienna pożyczka do wydrukowania nie jest dozwolona, ponieważ żadne inne pożyczki nie są dozwolone, gdy istnieje zmienna pożyczka. Spróbuj dodać tam <code>println!</code>, aby zobaczyć, jaki komunikat o błędzie otrzymasz!</p>
+<p>Jeśli chcesz wymusić na domknięciu przejęcie własności wartości, których używa w środowisku, mimo że ciało domknięcia nie potrzebuje ściśle własności, możesz użyć słowa kluczowego <code>move</code> przed listą parametrów.</p>
+<p>Ta technika jest najbardziej użyteczna, gdy przekazujemy domknięcie do nowego wątku, aby przenieść dane, tak aby nowy wątek był ich właścicielem. Szczegółowo omówimy wątki i dlaczego warto ich używać w Rozdziale 16, kiedy będziemy mówić o współbieżności, ale na razie przyjrzyjmy się krótko tworzeniu nowego wątku za pomocą domknięcia, które wymaga słowa kluczowego <code>move</code>. Listing 13-6 pokazuje Listing 13-4 zmodyfikowany tak, aby drukował wektor w nowym wątku, a nie w wątku głównym.</p>
+<listing number="13-6" file-name="src/main.rs" caption="Używanie `move` do wymuszenia na domknięciu dla wątku przejęcia własności `list`">
+<pre class="playground"><code class="language-rust edition2024">use std::thread;
+
+fn main() {
+    let list = vec![1, 2, 3];
+    println!("Przed zdefiniowaniem domknięcia: {list:?}");
+
+    thread::spawn(move || println!("Z wątku: {list:?}"))
+        .join()
+        .unwrap();
+}</code></pre>
+</listing>
+<p>Tworzymy nowy wątek, przekazując mu domknięcie do uruchomienia jako argument. Ciało domknięcia wypisuje listę. W Listing 13-4 domknięcie przechwytywało <code>list</code> tylko za pomocą niezmiennej referencji, ponieważ to jest minimalny dostęp do <code>list</code> potrzebny do jego wydrukowania. W tym przykładzie, mimo że ciało domknięcia nadal potrzebuje tylko niezmiennej referencji, musimy określić, że <code>list</code> powinno zostać przeniesione do domknięcia, umieszczając słowo kluczowe <code>move</code> na początku definicji domknięcia. Gdyby wątek główny wykonywał więcej operacji przed wywołaniem <code>join</code> na nowym wątku, nowy wątek mógłby zakończyć się przed zakończeniem reszty wątku głównego, lub wątek główny mógłby zakończyć się pierwszy. Gdyby wątek główny zachował własność <code>list</code>, ale zakończył się przed nowym wątkiem i upuścił <code>list</code>, niezmienna referencja w wątku byłaby nieważna. Dlatego kompilator wymaga przeniesienia <code>list</code> do domknięcia przekazanego nowemu wątkowi, aby referencja była ważna. Spróbuj usunąć słowo kluczowe <code>move</code> lub użyć <code>list</code> w wątku głównym po zdefiniowaniu domknięcia, aby zobaczyć, jakie błędy kompilatora otrzymasz!</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="storing-closures-using-generic-parameters-and-the-fn-traits"></a>
+<a id="limitations-of-the-cacher-implementation"></a>
+<a id="moving-captured-values-out-of-the-closure-and-the-fn-traits"></a>
+<a id="moving-captured-values-out-of-closures-and-the-fn-traits"></a></p>
+<h3 id="przenoszenie-przechwyconych-wartości-poza-domknięcia"><a class="header" href="#przenoszenie-przechwyconych-wartości-poza-domknięcia">Przenoszenie przechwyconych wartości poza domknięcia</a></h3>
+<p>Gdy domknięcie przechwyci referencję lub własność wartości ze środowiska, w którym jest zdefiniowane (wpływając tym samym na to, co, jeśli w ogóle, jest przenoszone <em>do</em> domknięcia), kod w ciele domknięcia określa, co dzieje się z referencjami lub wartościami, gdy domknięcie jest później oceniane (wpływając tym samym na to, co, jeśli w ogóle, jest przenoszone <em>z</em> domknięcia).</p>
+<p>Ciało domknięcia może wykonać dowolne z następujących czynności: przenieść przechwyconą wartość poza domknięcie, zmutować przechwyconą wartość, ani nie przenieść, ani nie zmutować wartości, lub w ogóle nic nie przechwycić ze środowiska.</p>
+<p>Sposób, w jaki domknięcie przechwytuje i obsługuje wartości ze środowiska, wpływa na to, które cechy domknięcie implementuje, a cechy to sposób, w jaki funkcje i struktury mogą określać, jakich rodzajów domknięć mogą używać. Domknięcia automatycznie zaimplementują jedną, dwie lub wszystkie trzy z tych cech <code>Fn</code>, w sposób addytywny, w zależności od tego, jak ciało domknięcia obsługuje wartości:</p>
+<ul>
+<li><code>FnOnce</code> dotyczy domknięć, które można wywołać raz. Wszystkie domknięcia implementują co najmniej tę cechę, ponieważ wszystkie domknięcia można wywołać. Domknięcie, które przenosi przechwycone wartości ze swojego ciała, zaimplementuje tylko <code>FnOnce</code> i żadnych innych cech <code>Fn</code>, ponieważ można je wywołać tylko raz.</li>
+<li><code>FnMut</code> dotyczy domknięć, które nie przenoszą przechwyconych wartości ze swojego ciała, ale mogą mutować przechwycone wartości. Te domknięcia można wywołać więcej niż raz.</li>
+<li><code>Fn</code> dotyczy domknięć, które nie przenoszą przechwyconych wartości ze swojego ciała i nie mutują przechwyconych wartości, a także domknięć, które nic nie przechwytują ze swojego środowiska. Te domknięcia można wywołać więcej niż raz bez mutowania ich środowiska, co jest ważne w przypadkach takich jak wielokrotne wywoływanie domknięcia współbieżnie.</li>
+</ul>
+<p>Przyjrzyjmy się definicji metody <code>unwrap_or_else</code> na <code>Option&lt;T&gt;</code>, której użyliśmy w Listing 13-1:</p>
+<pre><code class="language-rust ignore">impl&lt;T&gt; Option&lt;T&gt; {
+    pub fn unwrap_or_else&lt;F&gt;(self, f: F) -&gt; T
+    where
+        F: FnOnce() -&gt; T
+    {
+        match self {
+            Some(x) =&gt; x,
+            None =&gt; f(),
+        }
+    }
+}</code></pre>
+<p>Pamiętaj, że <code>T</code> to typ ogólny reprezentujący typ wartości w wariancie <code>Some</code> <code>Option</code>. Ten typ <code>T</code> jest również typem zwracanym przez funkcję <code>unwrap_or_else</code>: kod, który wywołuje <code>unwrap_or_else</code> na <code>Option&lt;String&gt;</code>, na przykład, otrzyma <code>String</code>.</p>
+<p>Następnie, zauważ, że funkcja <code>unwrap_or_else</code> ma dodatkowy generyczny parametr typu <code>F</code>. Typ <code>F</code> to typ parametru o nazwie <code>f</code>, czyli domknięcia, które dostarczamy podczas wywoływania <code>unwrap_or_else</code>.</p>
+<p>Ograniczenie cechy określone dla typu generycznego <code>F</code> to <code>FnOnce() -&gt; T</code>, co oznacza, że <code>F</code> musi być wywoływalne raz, nie przyjmować żadnych argumentów i zwracać <code>T</code>. Użycie <code>FnOnce</code> w ograniczeniu cechy wyraża ograniczenie, że <code>unwrap_or_else</code> nie wywoła <code>f</code> więcej niż raz. W ciele <code>unwrap_or_else</code> widzimy, że jeśli <code>Option</code> jest <code>Some</code>, <code>f</code> nie zostanie wywołane. Jeśli <code>Option</code> jest <code>None</code>, <code>f</code> zostanie wywołane raz. Ponieważ wszystkie domknięcia implementują <code>FnOnce</code>, <code>unwrap_or_else</code> akceptuje wszystkie trzy rodzaje domknięć i jest tak elastyczne, jak to tylko możliwe.</p>
+<blockquote>
+<p>Uwaga: Jeśli to, co chcemy zrobić, nie wymaga przechwytywania wartości ze środowiska, możemy użyć nazwy funkcji zamiast domknięcia tam, gdzie potrzebujemy czegoś, co implementuje jedną z cech <code>Fn</code>. Na przykład, na wartości <code>Option&lt;Vec&lt;T&gt;&gt;</code> moglibyśmy wywołać <code>unwrap_or_else(Vec::new)</code>, aby otrzymać nowy, pusty wektor, jeśli wartość to <code>None</code>. Kompilator automatycznie implementuje dowolną z cech <code>Fn</code>, która jest odpowiednia dla definicji funkcji.</p>
+</blockquote>
+<p>Teraz przyjrzyjmy się metodzie <code>sort_by_key</code> ze standardowej biblioteki, zdefiniowanej dla wycinków, aby zobaczyć, jak różni się ona od <code>unwrap_or_else</code> i dlaczego <code>sort_by_key</code> używa <code>FnMut</code> zamiast <code>FnOnce</code> dla ograniczenia cechy. Domknięcie otrzymuje jeden argument w postaci referencji do bieżącego elementu w rozpatrywanym wycinku i zwraca wartość typu <code>K</code>, którą można posortować. Ta funkcja jest przydatna, gdy chcesz posortować wycinek według określonego atrybutu każdego elementu. W Listing 13-7 mamy listę instancji <code>Rectangle</code> i używamy <code>sort_by_key</code> do uporządkowania ich według atrybutu <code>width</code> od najmniejszego do największego.</p>
+<listing number="13-7" file-name="src/main.rs" caption="Używanie `sort_by_key` do porządkowania prostokątów według szerokości">
+<pre class="playground"><code class="language-rust edition2024">#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+fn main() {
+    let mut list = [
+        Rectangle { width: 10, height: 1 },
+        Rectangle { width: 3, height: 5 },
+        Rectangle { width: 7, height: 12 },
+    ];
+
+    list.sort_by_key(|r| r.width);
+    println!("{list:#?}");
+}</code></pre>
+</listing>
+<p>Ten kod drukuje:</p>
+<pre><code class="language-console">$ cargo run
+   Compiling rectangles v0.1.0 (file:///projects/rectangles)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.41s
+     Running `target/debug/rectangles`
+[
+    Rectangle {
+        width: 3,
+        height: 5,
+    },
+    Rectangle {
+        width: 7,
+        height: 12,
+    },
+    Rectangle {
+        width: 10,
+        height: 1,
+    },
+]
+</code></pre>
+<p>Powodem, dla którego <code>sort_by_key</code> jest zdefiniowany tak, aby przyjmować domknięcie <code>FnMut</code>, jest to, że wywołuje ono domknięcie wielokrotnie: raz dla każdego elementu w wycinku. Domknięcie <code>|r| r.width</code> nie przechwytuje, nie mutuje ani nie przenosi niczego ze swojego środowiska, więc spełnia wymagania ograniczenia cechy.</p>
+<p>Natomiast Listing 13-8 przedstawia przykład domknięcia, które implementuje tylko cechę <code>FnOnce</code>, ponieważ przenosi wartość ze środowiska. Kompilator nie pozwoli nam użyć tego domknięcia z <code>sort_by_key</code>.</p>
+<listing number="13-8" file-name="src/main.rs" caption="Próba użycia domknięcia `FnOnce` z `sort_by_key`">
+<pre><code class="language-rust ignore does_not_compile">#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+fn main() {
+    let mut list = [
+        Rectangle { width: 10, height: 1 },
+        Rectangle { width: 3, height: 5 },
+        Rectangle { width: 7, height: 12 },
+    ];
+
+    let mut sort_operations = vec![];
+    let value = String::from("closure called");
+
+    list.sort_by_key(|r| {
+        sort_operations.push(value);
+        r.width
+    });
+    println!("{list:#?}");
+}</code></pre>
+</listing>
+<p>To jest wymyślny, skomplikowany sposób (który nie działa) na próbę zliczenia, ile razy <code>sort_by_key</code> wywołuje domknięcie podczas sortowania <code>list</code>. Ten kod próbuje to zrobić, wpychając <code>value</code> – <code>String</code> ze środowiska domknięcia – do wektora <code>sort_operations</code>. Domknięcie przechwytuje <code>value</code>, a następnie przenosi <code>value</code> poza domknięcie, przekazując własność <code>value</code> do wektora <code>sort_operations</code>. To domknięcie można wywołać raz; próba wywołania go po raz drugi nie zadziała, ponieważ <code>value</code> nie byłoby już w środowisku, aby ponownie wpychać je do <code>sort_operations</code>! Dlatego to domknięcie implementuje tylko <code>FnOnce</code>. Kiedy próbujemy skompilować ten kod, otrzymujemy następujący błąd, że <code>value</code> nie może zostać przeniesione poza domknięcie, ponieważ domknięcie musi implementować <code>FnMut</code>:</p>
+<pre><code class="language-console">$ cargo run
+   Compiling rectangles v0.1.0 (file:///projects/rectangles)
+error[E0507]: cannot move out of `value`, a captured variable in an `FnMut` closure
+  --&gt; src/main.rs:18:30
+   |
+15 |     let value = String::from("closure called");
+   |         -----   ------------------------------ move occurs because `value` has type `String`, which does not implement the `Copy` trait
+   |         |
+   |         captured outer variable
+16 |
+17 |     list.sort_by_key(|r| {
+   |                      --- captured by this `FnMut` closure
+18 |         sort_operations.push(value);
+   |                              ^^^^^ `value` is moved here
+   |
+help: consider cloning the value if the performance cost is acceptable
+   |
+18 |         sort_operations.push(value.clone());
+   |                                   ++++++++
+
+For more information about this error, try `rustc --explain E0507`.
+error: could not compile `rectangles` (bin "rectangles") due to 1 previous error
+</code></pre>
+<p>Błąd wskazuje na linię w ciele domknięcia, która przenosi <code>value</code> poza środowisko. Aby to naprawić, musimy zmienić ciało domknięcia tak, aby nie przenosiło wartości poza środowisko. Utrzymywanie licznika w środowisku i inkrementowanie jego wartości w ciele domknięcia jest prostszym sposobem na zliczanie, ile razy domknięcie jest wywoływane. Domknięcie w Listing 13-9 działa z <code>sort_by_key</code>, ponieważ przechwytuje tylko zmienną referencję do licznika <code>num_sort_operations</code> i dlatego może być wywoływane więcej niż raz.</p>
+<listing number="13-9" file-name="src/main.rs" caption="Używanie domknięcia `FnMut` z `sort_by_key` jest dozwolone.">
+<pre class="playground"><code class="language-rust edition2024">#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+fn main() {
+    let mut list = [
+        Rectangle { width: 10, height: 1 },
+        Rectangle { width: 3, height: 5 },
+        Rectangle { width: 7, height: 12 },
+    ];
+
+    let mut num_sort_operations = 0;
+    list.sort_by_key(|r| {
+        num_sort_operations += 1;
+        r.width
+    });
+    println!("{list:#?}, posortowane w {num_sort_operations} operacjach");
+}</code></pre>
+</listing>
+<p>Cechy <code>Fn</code> są ważne podczas definiowania lub używania funkcji lub typów, które wykorzystują domknięcia. W następnej sekcji omówimy iteratory. Wiele metod iteratora przyjmuje argumenty domknięcia, więc pamiętaj o tych szczegółach domknięć, kontynuując!</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="ch13-00-functional-features.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="ch13-02-iterators.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="ch13-00-functional-features.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="ch13-02-iterators.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="ferris-2317480c.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

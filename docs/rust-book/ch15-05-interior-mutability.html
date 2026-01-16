@@ -1,0 +1,859 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>&#x60;RefCell&lt;T&gt;&#x60; i wzorzec mutowalności wewnętrznej - Język programowania Rust</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="ferris-d33b75bf.css">
+        <link rel="stylesheet" href="theme/2018-edition-4e126c62.css">
+        <link rel="stylesheet" href="theme/semantic-notes-9b5766c0.css">
+        <link rel="stylesheet" href="theme/listing-cab26221.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-773dca2f.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-039e37ba.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Język programowania Rust</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/rust-lang/book" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h2 id="refcellt-i-wzorzec-mutowalności-wewnętrznej"><a class="header" href="#refcellt-i-wzorzec-mutowalności-wewnętrznej"><code>RefCell&lt;T&gt;</code> i wzorzec mutowalności wewnętrznej</a></h2>
+<p><em>Mutowalność wewnętrzna</em> to wzorzec projektowy w Rust, który pozwala na
+modyfikowanie danych nawet wtedy, gdy istnieją do nich niemutowalne referencje;
+zazwyczaj takie działanie jest zabronione przez zasady pożyczania. Aby
+modyfikować dane, wzorzec ten używa kodu <code>unsafe</code> wewnątrz struktury danych,
+aby naginać zwykłe zasady Rust dotyczące mutowalności i pożyczania. Kod
+niebezpieczny wskazuje kompilatorowi, że ręcznie sprawdzamy zasady, zamiast
+polegać na tym, że kompilator sprawdzi je za nas; o kodzie niebezpiecznym
+będziemy rozmawiać szerzej w Rozdziale 20.</p>
+<p>Typy używające wzorca mutowalności wewnętrznej możemy stosować tylko wtedy,
+gdy jesteśmy pewni, że zasady pożyczania będą przestrzegane w czasie
+wykonania, mimo że kompilator nie może tego zagwarantować. Kod <code>unsafe</code> jest
+wtedy opakowany w bezpieczne API, a typ zewnętrzny nadal pozostaje
+iemutowalny.</p>
+<p>Przyjrzyjmy się tej koncepcji, badając typ <code>RefCell&lt;T&gt;</code>, który stosuje wzorzec
+mutowalności wewnętrznej.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="enforcing-borrowing-rules-at-runtime-with-refcellt"></a></p>
+<h3 id="egzekwowanie-zasad-pożyczania-w-czasie-wykonania"><a class="header" href="#egzekwowanie-zasad-pożyczania-w-czasie-wykonania">Egzekwowanie zasad pożyczania w czasie wykonania</a></h3>
+<p>W przeciwieństwie do <code>Rc&lt;T&gt;</code>, typ <code>RefCell&lt;T&gt;</code> reprezentuje pojedynczą własność
+danych, które przechowuje. Co zatem odróżnia <code>RefCell&lt;T&gt;</code> od typu takiego jak
+<code>Box&lt;T&gt;</code>? Przypomnij sobie zasady pożyczania, których nauczyłeś się w Rozdziale 4:</p>
+<ul>
+<li>W dowolnym momencie możesz mieć <em>albo</em> jedną mutowalną referencję, <em>albo</em> dowolną
+liczbę niemutowalnych referencji (ale nie obie naraz).</li>
+<li>Referencje muszą być zawsze prawidłowe.</li>
+</ul>
+<p>W przypadku referencji i <code>Box&lt;T&gt;</code>, niezmienniki zasad pożyczania są
+egzekwowane w czasie kompilacji. W przypadku <code>RefCell&lt;T&gt;</code> te niezmienniki są
+egzekwowane <em>w czasie wykonania</em>. W przypadku referencji, jeśli naruszysz te
+zasady, otrzymasz błąd kompilacji. W przypadku <code>RefCell&lt;T&gt;</code>, jeśli naruszysz
+te zasady, Twój program zostanie przerwany (<code>panic</code>) i zakończy działanie.</p>
+<p>Zaletami sprawdzania zasad pożyczania w czasie kompilacji są to, że błędy
+zostaną wykryte wcześniej w procesie rozwoju, a także brak wpływu na wydajność
+w czasie wykonania, ponieważ cała analiza jest zakończona wcześniej. Z tych
+powodów sprawdzanie zasad pożyczania w czasie kompilacji jest najlepszym
+wyborem w większości przypadków, dlatego jest to domyślne zachowanie Rust.</p>
+<p>Zaletą sprawdzania zasad pożyczania w czasie wykonania jest to, że pozwala to
+na pewne scenariusze bezpieczne pod względem pamięci, które zostałyby
+zabronione przez sprawdzenia w czasie kompilacji. Analiza statyczna, taka jak
+kompilator Rust, jest z natury konserwatywna. Niektóre właściwości kodu są
+niemożliwe do wykrycia poprzez analizę kodu: Najsłynniejszym przykładem jest
+Problem Zatrzymania, który wykracza poza zakres tej książki, ale jest
+ciekawym tematem do zbadania.</p>
+<p>Ponieważ niektóre analizy są niemożliwe, jeśli kompilator Rust nie może być
+pewien, że kod jest zgodny z zasadami własności, może odrzucić poprawny
+program; w ten sposób jest konserwatywny. Gdyby Rust akceptował niepoprawny
+program, użytkownicy nie mogliby ufać gwarancjom, jakie daje Rust. Jednak
+jeśli Rust odrzuci poprawny program, programista będzie miał niedogodności,
+ale nic katastrofalnego nie może się wydarzyć. Typ <code>RefCell&lt;T&gt;</code> jest użyteczny,
+gdy jesteś pewien, że Twój kod jest zgodny z zasadami pożyczania, ale
+kompilator nie jest w stanie tego zrozumieć i zagwarantować.</p>
+<p>Podobnie jak <code>Rc&lt;T&gt;</code>, <code>RefCell&lt;T&gt;</code> jest przeznaczony wyłącznie do użytku w
+scenariuszach jednowątkowych i spowoduje błąd kompilacji, jeśli spróbujesz go
+użyć w kontekście wielowątkowym. O tym, jak uzyskać funkcjonalność <code>RefCell&lt;T&gt;</code>
+w programie wielowątkowym, będziemy rozmawiać w Rozdziale 16.</p>
+<p>Oto podsumowanie powodów, dla których warto wybrać <code>Box&lt;T&gt;</code>, <code>Rc&lt;T&gt;</code> lub
+<code>RefCell&lt;T&gt;</code>:</p>
+<ul>
+<li><code>Rc&lt;T&gt;</code> umożliwia wielu właścicieli tych samych danych; <code>Box&lt;T&gt;</code> i
+<code>RefCell&lt;T&gt;</code> mają pojedynczych właścicieli.</li>
+<li><code>Box&lt;T&gt;</code> pozwala na niemutowalne lub mutowalne pożyczenia sprawdzane w
+czasie kompilacji; <code>Rc&lt;T&gt;</code> pozwala tylko na niemutowalne pożyczenia
+sprawdzane w czasie kompilacji; <code>RefCell&lt;T&gt;</code> pozwala na niemutowalne lub
+mutowalne pożyczenia sprawdzane w czasie wykonania.</li>
+<li>Ponieważ <code>RefCell&lt;T&gt;</code> pozwala na mutowalne pożyczenia sprawdzane w czasie
+wykonania, możesz modyfikować wartość wewnątrz <code>RefCell&lt;T&gt;</code>, nawet gdy
+<code>RefCell&lt;T&gt;</code> jest niemutowalny.</li>
+</ul>
+<p>Modyfikacja wartości wewnątrz niemutowalnej wartości to wzorzec mutowalności
+wewnętrznej. Przyjrzyjmy się sytuacji, w której mutowalność wewnętrzna jest
+przydatna i zbadajmy, jak jest to możliwe.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="interior-mutability-a-mutable-borrow-to-an-immutable-value"></a></p>
+<h3 id="użycie-mutowalności-wewnętrznej"><a class="header" href="#użycie-mutowalności-wewnętrznej">Użycie mutowalności wewnętrznej</a></h3>
+<p>Konsekwencją zasad pożyczania jest to, że gdy masz niemutowalną wartość, nie
+możesz jej mutowalnie pożyczyć. Na przykład, ten kod się nie skompiluje:</p>
+<pre><code class="language-rust ignore does_not_compile">fn main() {
+    let x = 5;
+    let y = &amp;mut x;
+}</code></pre>
+<p>Gdybyś spróbował skompilować ten kod, otrzymałbyś następujący błąd:</p>
+<pre><code class="language-console">$ cargo run
+   Compiling borrowing v0.1.0 (file:///projects/borrowing)
+error[E0596]: cannot borrow `x` as mutable, as it is not declared as mutable
+ --&gt; src/main.rs:3:13
+  |
+3 |     let y = &amp;mut x;
+  |             ^^^^^^ cannot borrow as mutable
+  |
+help: consider changing this to be mutable
+  |
+2 |     let mut x = 5;
+  |         +++
+
+For more information about this error, try `rustc --explain E0596`.
+error: could not compile `borrowing` (bin "borrowing") due to 1 previous error
+</code></pre>
+<p>Istnieją jednak sytuacje, w których byłoby przydatne, aby wartość mogła
+modyfikować się w swoich metodach, ale wydawała się niemutowalna dla innego
+kodu. Kod poza metodami wartości nie mógłby modyfikować wartości. Użycie
+<code>RefCell&lt;T&gt;</code> jest jednym ze sposobów na uzyskanie zdolności do mutowalności
+wewnętrznej, ale <code>RefCell&lt;T&gt;</code> nie omija całkowicie zasad pożyczania: Sprawdzanie
+pożyczania w kompilatorze pozwala na tę mutowalność wewnętrzną, a zasady
+pożyczania są sprawdzane w czasie wykonania. Jeśli naruszysz zasady,
+otrzymasz <code>panic!</code> zamiast błędu kompilacji.</p>
+<p>Przejdźmy przez praktyczny przykład, w którym możemy użyć <code>RefCell&lt;T&gt;</code> do
+modyfikacji niemutowalnej wartości i zobaczyć, dlaczego jest to przydatne.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="a-use-case-for-interior-mutability-mock-objects"></a></p>
+<h4 id="testowanie-z-obiektami-mockowymi"><a class="header" href="#testowanie-z-obiektami-mockowymi">Testowanie z obiektami mockowymi</a></h4>
+<p>Czasami podczas testowania programista używa jednego typu zamiast innego, aby
+obserwować określone zachowanie i upewnić się, że jest ono poprawnie
+zaimplementowane. Ten zastępczy typ nazywa się <em>dublerem testowym</em>. Pomyśl o nim
+w sensie dublera kaskaderskiego w filmie, gdzie osoba wchodzi i zastępuje
+aktora, aby wykonać szczególnie trudną scenę. Dublery testowe zastępują inne
+typy, gdy przeprowadzamy testy. <em>Obiekty mockowe</em> to specyficzne typy
+dublerów testowych, które rejestrują, co dzieje się podczas testu, aby można
+było stwierdzić, że podjęto prawidłowe działania.</p>
+<p>Rust nie ma obiektów w tym samym sensie, co inne języki, i Rust nie ma funkcji
+obiektów mockowych wbudowanych w bibliotekę standardową, jak to robią niektóre
+inne języki. Możesz jednak z pewnością stworzyć strukturę, która będzie
+służyć tym samym celom, co obiekt mockowy.</p>
+<p>Oto scenariusz, który przetestujemy: stworzymy bibliotekę, która śledzi
+wartość w stosunku do wartości maksymalnej i wysyła wiadomości w zależności od
+tego, jak blisko wartości maksymalnej jest obecna wartość. Ta biblioteka mogłaby
+być używana na przykład do śledzenia limitu użytkownika na liczbę wywołań API,
+które są dozwolone.</p>
+<p>Nasza biblioteka będzie zapewniać jedynie funkcjonalność śledzenia, jak blisko
+wartości maksymalnej jest wartość i jakie wiadomości powinny być wysyłane w
+danych momentach. Aplikacje korzystające z naszej biblioteki będą musiały
+dostarczyć mechanizm wysyłania wiadomości: Aplikacja może pokazać wiadomość
+użytkownikowi bezpośrednio, wysłać e-mail, wysłać wiadomość tekstową lub zrobić
+cokolwiek innego. Biblioteka nie musi znać tych szczegółów. Potrzebuje tylko
+czegoś, co implementuje cechę, którą dostarczymy, nazwaną <code>Messenger</code>. Listing
+15-20 pokazuje kod biblioteki.</p>
+<listing number="15-20" file-name="src/lib.rs" caption="Biblioteka do śledzenia, jak blisko wartość jest wartości maksymalnej i ostrzegania, gdy wartość osiąga pewne poziomy">
+<pre><code class="language-rust noplayground">pub trait Messenger {
+    fn send(&amp;self, msg: &amp;str);
+}
+
+pub struct LimitTracker&lt;'a, T: Messenger&gt; {
+    messenger: &amp;'a T,
+    value: usize,
+    max: usize,
+}
+
+impl&lt;'a, T&gt; LimitTracker&lt;'a, T&gt;
+where
+    T: Messenger,
+{
+    pub fn new(messenger: &amp;'a T, max: usize) -&gt; LimitTracker&lt;'a, T&gt; {
+        LimitTracker {
+            messenger,
+            value: 0,
+            max,
+        }
+    }
+
+    pub fn set_value(&amp;mut self, value: usize) {
+        self.value = value;
+
+        let percentage_of_max = self.value as f64 / self.max as f64;
+
+        if percentage_of_max &gt;= 1.0 {
+            self.messenger.send("Error: You are over your quota!");
+        } else if percentage_of_max &gt;= 0.9 {
+            self.messenger
+                .send("Urgent warning: You've used up over 90% of your quota!");
+        } else if percentage_of_max &gt;= 0.75 {
+            self.messenger
+                .send("Warning: You've used up over 75% of your quota!");
+        }
+    }
+}</code></pre>
+</listing>
+<p>Jedną ważną częścią tego kodu jest to, że cecha <code>Messenger</code> ma jedną metodę
+o nazwie <code>send</code>, która przyjmuje niemutowalną referencję do <code>self</code> i tekst
+wiadomości. Ta cecha jest interfejsem, który nasz obiekt mockowy musi
+implementować, aby mock mógł być używany w ten sam sposób, co prawdziwy obiekt.
+Druga ważna część to to, że chcemy przetestować zachowanie metody <code>set_value</code>
+w <code>LimitTracker</code>. Możemy zmienić to, co przekazujemy jako parametr <code>value</code>,
+ale <code>set_value</code> nie zwraca niczego, na czym moglibyśmy oprzeć asercje. Chcemy
+być w stanie powiedzieć, że jeśli utworzymy <code>LimitTracker</code> z czymś, co
+implementuje cechę <code>Messenger</code> i określoną wartością dla <code>max</code>, to messenger
+otrzymuje polecenie wysłania odpowiednich wiadomości, gdy przekazujemy
+różne liczby dla <code>value</code>.</p>
+<p>Potrzebujemy obiektu mockowego, który zamiast wysyłać e-mail lub wiadomość
+tekstową po wywołaniu <code>send</code>, będzie jedynie śledził wiadomości, które mu
+kazano wysłać. Możemy utworzyć nową instancję obiektu mockowego, stworzyć
+<code>LimitTracker</code> używający obiektu mockowego, wywołać metodę <code>set_value</code> w
+<code>LimitTracker</code>, a następnie sprawdzić, czy obiekt mockowy zawiera wiadomości,
+których oczekujemy. Listing 15-21 pokazuje próbę zaimplementowania obiektu
+mockowego, który ma to robić, ale sprawdzający pożyczki na to nie zezwala.</p>
+<listing number="15-21" file-name="src/lib.rs" caption="Próba zaimplementowania `MockMessenger`, która nie jest dozwolona przez sprawdzającego pożyczki">
+<pre><code class="language-rust ignore does_not_compile"><span class="boring">pub trait Messenger {
+</span><span class="boring">    fn send(&amp;self, msg: &amp;str);
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">pub struct LimitTracker&lt;'a, T: Messenger&gt; {
+</span><span class="boring">    messenger: &amp;'a T,
+</span><span class="boring">    value: usize,
+</span><span class="boring">    max: usize,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl&lt;'a, T&gt; LimitTracker&lt;'a, T&gt;
+</span><span class="boring">where
+</span><span class="boring">    T: Messenger,
+</span><span class="boring">{
+</span><span class="boring">    pub fn new(messenger: &amp;'a T, max: usize) -&gt; LimitTracker&lt;'a, T&gt; {
+</span><span class="boring">        LimitTracker {
+</span><span class="boring">            messenger,
+</span><span class="boring">            value: 0,
+</span><span class="boring">            max,
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    pub fn set_value(&amp;mut self, value: usize) {
+</span><span class="boring">        self.value = value;
+</span><span class="boring">
+</span><span class="boring">        let percentage_of_max = self.value as f64 / self.max as f64;
+</span><span class="boring">
+</span><span class="boring">        if percentage_of_max &gt;= 1.0 {
+</span><span class="boring">            self.messenger.send("Error: You are over your quota!");
+</span><span class="boring">        } else if percentage_of_max &gt;= 0.9 {
+</span><span class="boring">            self.messenger
+</span><span class="boring">                .send("Urgent warning: You've used up over 90% of your quota!");
+</span><span class="boring">        } else if percentage_of_max &gt;= 0.75 {
+</span><span class="boring">            self.messenger
+</span><span class="boring">                .send("Warning: You've used up over 75% of your quota!");
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>#[cfg(test)]
+mod tests {
+    use super::*;
+
+    struct MockMessenger {
+        sent_messages: Vec&lt;String&gt;,
+    }
+
+    impl MockMessenger {
+        fn new() -&gt; MockMessenger {
+            MockMessenger {
+                sent_messages: vec![],
+            }
+        }
+    }
+
+    impl Messenger for MockMessenger {
+        fn send(&amp;self, message: &amp;str) {
+            self.sent_messages.push(String::from(message));
+        }
+    }
+
+    #[test]
+    fn it_sends_an_over_75_percent_warning_message() {
+        let mock_messenger = MockMessenger::new();
+        let mut limit_tracker = LimitTracker::new(&amp;mock_messenger, 100);
+
+        limit_tracker.set_value(80);
+
+        assert_eq!(mock_messenger.sent_messages.len(), 1);
+    }
+}</code></pre>
+</listing>
+<p>Ten kod testowy definiuje strukturę <code>MockMessenger</code>, która ma pole
+<code>sent_messages</code> z wektorem wartości <code>String</code>, aby śledzić wiadomości, które ma
+wysyłać. Definiujemy również skojarzoną funkcję <code>new</code>, aby ułatwić tworzenie
+nowych wartości <code>MockMessenger</code>, które zaczynają się od pustej listy wiadomości.
+Następnie implementujemy cechę <code>Messenger</code> dla <code>MockMessenger</code>, aby móc
+przekazać <code>MockMessenger</code> do <code>LimitTracker</code>. W definicji metody <code>send</code>
+pobieramy wiadomość przekazaną jako parametr i przechowujemy ją na liście
+<code>sent_messages</code> <code>MockMessenger</code>.</p>
+<p>W teście sprawdzamy, co dzieje się, gdy <code>LimitTracker</code> otrzymuje polecenie
+ustawienia <code>value</code> na wartość większą niż 75 procent wartości <code>max</code>. Najpierw
+tworzymy nowy <code>MockMessenger</code>, który rozpocznie się od pustej listy wiadomości.
+Następnie tworzymy nowy <code>LimitTracker</code> i przekazujemy mu referencję do nowego
+obiektu <code>MockMessenger</code> oraz wartość <code>max</code> równą <code>100</code>. Wywołujemy metodę
+<code>set_value</code> w <code>LimitTracker</code> z wartością <code>80</code>, co stanowi ponad 75 procent z
+100. Następnie twierdzimy, że lista wiadomości śledzonych przez
+<code>MockMessenger</code> powinna teraz zawierać jedną wiadomość.</p>
+<p>Jest jednak jeden problem z tym testem, jak pokazano tutaj:</p>
+<pre><code class="language-console">$ cargo test
+   Compiling limit-tracker v0.1.0 (file:///projects/limit-tracker)
+error[E0596]: cannot borrow `self.sent_messages` as mutable, as it is behind a `&amp;` reference
+  --&gt; src/lib.rs:58:13
+   |
+58 |             self.sent_messages.push(String::from(message));
+   |             ^^^^^^^^^^^^^^^^^^ `self` is a `&amp;` reference, so the data it refers to cannot be borrowed as mutable
+   |
+help: consider changing this to be a mutable reference in the `impl` method and the `trait` definition
+   |
+ 2 ~     fn send(&amp;mut self, msg: &amp;str);
+ 3 | }
+...
+56 |     impl Messenger for MockMessenger {
+57 ~         fn send(&amp;mut self, message: &amp;str) {
+   |
+
+For more information about this error, try `rustc --explain E0596`.
+error: could not compile `limit-tracker` (lib test) due to 1 previous error
+</code></pre>
+<p>Nie możemy modyfikować <code>MockMessenger</code>, aby śledził wiadomości, ponieważ
+metoda <code>send</code> przyjmuje niemutowalną referencję do <code>self</code>. Nie możemy również
+skorzystać z sugestii komunikatu o błędzie, aby użyć <code>&amp;mut self</code> zarówno w
+metodzie <code>impl</code>, jak i w definicji cechy. Nie chcemy zmieniać cechy <code>Messenger</code>
+wyłącznie dla celów testowania. Zamiast tego musimy znaleźć sposób, aby nasz
+kod testowy działał poprawnie z naszym istniejącym projektem.</p>
+<p>To sytuacja, w której mutowalność wewnętrzna może pomóc! Będziemy
+przechowywać <code>sent_messages</code> wewnątrz <code>RefCell&lt;T&gt;</code>, a następnie metoda <code>send</code>
+będzie mogła modyfikować <code>sent_messages</code> w celu przechowywania widzianych przez
+nas wiadomości. Listing 15-22 pokazuje, jak to wygląda.</p>
+<listing number="15-22" file-name="src/lib.rs" caption="Użycie `RefCell&lt;T&gt;` do mutowania wewnętrznej wartości, podczas gdy wartość zewnętrzna jest uważana za niemutowalną">
+<pre><code class="language-rust noplayground"><span class="boring">pub trait Messenger {
+</span><span class="boring">    fn send(&amp;self, msg: &amp;str);
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">pub struct LimitTracker&lt;'a, T: Messenger&gt; {
+</span><span class="boring">    messenger: &amp;'a T,
+</span><span class="boring">    value: usize,
+</span><span class="boring">    max: usize,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl&lt;'a, T&gt; LimitTracker&lt;'a, T&gt;
+</span><span class="boring">where
+</span><span class="boring">    T: Messenger,
+</span><span class="boring">{
+</span><span class="boring">    pub fn new(messenger: &amp;'a T, max: usize) -&gt; LimitTracker&lt;'a, T&gt; {
+</span><span class="boring">        LimitTracker {
+</span><span class="boring">            messenger,
+</span><span class="boring">            value: 0,
+</span><span class="boring">            max,
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    pub fn set_value(&amp;mut self, value: usize) {
+</span><span class="boring">        self.value = value;
+</span><span class="boring">
+</span><span class="boring">        let percentage_of_max = self.value as f64 / self.max as f64;
+</span><span class="boring">
+</span><span class="boring">        if percentage_of_max &gt;= 1.0 {
+</span><span class="boring">            self.messenger.send("Error: You are over your quota!");
+</span><span class="boring">        } else if percentage_of_max &gt;= 0.9 {
+</span><span class="boring">            self.messenger
+</span><span class="boring">                .send("Urgent warning: You've used up over 90% of your quota!");
+</span><span class="boring">        } else if percentage_of_max &gt;= 0.75 {
+</span><span class="boring">            self.messenger
+</span><span class="boring">                .send("Warning: You've used up over 75% of your quota!");
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::cell::RefCell;
+
+    struct MockMessenger {
+        sent_messages: RefCell&lt;Vec&lt;String&gt;&gt;,
+    }
+
+    impl MockMessenger {
+        fn new() -&gt; MockMessenger {
+            MockMessenger {
+                sent_messages: RefCell::new(vec![]),
+            }
+        }
+    }
+
+    impl Messenger for MockMessenger {
+        fn send(&amp;self, message: &amp;str) {
+            self.sent_messages.borrow_mut().push(String::from(message));
+        }
+    }
+
+    #[test]
+    fn it_sends_an_over_75_percent_warning_message() {
+        // --snip--
+<span class="boring">        let mock_messenger = MockMessenger::new();
+</span><span class="boring">        let mut limit_tracker = LimitTracker::new(&amp;mock_messenger, 100);
+</span><span class="boring">
+</span><span class="boring">        limit_tracker.set_value(80);
+</span>
+        assert_eq!(mock_messenger.sent_messages.borrow().len(), 1);
+    }
+}</code></pre>
+</listing>
+<p>Pole <code>sent_messages</code> jest teraz typu <code>RefCell&lt;Vec&lt;String&gt;&gt;</code> zamiast
+<code>Vec&lt;String&gt;</code>. W funkcji <code>new</code> tworzymy nową instancję <code>RefCell&lt;Vec&lt;String&gt;&gt;</code>
+wokół pustego wektora.</p>
+<p>Dla implementacji metody <code>send</code> pierwszy parametr nadal jest niemutowalnym
+pożyczeniem <code>self</code>, co odpowiada definicji cechy. Wywołujemy <code>borrow_mut</code> na
+<code>RefCell&lt;Vec&lt;String&gt;&gt;</code> w <code>self.sent_messages</code>, aby uzyskać mutowalną referencję
+do wartości wewnątrz <code>RefCell&lt;Vec&lt;String&gt;&gt;</code>, która jest wektorem. Następnie
+możemy wywołać <code>push</code> na mutowalnej referencji do wektora, aby śledzić wiadomości
+wysłane podczas testu.</p>
+<p>Ostatnia zmiana, jaką musimy wprowadzić, dotyczy asercji: aby sprawdzić, ile
+elementów jest w wewnętrznym wektorze, wywołujemy <code>borrow</code> na
+<code>RefCell&lt;Vec&lt;String&gt;&gt;</code>, aby uzyskać niemutowalną referencję do wektora.</p>
+<p>Teraz, gdy widziałeś, jak używać <code>RefCell&lt;T&gt;</code>, zagłębmy się w to, jak to działa!</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="keeping-track-of-borrows-at-runtime-with-refcellt"></a></p>
+<h4 id="śledzenie-pożyczeń-w-czasie-wykonania"><a class="header" href="#śledzenie-pożyczeń-w-czasie-wykonania">Śledzenie pożyczeń w czasie wykonania</a></h4>
+<p>Podczas tworzenia niemutowalnych i mutowalnych referencji używamy odpowiednio
+składni <code>&amp;</code> i <code>&amp;mut</code>. W przypadku <code>RefCell&lt;T&gt;</code> używamy metod <code>borrow</code> i
+<code>borrow_mut</code>, które są częścią bezpiecznego API należącego do <code>RefCell&lt;T&gt;</code>. Metoda
+<code>borrow</code> zwraca typ wskaźnika sprytnego <code>Ref&lt;T&gt;</code>, a <code>borrow_mut</code> zwraca typ
+wskaźnika sprytnego <code>RefMut&lt;T&gt;</code>. Oba typy implementują <code>Deref</code>, więc możemy je
+traktować jak zwykłe referencje.</p>
+<p><code>RefCell&lt;T&gt;</code> śledzi, ile wskaźników sprytnych <code>Ref&lt;T&gt;</code> i <code>RefMut&lt;T&gt;</code> jest
+aktywnie używanych. Za każdym razem, gdy wywołujemy <code>borrow</code>, <code>RefCell&lt;T&gt;</code>
+zwiększa licznik aktywnych niemutowalnych pożyczeń. Gdy wartość <code>Ref&lt;T&gt;</code> wyjdzie
+poza zakres, licznik niemutowalnych pożyczeń zmniejsza się o 1. Podobnie jak
+zasady pożyczania w czasie kompilacji, <code>RefCell&lt;T&gt;</code> pozwala nam na wiele
+niemutowalnych pożyczeń lub jedno mutowalne pożyczenie w dowolnym momencie.</p>
+<p>Jeśli spróbujemy naruszyć te zasady, zamiast otrzymania błędu kompilacji, jak
+miałoby to miejsce w przypadku referencji, implementacja <code>RefCell&lt;T&gt;</code> spowoduje
+panikę w czasie wykonania. Listing 15-23 pokazuje modyfikację implementacji
+<code>send</code> z Listingu 15-22. Celowo próbujemy stworzyć dwa mutowalne pożyczenia
+aktywne w tym samym zakresie, aby zilustrować, że <code>RefCell&lt;T&gt;</code> zapobiega temu
+w czasie wykonania.</p>
+<listing number="15-23" file-name="src/lib.rs" caption="Tworzenie dwóch mutowalnych referencji w tym samym zakresie, aby zobaczyć, że `RefCell&lt;T&gt;` spowoduje panikę">
+<pre><code class="language-rust ignore panics"><span class="boring">pub trait Messenger {
+</span><span class="boring">    fn send(&amp;self, msg: &amp;str);
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">pub struct LimitTracker&lt;'a, T: Messenger&gt; {
+</span><span class="boring">    messenger: &amp;'a T,
+</span><span class="boring">    value: usize,
+</span><span class="boring">    max: usize,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl&lt;'a, T&gt; LimitTracker&lt;'a, T&gt;
+</span><span class="boring">where
+</span><span class="boring">    T: Messenger,
+</span><span class="boring">{
+</span><span class="boring">    pub fn new(messenger: &amp;'a T, max: usize) -&gt; LimitTracker&lt;'a, T&gt; {
+</span><span class="boring">        LimitTracker {
+</span><span class="boring">            messenger,
+</span><span class="boring">            value: 0,
+</span><span class="boring">            max,
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    pub fn set_value(&amp;mut self, value: usize) {
+</span><span class="boring">        self.value = value;
+</span><span class="boring">
+</span><span class="boring">        let percentage_of_max = self.value as f64 / self.max as f64;
+</span><span class="boring">
+</span><span class="boring">        if percentage_of_max &gt;= 1.0 {
+</span><span class="boring">            self.messenger.send("Error: You are over your quota!");
+</span><span class="boring">        } else if percentage_of_max &gt;= 0.9 {
+</span><span class="boring">            self.messenger
+</span><span class="boring">                .send("Urgent warning: You've used up over 90% of your quota!");
+</span><span class="boring">        } else if percentage_of_max &gt;= 0.75 {
+</span><span class="boring">            self.messenger
+</span><span class="boring">                .send("Warning: You've used up over 75% of your quota!");
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">#[cfg(test)]
+</span><span class="boring">mod tests {
+</span><span class="boring">    use super::*;
+</span><span class="boring">    use std::cell::RefCell;
+</span><span class="boring">
+</span><span class="boring">    struct MockMessenger {
+</span><span class="boring">        sent_messages: RefCell&lt;Vec&lt;String&gt;&gt;,
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    impl MockMessenger {
+</span><span class="boring">        fn new() -&gt; MockMessenger {
+</span><span class="boring">            MockMessenger {
+</span><span class="boring">                sent_messages: RefCell::new(vec![]),
+</span><span class="boring">            }
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">
+</span>    impl Messenger for MockMessenger {
+        fn send(&amp;self, message: &amp;str) {
+            let mut one_borrow = self.sent_messages.borrow_mut();
+            let mut two_borrow = self.sent_messages.borrow_mut();
+
+            one_borrow.push(String::from(message));
+            two_borrow.push(String::from(message));
+        }
+    }
+<span class="boring">
+</span><span class="boring">    #[test]
+</span><span class="boring">    fn it_sends_an_over_75_percent_warning_message() {
+</span><span class="boring">        let mock_messenger = MockMessenger::new();
+</span><span class="boring">        let mut limit_tracker = LimitTracker::new(&amp;mock_messenger, 100);
+</span><span class="boring">
+</span><span class="boring">        limit_tracker.set_value(80);
+</span><span class="boring">
+</span><span class="boring">        assert_eq!(mock_messenger.sent_messages.borrow().len(), 1);
+</span><span class="boring">    }
+</span><span class="boring">}</span></code></pre>
+</listing>
+<p>Tworzymy zmienną <code>one_borrow</code> dla wskaźnika sprytnego <code>RefMut&lt;T&gt;</code> zwróconego
+przez <code>borrow_mut</code>. Następnie tworzymy kolejne mutowalne pożyczenie w ten sam
+sposób w zmiennej <code>two_borrow</code>. Tworzy to dwie mutowalne referencje w tym samym
+zakresie, co jest niedozwolone. Kiedy uruchomimy testy dla naszej biblioteki,
+kod z Listingu 15-23 skompiluje się bez błędów, ale test się nie powiedzie:</p>
+<pre><code class="language-console">$ cargo test
+   Compiling limit-tracker v0.1.0 (file:///projects/limit-tracker)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.91s
+     Running unittests src/lib.rs (target/debug/deps/limit_tracker-e599811fa246dbde)
+
+running 1 test
+test tests::it_sends_an_over_75_percent_warning_message ... FAILED
+
+failures:
+
+---- tests::it_sends_an_over_75_percent_warning_message stdout ----
+
+thread 'tests::it_sends_an_over_75_percent_warning_message' panicked at src/lib.rs:60:53:
+RefCell already borrowed
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    tests::it_sends_an_over_75_percent_warning_message
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `--lib`
+</code></pre>
+<p>Zauważ, że kod spowodował panikę z komunikatem <code>already borrowed: BorrowMutError</code>. W ten sposób <code>RefCell&lt;T&gt;</code> obsługuje naruszenia zasad
+pożyczania w czasie wykonania.</p>
+<p>Decyzja o wychwytywaniu błędów pożyczania w czasie wykonania, a nie w czasie
+kompilacji, jak to zrobiliśmy tutaj, oznacza, że potencjalnie możesz
+znajdować błędy w swoim kodzie później w procesie rozwoju: być może dopiero po
+wdrożeniu kodu do produkcji. Ponadto, Twój kod poniesie niewielką karę
+wydajnościową w czasie wykonania w wyniku śledzenia pożyczeń w czasie
+wykonania, a nie w czasie kompilacji. Jednakże, użycie <code>RefCell&lt;T&gt;</code> umożliwia
+napisanie obiektu mockowego, który może modyfikować się, aby śledzić
+wiadomości, które widział, podczas gdy używasz go w kontekście, w którym
+dozwolone są tylko niemutowalne wartości. Możesz używać <code>RefCell&lt;T&gt;</code> pomimo
+jego kompromisów, aby uzyskać większą funkcjonalność niż zapewniają zwykłe
+referencje.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="having-multiple-owners-of-mutable-data-by-combining-rc-t-and-ref-cell-t"></a>
+<a id="allowing-multiple-owners-of-mutable-data-with-rct-and-refcellt"></a></p>
+<h3 id="zezwalanie-na-wielu-właścicieli-mutowalnych-danych"><a class="header" href="#zezwalanie-na-wielu-właścicieli-mutowalnych-danych">Zezwalanie na wielu właścicieli mutowalnych danych</a></h3>
+<p>Częstym sposobem użycia <code>RefCell&lt;T&gt;</code> jest połączenie go z <code>Rc&lt;T&gt;</code>. Przypomnijmy,
+że <code>Rc&lt;T&gt;</code> pozwala na posiadanie wielu właścicieli danych, ale daje dostęp do
+tych danych tylko w trybie niemutowalnym. Jeśli masz <code>Rc&lt;T&gt;</code>, który zawiera
+<code>RefCell&lt;T&gt;</code>, możesz uzyskać wartość, która może mieć wielu właścicieli <em>i</em> którą
+możesz modyfikować!</p>
+<p>Na przykład, przypomnij sobie przykład listy konsensusowej z Listingu 15-18,
+w którym użyliśmy <code>Rc&lt;T&gt;</code>, aby umożliwić wielu listom współdzielenie własności
+innej listy. Ponieważ <code>Rc&lt;T&gt;</code> przechowuje tylko niemutowalne wartości, nie możemy
+zmienić żadnej z wartości na liście po ich utworzeniu. Dodajmy <code>RefCell&lt;T&gt;</code>,
+aby móc zmieniać wartości na listach. Listing 15-24 pokazuje, że używając
+<code>RefCell&lt;T&gt;</code> w definicji <code>Cons</code>, możemy modyfikować wartość przechowywaną we
+wszystkich listach.</p>
+<listing number="15-24" file-name="src/main.rs" caption="Użycie `Rc&lt;RefCell&lt;i32&gt;&gt;` do stworzenia mutowalnej `List`">
+<pre class="playground"><code class="language-rust edition2024">#[derive(Debug)]
+enum List {
+    Cons(Rc&lt;RefCell&lt;i32&gt;&gt;, Rc&lt;List&gt;),
+    Nil,
+}
+
+use crate::List::{Cons, Nil};
+use std::cell::RefCell;
+use std::rc::Rc;
+
+fn main() {
+    let value = Rc::new(RefCell::new(5));
+
+    let a = Rc::new(Cons(Rc::clone(&amp;value), Rc::new(Nil)));
+
+    let b = Cons(Rc::new(RefCell::new(3)), Rc::clone(&amp;a));
+    let c = Cons(Rc::new(RefCell::new(4)), Rc::clone(&amp;a));
+
+    *value.borrow_mut() += 10;
+
+    println!("a after = {a:?}");
+    println!("b after = {b:?}");
+    println!("c after = {c:?}");
+}</code></pre>
+</listing>
+<p>Tworzymy wartość, która jest instancją <code>Rc&lt;RefCell&lt;i32&gt;&gt;</code> i przechowujemy ją
+w zmiennej o nazwie <code>value</code>, abyśmy mogli uzyskać do niej bezpośredni dostęp
+później. Następnie tworzymy <code>List</code> w <code>a</code> z wariantem <code>Cons</code>, który przechowuje
+<code>value</code>. Musimy sklonować <code>value</code>, aby zarówno <code>a</code>, jak i <code>value</code> posiadały
+własność wewnętrznej wartości <code>5</code>, zamiast przenosić własność z <code>value</code> do <code>a</code>
+lub aby <code>a</code> pożyczało z <code>value</code>.</p>
+<p>Opakowujemy listę <code>a</code> w <code>Rc&lt;T&gt;</code>, aby po utworzeniu list <code>b</code> i <code>c</code> obie mogły
+odnosić się do <code>a</code>, co zrobiliśmy w Listingu 15-18.</p>
+<p>Po utworzeniu list w <code>a</code>, <code>b</code> i <code>c</code>, chcemy dodać 10 do wartości w <code>value</code>. Robimy
+to, wywołując <code>borrow_mut</code> na <code>value</code>, co wykorzystuje funkcję automatycznego
+rozpożyczania, którą omówiliśmy w <a href="ch05-03-method-syntax.html#wheres-the---operator">„Gdzie jest operator <code>-&gt;</code>?”</a><!-- ignore -->
+w Rozdziale 5, aby rozpożyczyć <code>Rc&lt;T&gt;</code> do wewnętrznej wartości <code>RefCell&lt;T&gt;</code>. Metoda
+<code>borrow_mut</code> zwraca wskaźnik sprytny <code>RefMut&lt;T&gt;</code>, a my używamy na nim operatora
+rozpożyczania i zmieniamy wewnętrzną wartość.</p>
+<p>Kiedy wypiszemy <code>a</code>, <code>b</code> i <code>c</code>, widzimy, że wszystkie mają zmodyfikowaną
+wartość <code>15</code> zamiast <code>5</code>:</p>
+<pre><code class="language-console">$ cargo run
+   Compiling cons-list v0.1.0 (file:///projects/cons-list)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.63s
+     Running `target/debug/cons-list`
+a after = Cons(RefCell { value: 15 }, Nil)
+b after = Cons(RefCell { value: 3 }, Cons(RefCell { value: 15 }, Nil))
+c after = Cons(RefCell { value: 4 }, Cons(RefCell { value: 15 }, Nil))
+</code></pre>
+<p>Ta technika jest całkiem sprytna! Używając <code>RefCell&lt;T&gt;</code>, mamy zewnętrznie
+niemutowalną wartość <code>List</code>. Ale możemy użyć metod <code>RefCell&lt;T&gt;</code>, które zapewniają
+dostęp do jego wewnętrznej mutowalności, dzięki czemu możemy modyfikować nasze
+dane, gdy tego potrzebujemy. Sprawdzenia zasad pożyczania w czasie wykonania
+chronią nas przed wyścigami danych, a czasami warto poświęcić trochę szybkości
+dla tej elastyczności w naszych strukturach danych. Zauważ, że <code>RefCell&lt;T&gt;</code>
+nie działa w kodzie wielowątkowym! <code>Mutex&lt;T&gt;</code> to wersja <code>RefCell&lt;T&gt;</code> bezpieczna
+wielowątkowo, a o <code>Mutex&lt;T&gt;</code> będziemy rozmawiać w Rozdziale 16.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="ch15-04-rc.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="ch15-06-reference-cycles.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="ch15-04-rc.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="ch15-06-reference-cycles.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="ferris-2317480c.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

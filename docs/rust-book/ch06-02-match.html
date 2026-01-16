@@ -1,0 +1,487 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Konstrukcja kontroli przepływu &#x60;match&#x60; - Język programowania Rust</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="ferris-d33b75bf.css">
+        <link rel="stylesheet" href="theme/2018-edition-4e126c62.css">
+        <link rel="stylesheet" href="theme/semantic-notes-9b5766c0.css">
+        <link rel="stylesheet" href="theme/listing-cab26221.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-773dca2f.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-039e37ba.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Język programowania Rust</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/rust-lang/book" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <p><a id="the-match-control-flow-operator"></a></p>
+<h2 id="konstrukcja-kontroli-przepływu-match"><a class="header" href="#konstrukcja-kontroli-przepływu-match">Konstrukcja kontroli przepływu <code>match</code></a></h2>
+<p>Rust ma niezwykle potężną konstrukcję kontroli przepływu o nazwie <code>match</code>, która pozwala porównywać wartość z serią wzorców, a następnie wykonywać kod na podstawie pasującego wzorca. Wzorce mogą składać się z literałów, nazw zmiennych, symboli wieloznacznych i wielu innych rzeczy; <a href="ch19-00-patterns.html">Rozdział 19</a><!-- ignore --> obejmuje wszystkie różne rodzaje wzorców i to, co robią. Siła <code>match</code> pochodzi z ekspresywności wzorców i faktu, że kompilator potwierdza, że wszystkie możliwe przypadki są obsługiwane.</p>
+<p>Pomyśl o wyrażeniu <code>match</code> jak o maszynie do sortowania monet: monety zjeżdżają po torze z otworami o różnej wielkości, a każda moneta wpada przez pierwszy otwór, do którego pasuje. W ten sam sposób wartości przechodzą przez każdy wzorzec w <code>match</code>, a przy pierwszym wzorcu, do którego wartość „pasuje”, wartość wpada do skojarzonego bloku kodu, aby zostać użyta podczas wykonania.</p>
+<p>Skoro mowa o monetach, użyjmy ich jako przykładu z <code>match</code>! Możemy napisać funkcję, która przyjmuje nieznaną monetę amerykańską i, podobnie jak maszyna licząca, określa, jaka to moneta i zwraca jej wartość w centach, jak pokazano w Listingu 6-3.</p>
+<listing number="6-3" caption="Typ wyliczeniowy i wyrażenie `match`, które ma warianty typu wyliczeniowego jako wzorce">
+<pre class="playground"><code class="language-rust edition2024">enum Coin {
+    Penny,
+    Nickel,
+    Dime,
+    Quarter,
+}
+
+fn value_in_cents(coin: Coin) -&gt; u8 {
+    match coin {
+        Coin::Penny =&gt; 1,
+        Coin::Nickel =&gt; 5,
+        Coin::Dime =&gt; 10,
+        Coin::Quarter =&gt; 25,
+    }
+}
+<span class="boring">
+</span><span class="boring">fn main() {}</span></code></pre>
+</listing>
+<p>Rozłóżmy <code>match</code> w funkcji <code>value_in_cents</code>. Najpierw wymieniamy słowo kluczowe <code>match</code>, po którym następuje wyrażenie, które w tym przypadku jest wartością <code>coin</code>. To wydaje się bardzo podobne do wyrażenia warunkowego używanego z <code>if</code>, ale jest duża różnica: z <code>if</code> warunek musi ewaluować do wartości boolowskiej, ale tutaj może to być dowolny typ. Typ <code>coin</code> w tym przykładzie to enum <code>Coin</code>, który zdefiniowaliśmy w pierwszej linii.</p>
+<p>Następne są ramiona <code>match</code>. Ramka składa się z dwóch części: wzorca i pewnego kodu. Pierwsza ramka ma wzorzec, którym jest wartość <code>Coin::Penny</code>, a następnie operator <code>=&gt;</code>, który oddziela wzorzec od kodu do uruchomienia. Kod w tym przypadku to po prostu wartość <code>1</code>. Każda ramka jest oddzielona od następnej przecinkiem.</p>
+<p>Kiedy wyrażenie <code>match</code> jest wykonywane, porównuje ono wynikową wartość z wzorcem każdej gałęzi, po kolei. Jeśli wzorzec pasuje do wartości, kod skojarzony z tym wzorcem jest wykonywany. Jeśli ten wzorzec nie pasuje do wartości, wykonanie przechodzi do następnej gałęzi, podobnie jak w maszynie do sortowania monet. Możemy mieć tyle gałęzi, ile potrzebujemy: w Listingu 6-3, nasz <code>match</code> ma cztery gałęzie.</p>
+<p>Kod skojarzony z każdym ramieniem jest wyrażeniem, a wynikowa wartość wyrażenia w pasującym ramieniu jest wartością, która jest zwracana dla całego wyrażenia <code>match</code>.</p>
+<p>Zazwyczaj nie używamy nawiasów klamrowych, jeśli kod gałęzi <code>match</code> jest krótki, jak w Listingu 6-3, gdzie każda gałąź po prostu zwraca wartość. Jeśli chcesz uruchomić wiele linii kodu w gałęzi <code>match</code>, musisz użyć nawiasów klamrowych, a przecinek po gałęzi jest wtedy opcjonalny. Na przykład, poniższy kod drukuje „Lucky penny!” za każdym razem, gdy metoda jest wywoływana z <code>Coin::Penny</code>, ale nadal zwraca ostatnią wartość bloku, <code>1</code>:</p>
+<pre class="playground"><code class="language-rust edition2024">enum Coin {
+    Penny,
+    Nickel,
+    Dime,
+    Quarter,
+}
+
+fn value_in_cents(coin: Coin) -&gt; u8 {
+    match coin {
+        Coin::Penny =&gt; {
+            println!("Szczęśliwy grosz!");
+            1
+        }
+        Coin::Nickel =&gt; 5,
+        Coin::Dime =&gt; 10,
+        Coin::Quarter =&gt; 25,
+    }
+}
+<span class="boring">
+</span><span class="boring">fn main() {}</span></code></pre>
+<h3 id="wzorce-które-wiążą-się-z-wartościami"><a class="header" href="#wzorce-które-wiążą-się-z-wartościami">Wzorce, które wiążą się z wartościami</a></h3>
+<p>Inną przydatną cechą ramion <code>match</code> jest to, że mogą one wiązać się z częściami wartości, które pasują do wzorca. W ten sposób możemy wyodrębniać wartości z wariantów enum.</p>
+<p>Na przykład, zmieńmy jeden z naszych wariantów enum, aby przechowywał w sobie dane. Od 1999 do 2008 roku Stany Zjednoczone biły ćwierćdolarówki z różnymi wzorami dla każdego z 50 stanów po jednej stronie. Żadne inne monety nie otrzymały wzorów stanów, więc tylko ćwierćdolarówki mają tę dodatkową wartość. Możemy dodać tę informację do naszego <code>enum</code>, zmieniając wariant <code>Quarter</code> tak, aby zawierał wartość <code>UsState</code> przechowywaną w środku, co zrobiliśmy w Listingu 6-4.</p>
+<listing number="6-4" caption="Enum `Coin`, w którym wariant `Quarter` zawiera również wartość `UsState`">
+<pre class="playground"><code class="language-rust edition2024">#[derive(Debug)] // abyśmy mogli za chwilę sprawdzić stan
+enum UsState {
+    Alabama,
+    Alaska,
+    // --snip--
+}
+
+enum Coin {
+    Penny,
+    Nickel,
+    Dime,
+    Quarter(UsState),
+}
+<span class="boring">
+</span><span class="boring">fn main() {}</span></code></pre>
+</listing>
+<p>Wyobraźmy sobie, że przyjaciel próbuje zebrać wszystkie 50 monet stanowych. Podczas gdy my sortujemy naszą drobną monetę według typu monety, będziemy również wywoływać nazwę stanu związanego z każdą monetą, tak aby jeśli jest to moneta, której nasz przyjaciel nie ma, mógł ją dodać do swojej kolekcji.</p>
+<p>W wyrażeniu <code>match</code> dla tego kodu dodajemy zmienną o nazwie <code>state</code> do wzorca, który pasuje do wartości wariantu <code>Coin::Quarter</code>. Gdy pasuje <code>Coin::Quarter</code>, zmienna <code>state</code> zostanie powiązana z wartością stanu tej ćwiartki. Następnie możemy użyć <code>state</code> w kodzie dla tego ramienia, w ten sposób:</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#[derive(Debug)]
+</span><span class="boring">enum UsState {
+</span><span class="boring">    Alabama,
+</span><span class="boring">    Alaska,
+</span><span class="boring">    // --snip--
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">enum Coin {
+</span><span class="boring">    Penny,
+</span><span class="boring">    Nickel,
+</span><span class="boring">    Dime,
+</span><span class="boring">    Quarter(UsState),
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn value_in_cents(coin: Coin) -&gt; u8 {
+    match coin {
+        Coin::Penny =&gt; 1,
+        Coin::Nickel =&gt; 5,
+        Coin::Dime =&gt; 10,
+        Coin::Quarter(state) =&gt; {
+            println!("Moneta stanowa z {state:?}!");
+            25
+        }
+    }
+}
+<span class="boring">
+</span><span class="boring">fn main() {
+</span><span class="boring">    value_in_cents(Coin::Quarter(UsState::Alaska));
+</span><span class="boring">}</span></code></pre>
+<p>Gdybyśmy wywołali <code>value_in_cents(Coin::Quarter(UsState::Alaska))</code>, <code>coin</code> byłby <code>Coin::Quarter(UsState::Alaska)</code>. Kiedy porównamy tę wartość z każdym z ramion <code>match</code>, żadne z nich nie pasuje, dopóki nie dotrzemy do <code>Coin::Quarter(state)</code>. W tym momencie wiązanie dla <code>state</code> będzie wartością <code>UsState::Alaska</code>. Możemy następnie użyć tego wiązania w wyrażeniu <code>println!</code>, uzyskując w ten sposób wewnętrzną wartość stanu z wariantu enum <code>Coin</code> dla <code>Quarter</code>.</p>
+<p><a id="matching-with-optiont"></a></p>
+<h3 id="wzorzec-optiont-match"><a class="header" href="#wzorzec-optiont-match">Wzorzec <code>Option&lt;T&gt;</code> <code>match</code></a></h3>
+<p>W poprzedniej sekcji chcieliśmy wydobyć wewnętrzną wartość <code>T</code> z przypadku <code>Some</code> podczas używania <code>Option&lt;T&gt;</code>; możemy również obsługiwać <code>Option&lt;T&gt;</code> za pomocą <code>match</code>, tak jak zrobiliśmy to z enumem <code>Coin</code>! Zamiast porównywać monety, będziemy porównywać warianty <code>Option&lt;T&gt;</code>, ale sposób działania wyrażenia <code>match</code> pozostaje taki sam.</p>
+<p>Powiedzmy, że chcemy napisać funkcję, która przyjmuje <code>Option&lt;i32&gt;</code> i, jeśli w środku jest wartość, dodaje do niej 1. Jeśli w środku nie ma wartości, funkcja powinna zwrócić wartość <code>None</code> i nie próbować wykonywać żadnych operacji.</p>
+<p>Tę funkcję bardzo łatwo napisać, dzięki <code>match</code>, i będzie ona wyglądać jak Listing 6-5.</p>
+<listing number="6-5" caption="Funkcja, która używa wyrażenia `match` w `Option&lt;i32&gt;`">
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span>    fn plus_one(x: Option&lt;i32&gt;) -&gt; Option&lt;i32&gt; {
+        match x {
+            None =&gt; None,
+            Some(i) =&gt; Some(i + 1),
+        }
+    }
+
+    let five = Some(5);
+    let six = plus_one(five);
+    let none = plus_one(None);
+<span class="boring">}</span></code></pre>
+</listing>
+<p>Przyjrzyjmy się dokładniej pierwszemu wykonaniu <code>plus_one</code>. Kiedy wywołujemy <code>plus_one(five)</code>, zmienna <code>x</code> w ciele <code>plus_one</code> będzie miała wartość <code>Some(5)</code>. Następnie porównujemy ją z każdym ramieniem <code>match</code>:</p>
+<pre><code class="language-rust ignore"><span class="boring">fn main() {
+</span><span class="boring">    fn plus_one(x: Option&lt;i32&gt;) -&gt; Option&lt;i32&gt; {
+</span><span class="boring">        match x {
+</span>            None =&gt; None,
+<span class="boring">            Some(i) =&gt; Some(i + 1),
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    let five = Some(5);
+</span><span class="boring">    let six = plus_one(five);
+</span><span class="boring">    let none = plus_one(None);
+</span><span class="boring">}</span></code></pre>
+<p>Wartość <code>Some(5)</code> nie pasuje do wzorca <code>None</code>, więc przechodzimy do następnego ramienia:</p>
+<pre><code class="language-rust ignore"><span class="boring">fn main() {
+</span><span class="boring">    fn plus_one(x: Option&lt;i32&gt;) -&gt; Option&lt;i32&gt; {
+</span><span class="boring">        match x {
+</span><span class="boring">            None =&gt; None,
+</span>            Some(i) =&gt; Some(i + 1),
+<span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    let five = Some(5);
+</span><span class="boring">    let six = plus_one(five);
+</span><span class="boring">    let none = plus_one(None);
+</span><span class="boring">}</span></code></pre>
+<p>Czy <code>Some(5)</code> pasuje do <code>Some(i)</code>? Tak! Mamy ten sam wariant. <code>i</code> wiąże się z wartością zawartą w <code>Some</code>, więc <code>i</code> przyjmuje wartość <code>5</code>. Następnie kod w ramieniu <code>match</code> jest wykonywany, więc dodajemy 1 do wartości <code>i</code> i tworzymy nową wartość <code>Some</code> z naszym łącznym <code>6</code> w środku.</p>
+<p>Rozważmy teraz drugie wywołanie <code>plus_one</code> w Listingu 6-5, gdzie <code>x</code> jest <code>None</code>. Wchodzimy do <code>match</code> i porównujemy z pierwszym ramieniem:</p>
+<pre><code class="language-rust ignore"><span class="boring">fn main() {
+</span><span class="boring">    fn plus_one(x: Option&lt;i32&gt;) -&gt; Option&lt;i32&gt; {
+</span><span class="boring">        match x {
+</span>            None =&gt; None,
+<span class="boring">            Some(i) =&gt; Some(i + 1),
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    let five = Some(5);
+</span><span class="boring">    let six = plus_one(five);
+</span><span class="boring">    let none = plus_one(None);
+</span><span class="boring">}</span></code></pre>
+<p>Pasuje! Nie ma wartości do dodania, więc program zatrzymuje się i zwraca wartość <code>None</code> po prawej stronie <code>=&gt;</code>. Ponieważ pierwsze ramię pasowało, żadne inne ramiona nie są porównywane.</p>
+<p>Łączenie <code>match</code> i enumów jest przydatne w wielu sytuacjach. Będziesz często widział ten wzorzec w kodzie Rust: <code>match</code> z enumem, powiązanie zmiennej z danymi wewnątrz, a następnie wykonanie kodu na tej podstawie. Na początku jest to trochę trudne, ale gdy się do tego przyzwyczaisz, będziesz żałował, że nie miałeś tego we wszystkich językach. Jest to konsekwentnie ulubiona funkcja użytkowników.</p>
+<h3 id="dopasowania-są-wyczerpujące"><a class="header" href="#dopasowania-są-wyczerpujące">Dopasowania są wyczerpujące</a></h3>
+<p>Jest jeszcze jeden aspekt <code>match</code>, który musimy omówić: wzorce ramion muszą obejmować wszystkie możliwości. Rozważmy tę wersję naszej funkcji <code>plus_one</code>, która zawiera błąd i nie skompiluje się:</p>
+<pre><code class="language-rust ignore does_not_compile"><span class="boring">fn main() {
+</span>    fn plus_one(x: Option&lt;i32&gt;) -&gt; Option&lt;i32&gt; {
+        match x {
+            Some(i) =&gt; Some(i + 1),
+        }
+    }
+<span class="boring">
+</span><span class="boring">    let five = Some(5);
+</span><span class="boring">    let six = plus_one(five);
+</span><span class="boring">    let none = plus_one(None);
+</span><span class="boring">}</span></code></pre>
+<p>Nie obsłużyliśmy przypadku <code>None</code>, więc ten kod spowoduje błąd. Na szczęście jest to błąd, który Rust potrafi wyłapać. Jeśli spróbujemy skompilować ten kod, otrzymamy taki błąd:</p>
+<pre><code class="language-console">$ cargo run
+   Compiling enums v0.1.0 (file:///projects/enums)
+error[E0004]: non-exhaustive patterns: `None` nie pokryto
+ --&gt; src/main.rs:3:15
+  |
+3 |         match x {
+  |               ^ wzorzec `None` nie pokryto
+  |
+note: `Option&lt;i32&gt;` zdefiniowano tutaj
+ --&gt; /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/core/src/option.rs:593:1
+ ::: /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/core/src/option.rs:597:5
+  |
+  = note: nie pokryto
+  = note: dopasowana wartość jest typu `Option&lt;i32&gt;`
+help: upewnij się, że wszystkie możliwe przypadki są obsługiwane, dodając ramię dopasowania z wzorcem wieloznacznym lub jawnym wzorcem, jak pokazano
+  |
+4 ~             Some(i) =&gt; Some(i + 1),
+5 ~             None =&gt; todo!(),
+  |
+
+For more information about this error, try `rustc --explain E0004`.
+error: could not compile `enums` (bin "enums") due to 1 previous error
+</code></pre>
+<p>Rust wie, że nie objęliśmy każdego możliwego przypadku i nawet wie, który wzorzec pominęliśmy! Dopasowania w Rust są <em>wyczerpujące</em>: Musimy wyczerpać każdą ostatnią możliwość, aby kod był poprawny. Zwłaszcza w przypadku <code>Option&lt;T&gt;</code>, gdy Rust uniemożliwia nam zapomnienie o jawnej obsłudze przypadku <code>None</code>, chroni nas przed zakładaniem, że mamy wartość, gdy możemy mieć null, co uniemożliwia popełnienie błędu miliarda dolarów, o którym mówiliśmy wcześniej.</p>
+<h3 id="wzorce-ogólne-catch-all-i-symbol-zastępczy-_"><a class="header" href="#wzorce-ogólne-catch-all-i-symbol-zastępczy-_">Wzorce ogólne (Catch-All) i symbol zastępczy <code>_</code></a></h3>
+<p>Używając typów wyliczeniowych, możemy również podejmować specjalne działania dla kilku konkretnych wartości, ale dla wszystkich innych wartości podjąć jedno domyślne działanie. Wyobraźmy sobie, że implementujemy grę, w której, jeśli na rzucie kostką wypadnie 3, gracz nie rusza się, ale zamiast tego dostaje fantazyjny nowy kapelusz. Jeśli wypadnie 7, gracz traci fantazyjny kapelusz. Dla wszystkich innych wartości, gracz przesuwa się o tę liczbę pól na planszy. Oto <code>match</code>, który implementuje tę logikę, z wynikiem rzutu kostką zakodowanym na stałe, a nie wartością losową, a cała inna logika jest reprezentowana przez funkcje bez ciał, ponieważ ich faktyczne zaimplementowanie wykracza poza zakres tego przykładu:</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span>    let dice_roll = 9;
+    match dice_roll {
+        3 =&gt; add_fancy_hat(),
+        7 =&gt; remove_fancy_hat(),
+        other =&gt; move_player(other),
+    }
+
+    fn add_fancy_hat() {}
+    fn fn remove_fancy_hat() {}
+    fn move_player(num_spaces: u8) {}
+<span class="boring">}</span></code></pre>
+<p>Dla pierwszych dwóch gałęzi wzorcami są literały <code>3</code> i <code>7</code>. Dla ostatniej gałęzi, która obejmuje wszystkie inne możliwe wartości, wzorcem jest zmienna, którą nazwaliśmy <code>other</code>. Kod uruchamiany dla gałęzi <code>other</code> używa zmiennej, przekazując ją do funkcji <code>move_player</code>.</p>
+<p>Ten kod kompiluje się, chociaż nie wymieniliśmy wszystkich możliwych wartości, jakie może mieć <code>u8</code>, ponieważ ostatni wzorzec będzie pasował do wszystkich wartości, które nie zostały specjalnie wymienione. Ten wzorzec typu catch-all spełnia wymóg, że <code>match</code> musi być wyczerpujące. Zauważ, że musimy umieścić ramię typu catch-all na końcu, ponieważ wzorce są oceniane po kolei. Gdybyśmy umieścili ramię typu catch-all wcześniej, inne ramiona nigdy by się nie uruchomiły, więc Rust ostrzeże nas, jeśli dodamy ramiona po catch-all!</p>
+<p>Rust posiada również wzorzec, którego możemy użyć, gdy chcemy zastosować wzorzec ogólny, ale nie chcemy <em>używać</em> wartości w tym wzorcu: <code>_</code> to specjalny wzorzec, który pasuje do dowolnej wartości i nie wiąże się z tą wartością. To mówi Rustowi, że nie będziemy używać tej wartości, więc Rust nie ostrzeże nas o nieużywanej zmiennej.</p>
+<p>Zmieńmy zasady gry: teraz, jeśli wyrzucisz coś innego niż 3 lub 7, musisz rzucić ponownie. Nie potrzebujemy już używać wartości typu catch-all, więc możemy zmienić nasz kod, aby używał <code>_</code> zamiast zmiennej o nazwie <code>other</code>:</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span>    let dice_roll = 9;
+    match dice_roll {
+        3 =&gt; add_fancy_hat(),
+        7 =&gt; remove_fancy_hat(),
+        _ =&gt; reroll(),
+    }
+
+    fn add_fancy_hat() {}
+    fn remove_fancy_hat() {}
+    fn reroll() {}
+<span class="boring">}</span></code></pre>
+<p>Ten przykład również spełnia wymóg wyczerpującego dopasowania, ponieważ jawnie ignorujemy wszystkie inne wartości w ostatnim ramieniu; niczego nie pominęliśmy.</p>
+<p>Na koniec zmienimy zasady gry jeszcze raz, tak aby nic innego nie działo się w Twojej turze, jeśli wyrzucisz coś innego niż 3 lub 7. Możemy to wyrazić, używając wartości jednostkowej (typu pustej krotki, o której wspominaliśmy w sekcji <a href="ch03-02-data-types.html#the-tuple-type">„Typ krotki”</a><!-- ignore -->) jako kodu, który towarzyszy ramieniu <code>_</code>:</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span>    let dice_roll = 9;
+    match dice_roll {
+        3 =&gt; add_fancy_hat(),
+        7 =&gt; remove_fancy_hat(),
+        _ =&gt; (),
+    }
+
+    fn add_fancy_hat() {}
+    fn remove_fancy_hat() {}
+<span class="boring">}</span></code></pre>
+<p>Tutaj jawnie mówimy Rustowi, że nie zamierzamy używać żadnej innej wartości, która nie pasuje do wzorca w poprzednim ramieniu, i nie chcemy uruchamiać żadnego kodu w tym przypadku.</p>
+<p>Więcej o wzorcach i dopasowywaniu omówimy w <a href="ch19-00-patterns.html">Rozdziale 19</a><!-- ignore -->. Na razie przejdziemy do składni <code>if let</code>, która może być użyteczna w sytuacjach, gdy wyrażenie <code>match</code> jest nieco rozwlekłe.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="ch06-01-defining-an-enum.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="ch06-03-if-let.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="ch06-01-defining-an-enum.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="ch06-03-if-let.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="ferris-2317480c.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

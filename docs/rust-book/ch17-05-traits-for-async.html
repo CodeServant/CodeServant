@@ -1,0 +1,570 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Bliższe spojrzenie na cechy dla async - Język programowania Rust</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="ferris-d33b75bf.css">
+        <link rel="stylesheet" href="theme/2018-edition-4e126c62.css">
+        <link rel="stylesheet" href="theme/semantic-notes-9b5766c0.css">
+        <link rel="stylesheet" href="theme/listing-cab26221.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-773dca2f.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-039e37ba.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Język programowania Rust</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/rust-lang/book" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <!-- Old headings. Do not remove or links may break. -->
+<p><a id="digging-into-the-traits-for-async"></a></p>
+<h2 id="bliższe-spojrzenie-na-cechy-dla-async"><a class="header" href="#bliższe-spojrzenie-na-cechy-dla-async">Bliższe spojrzenie na cechy dla Async</a></h2>
+<p>W całym rozdziale używaliśmy cech <code>Future</code>, <code>Stream</code> i <code>StreamExt</code> na różne sposoby. Jak dotąd unikaliśmy jednak zagłębiania się w szczegóły ich działania lub ich wzajemnego dopasowania, co w większości przypadków jest w porządku w codziennej pracy z Rust. Czasami jednak napotkasz sytuacje, w których będziesz musiał zrozumieć kilka więcej szczegółów tych cech, a także typ <code>Pin</code> i cechę <code>Unpin</code>. W tej sekcji zagłębimy się w nie na tyle, aby pomóc w takich scenariuszach, pozostawiając <em>naprawdę</em> dogłębne badanie innym dokumentacjom.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="future"></a></p>
+<h3 id="cechy-future"><a class="header" href="#cechy-future">Cechy <code>Future</code></a></h3>
+<p>Zacznijmy od bliższego przyjrzenia się, jak działa cecha <code>Future</code>. Oto jak Rust ją definiuje:</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::pin::Pin;
+use std::task::{Context, Poll};
+
+pub trait Future {
+    type Output;
+
+    fn poll(self: Pin&lt;&amp;mut Self&gt;, cx: &amp;mut Context&lt;'_&gt;) -&gt; Poll&lt;Self::Output&gt;;
+}
+<span class="boring">}</span></code></pre>
+<p>Ta definicja cechy zawiera wiele nowych typów, a także pewną składnię, której wcześniej nie widzieliśmy, więc przejdźmy przez definicję kawałek po kawałku.</p>
+<p>Po pierwsze, typ skojarzony <code>Output</code> z cechy <code>Future</code> mówi, do czego future się rozwiązuje. Jest to analogiczne do typu skojarzonego <code>Item</code> z cechy <code>Iterator</code>. Po drugie, cecha <code>Future</code> ma metodę <code>poll</code>, która przyjmuje specjalną referencję <code>Pin</code> dla swojego parametru <code>self</code> oraz mutowalną referencję do typu <code>Context</code> i zwraca <code>Poll&lt;Self::Output&gt;</code>. Więcej o <code>Pin</code> i <code>Context</code> powiemy za chwilę. Na razie skupmy się na tym, co zwraca metoda, czyli na typie <code>Poll</code>:</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub enum Poll&lt;T&gt; {
+    Ready(T),
+    Pending,
+}
+<span class="boring">}</span></code></pre>
+<p>Ten typ <code>Poll</code> jest podobny do <code>Option</code>. Ma jeden wariant, który ma wartość, <code>Ready(T)</code>, i jeden, który nie ma, <code>Pending</code>. <code>Poll</code> oznacza jednak coś zupełnie innego niż <code>Option</code>! Wariant <code>Pending</code> wskazuje, że future nadal ma pracę do wykonania, więc wywołujący będzie musiał sprawdzić ponownie później. Wariant <code>Ready</code> wskazuje, że <code>Future</code> zakończyło swoją pracę i wartość <code>T</code> jest dostępna.</p>
+<blockquote>
+<p>Uwaga: Rzadko zdarza się potrzeba bezpośredniego wywołania <code>poll</code>, ale jeśli zajdzie taka potrzeba, pamiętaj, że w przypadku większości futures, wywołujący nie powinien ponownie wywoływać <code>poll</code> po tym, jak future zwróciło <code>Ready</code>. Wiele futures panikuje, jeśli zostanie ponownie odpytanych po staniu się gotowymi. Futures, które są bezpieczne do ponownego odpytania, będą o tym wyraźnie informować w swojej dokumentacji. Jest to podobne do zachowania <code>Iterator::next</code>.</p>
+</blockquote>
+<p>Kiedy widzisz kod, który używa <code>await</code>, Rust kompiluje go pod spodem do kodu, który wywołuje <code>poll</code>. Jeśli spojrzysz ponownie na Listing 17-4, gdzie wydrukowaliśmy tytuł strony dla pojedynczego adresu URL po jego rozwiązaniu, Rust kompiluje go do czegoś w rodzaju (choć nie dokładnie) tego:</p>
+<pre><code class="language-rust ignore">match page_title(url).poll() {
+    Ready(page_title) =&gt; match page_title {
+        Some(title) =&gt; println!("The title for {url} was {title}"),
+        None =&gt; println!("{url} had no title"),
+    }
+    Pending =&gt; {
+        // But what goes here?
+    }
+}</code></pre>
+<p>Co powinniśmy zrobić, gdy future jest nadal w stanie <code>Pending</code>? Potrzebujemy jakiegoś sposobu, aby spróbować ponownie, i ponownie, i ponownie, aż future będzie w końcu gotowe. Innymi słowy, potrzebujemy pętli:</p>
+<pre><code class="language-rust ignore">let mut page_title_fut = page_title(url);
+loop {
+    match page_title_fut.poll() {
+        Ready(value) =&gt; match page_title {
+            Some(title) =&gt; println!("The title for {url} was {title}"),
+            None =&gt; println!("{url} had no title"),
+        }
+        Pending =&gt; {
+            // continue
+        }
+    }
+}</code></pre>
+<p>Jednak gdyby Rust skompilował to dokładnie na taki kod, każde <code>await</code> byłoby blokujące – dokładnie przeciwnie do tego, co zamierzaliśmy! Zamiast tego Rust zapewnia, że pętla może przekazać kontrolę czemuś, co może wstrzymać pracę nad tym future, aby pracować nad innymi futures, a następnie sprawdzić ten ponownie później. Jak widzieliśmy, tym czymś jest środowisko uruchomieniowe async, a ta praca związana z planowaniem i koordynacją jest jednym z jego głównych zadań.</p>
+<p>W sekcji <a href="ch17-02-concurrency-with-async.html#sending-data-between-two-tasks-using-message-passing">„Wysyłanie danych między dwoma zadaniami za pomocą przekazywania wiadomości”</a><!-- ignore --> opisaliśmy oczekiwanie na <code>rx.recv</code>. Wywołanie <code>recv</code> zwraca future, a oczekiwanie na future odpytuje je. Zauważyliśmy, że środowisko uruchomieniowe wstrzyma future, dopóki nie będzie ono gotowe z <code>Some(message)</code> lub <code>None</code>, gdy kanał zostanie zamknięty. Dzięki naszemu głębszemu zrozumieniu cechy <code>Future</code>, a konkretnie <code>Future::poll</code>, możemy zobaczyć, jak to działa. Środowisko uruchomieniowe wie, że future nie jest gotowe, gdy zwraca <code>Poll::Pending</code>. Odwrotnie, środowisko uruchomieniowe wie, że future <em>jest</em> gotowe i kontynuuje je, gdy <code>poll</code> zwraca <code>Poll::Ready(Some(message))</code> lub <code>Poll::Ready(None)</code>.</p>
+<p>Dokładne szczegóły tego, jak środowisko wykonawcze to robi, wykraczają poza zakres tej książki, ale kluczem jest zrozumienie podstawowych mechanizmów futures: środowisko wykonawcze <em>odpytuje</em> każdy future, za który jest odpowiedzialne, usypiając future ponownie, gdy nie jest jeszcze gotowe.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="pinning-and-the-pin-and-unpin-traits"></a>
+<a id="the-pin-and-unpin-traits"></a></p>
+<h3 id="typ-pin-i-cecha-unpin"><a class="header" href="#typ-pin-i-cecha-unpin">Typ <code>Pin</code> i cecha <code>Unpin</code></a></h3>
+<p>W Listing 17-13 użyliśmy makra <code>trpl::join!</code> do oczekiwania na trzy futures. Jednak często zdarza się mieć kolekcję, taką jak wektor, zawierającą pewną liczbę futures, której nie będzie znana do czasu wykonania. Zmieńmy Listing 17-13 na kod z Listing 17-23, który umieszcza trzy futures w wektorze i wywołuje funkcję <code>trpl::join_all</code> zamiast tego, co jeszcze się nie skompiluje.</p>
+<listing number="17-23" caption="Oczekiwanie na futures w kolekcji" file-name="src/main.rs">
+<pre><code class="language-rust ignore does_not_compile"><span class="boring">extern crate trpl; // required for mdbook test
+</span><span class="boring">
+</span><span class="boring">use std::time::Duration;
+</span><span class="boring">
+</span><span class="boring">fn main() {
+</span><span class="boring">    trpl::block_on(async {
+</span><span class="boring">        let (tx, mut rx) = trpl::channel();
+</span><span class="boring">
+</span><span class="boring">        let tx1 = tx.clone();
+</span><span class="boring">        let tx1_fut = async move {
+</span><span class="boring">            let vals = vec![
+</span><span class="boring">                String::from("hi"),
+</span><span class="boring">                String::from("from"),
+</span><span class="boring">                String::from("the"),
+</span><span class="boring">                String::from("future"),
+</span><span class="boring">            ];
+</span><span class="boring">
+</span><span class="boring">            for val in vals {
+</span><span class="boring">                tx1.send(val).unwrap();
+</span><span class="boring">                trpl::sleep(Duration::from_secs(1)).await;
+</span><span class="boring">            }
+</span><span class="boring">        };
+</span><span class="boring">
+</span><span class="boring">        let rx_fut = async {
+</span><span class="boring">            while let Some(value) = rx.recv().await {
+</span><span class="boring">                println!("received '{value}'");
+</span><span class="boring">            }
+</span><span class="boring">        };
+</span><span class="boring">
+</span>        let tx_fut = async move {
+            // --snip--
+<span class="boring">            let vals = vec![
+</span><span class="boring">                String::from("more"),
+</span><span class="boring">                String::from("messages"),
+</span><span class="boring">                String::from("for"),
+</span><span class="boring">                String::from("you"),
+</span><span class="boring">            ];
+</span><span class="boring">
+</span><span class="boring">            for val in vals {
+</span><span class="boring">                tx.send(val).unwrap();
+</span><span class="boring">                trpl::sleep(Duration::from_secs(1)).await;
+</span><span class="boring">            }
+</span>        };
+
+        let futures: Vec&lt;Box&lt;dyn Future&lt;Output = ()&gt;&gt;&gt; =
+            vec![Box::new(tx1_fut), Box::new(rx_fut), Box::new(tx_fut)];
+
+        trpl::join_all(futures).await;
+<span class="boring">    });
+</span><span class="boring">}</span></code></pre>
+</listing>
+<p>Każdy future umieszczamy w <code>Box</code>, aby zamienić je w <em>obiekty cech</em>, tak jak to zrobiliśmy w sekcji „Zwracanie błędów z <code>run</code>” w Rozdziale 12. (Obiekty cech szczegółowo omówimy w Rozdziale 18.) Używanie obiektów cech pozwala nam traktować każdy z anonimowych futures wyprodukowanych przez te typy jako ten sam typ, ponieważ wszystkie one implementują cechę <code>Future</code>.</p>
+<p>Może to być zaskakujące. Przecież żaden z bloków async niczego nie zwraca, więc każdy z nich produkuje <code>Future&lt;Output = ()&gt;</code>. Pamiętaj jednak, że <code>Future</code> jest cechą, a kompilator tworzy unikalny enum dla każdego bloku async, nawet jeśli mają identyczne typy wyjściowe. Tak jak nie możesz umieścić dwóch różnych, ręcznie napisanych struktur w <code>Vec</code>, tak samo nie możesz mieszać enumów generowanych przez kompilator.</p>
+<p>Następnie przekazujemy kolekcję futures do funkcji <code>trpl::join_all</code> i czekamy na wynik. Jednak to się nie kompiluje; oto odpowiednia część komunikatów o błędach.</p>
+<!-- manual-regeneration
+cd listings/ch17-async-await/listing-17-23
+cargo build
+copy *only* the final `error` block from the errors
+-->
+<pre><code class="language-text">error[E0277]: `dyn Future&lt;Output = ()&gt;` cannot be unpinned
+  --&gt; src/main.rs:48:33
+   |
+48 |         trpl::join_all(futures).await;
+   |                                 ^^^^^ the trait `Unpin` is not implemented for `dyn Future&lt;Output = ()&gt;`
+   |
+   = note: consider using the `pin!` macro
+           consider using `Box::pin` if you need to access the pinned value outside of the current scope
+   = note: required for `Box&lt;dyn Future&lt;Output = ()&gt;&gt;` to implement `Future`
+note: required by a bound in `futures_util::future::join_all::JoinAll`
+  --&gt; file:///home/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/futures-util-0.3.30/src/future/join_all.rs:29:8
+   |
+27 | pub struct JoinAll&lt;F&gt;
+   |            ------- required by a bound in this struct
+28 | where
+29 |     F: Future,
+   |        ^^^^^^ required by this bound in `JoinAll`
+</code></pre>
+<p>Notatka w komunikacie o błędzie mówi nam, że powinniśmy użyć makra <code>pin!</code>, aby <em>przypiąć</em> wartości, co oznacza umieszczenie ich w typie <code>Pin</code>, który gwarantuje, że wartości nie zostaną przeniesione w pamięci. Komunikat o błędzie mówi, że przypinanie jest wymagane, ponieważ <code>dyn Future&lt;Output = ()&gt;</code> musi implementować cechę <code>Unpin</code>, a obecnie tego nie robi.</p>
+<p>Funkcja <code>trpl::join_all</code> zwraca strukturę o nazwie <code>JoinAll</code>. Ta struktura jest generyczna na typie <code>F</code>, który jest ograniczony do implementacji cechy <code>Future</code>. Bezpośrednie oczekiwanie na future za pomocą <code>await</code> niejawnie przypina future. Dlatego nie musimy używać <code>pin!</code> wszędzie tam, gdzie chcemy oczekiwać na futures.</p>
+<p>Nie oczekujemy tu jednak bezpośrednio na future. Zamiast tego konstruujemy nowe future, <code>JoinAll</code>, przekazując kolekcję futures do funkcji <code>join_all</code>. Sygnatura <code>join_all</code> wymaga, aby typy elementów w kolekcji implementowały cechę <code>Future</code>, a <code>Box&lt;T&gt;</code> implementuje <code>Future</code> tylko wtedy, gdy opakowywany przez niego <code>T</code> jest futurem, który implementuje cechę <code>Unpin</code>.</p>
+<p>To dużo do przyswojenia! Aby to naprawdę zrozumieć, zagłębmy się nieco bardziej w to, jak działa cecha <code>Future</code>, szczególnie w kontekście przypinania. Spójrzmy jeszcze raz na definicję cechy <code>Future</code>:</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::pin::Pin;
+use std::task::{Context, Poll};
+
+pub trait Future {
+    type Output;
+
+    // Required method
+    fn poll(self: Pin&lt;&amp;mut Self&gt;, cx: &amp;mut Context&lt;'_&gt;) -&gt; Poll&lt;Self::Output&gt;;
+}
+<span class="boring">}</span></code></pre>
+<p>Parametr <code>cx</code> i jego typ <code>Context</code> są kluczem do tego, jak środowisko wykonawcze faktycznie wie, kiedy sprawdzić dany future, jednocześnie pozostając leniwym. Ponownie, szczegóły tego, jak to działa, wykraczają poza zakres tego rozdziału, i zazwyczaj musisz o tym myśleć tylko wtedy, gdy piszesz niestandardową implementację <code>Future</code>. Zamiast tego skupimy się na typie <code>self</code>, ponieważ jest to pierwszy raz, gdy widzieliśmy metodę, w której <code>self</code> ma adnotację typu. Adnotacja typu dla <code>self</code> działa jak adnotacje typu dla innych parametrów funkcji, ale z dwoma kluczowymi różnicami:</p>
+<ul>
+<li>Mówi Rustowi, jakiego typu musi być <code>self</code>, aby metoda mogła zostać wywołana.</li>
+<li>Nie może to być dowolny typ. Jest ograniczony do typu, na którym metoda jest zaimplementowana, referencji lub inteligentnego wskaźnika do tego typu, lub <code>Pin</code> opakowującego referencję do tego typu.</li>
+</ul>
+<p>Więcej na temat tej składni zobaczymy w <a href="ch18-00-oop.html">Rozdziale 18</a><!-- ignore -->. Na razie wystarczy wiedzieć, że jeśli chcemy odpytać future, aby sprawdzić, czy jest <code>Pending</code> czy <code>Ready(Output)</code>, potrzebujemy mutowalnej referencji do typu opakowanej w <code>Pin</code>.</p>
+<p><code>Pin</code> to opakowanie dla typów wskaźnikopodobnych, takich jak <code>&amp;</code>, <code>&amp;mut</code>, <code>Box</code> i <code>Rc</code>. (Technicznie <code>Pin</code> działa z typami implementującymi cechy <code>Deref</code> lub <code>DerefMut</code>, ale to jest skutecznie równoważne z pracą tylko z referencjami i inteligentnymi wskaźnikami.) <code>Pin</code> sam w sobie nie jest wskaźnikiem i nie ma żadnego własnego zachowania, jak <code>Rc</code> i <code>Arc</code> zliczające referencje; jest to czysto narzędzie, którego kompilator może używać do wymuszania ograniczeń na użycie wskaźników.</p>
+<p>Przypominając, że <code>await</code> jest implementowane w kategoriach wywołań <code>poll</code>, zaczyna wyjaśniać się komunikat o błędzie, który widzieliśmy wcześniej, ale był on w kategoriach <code>Unpin</code>, a nie <code>Pin</code>. Jak więc dokładnie <code>Pin</code> odnosi się do <code>Unpin</code> i dlaczego <code>Future</code> potrzebuje, aby <code>self</code> było w typie <code>Pin</code>, aby wywołać <code>poll</code>?</p>
+<p>Przypomnijmy z wcześniejszej części tego rozdziału, że seria punktów oczekiwania w future jest kompilowana w maszynę stanów, a kompilator dba o to, aby ta maszyna stanów przestrzegała wszystkich normalnych zasad Rusta dotyczących bezpieczeństwa, w tym pożyczania i własności. Aby to działało, Rust patrzy na to, jakie dane są potrzebne między jednym punktem oczekiwania a następnym punktem oczekiwania lub końcem bloku async. Następnie tworzy odpowiedni wariant w skompilowanej maszynie stanów. Każdy wariant uzyskuje potrzebny dostęp do danych, które będą używane w tej sekcji kodu źródłowego, albo poprzez przejęcie własności tych danych, albo poprzez uzyskanie mutowalnej lub niemutowalnej referencji do nich.</p>
+<p>Jak dotąd, wszystko dobrze: jeśli popełnimy błąd w kwestii własności lub referencji w danym bloku async, narzędzie borrow checker nas o tym poinformuje. Kiedy chcemy przenosić future odpowiadające temu blokowi – na przykład przenosząc je do <code>Vec</code>, aby przekazać do <code>join_all</code> – sprawy stają się bardziej skomplikowane.</p>
+<p>Kiedy przenosimy future – czy to poprzez włożenie go do struktury danych w celu użycia jako iteratora z <code>join_all</code>, czy zwracając je z funkcji – oznacza to faktycznie przeniesienie maszyny stanów, którą Rust dla nas tworzy. I w przeciwieństwie do większości innych typów w Rust, futures, które Rust tworzy dla bloków async, mogą mieć odwołania do samych siebie w polach dowolnego wariantu, jak pokazano na uproszczonej ilustracji na Rysunku 17-4.</p>
+<figure>
+<img alt="A single-column, three-row table representing a future, fut1, which has data values 0 and 1 in the first two rows and an arrow pointing from the third row back to the second row, representing an internal reference within the future." src="img/trpl17-04.svg" class="center" />
+<figcaption>Rysunek 17-4: Typ danych z referencjami do siebie</figcaption>
+</figure>
+<p>Jednakże, domyślnie każdy obiekt, który ma do siebie referencję, jest niebezpieczny do przenoszenia, ponieważ referencje zawsze wskazują na rzeczywisty adres pamięci tego, do czego się odnoszą (patrz Rysunek 17-5). Jeśli przeniesiesz samą strukturę danych, te wewnętrzne referencje będą wskazywać na stare miejsce. Jednak to miejsce w pamięci jest teraz nieprawidłowe. Po pierwsze, jego wartość nie zostanie zaktualizowana, gdy wprowadzisz zmiany w strukturze danych. Po drugie – co ważniejsze – komputer może teraz swobodnie ponownie wykorzystać tę pamięć do innych celów! Później możesz odczytać zupełnie niepowiązane dane.</p>
+<figure>
+<img alt="Two tables, depicting two futures, fut1 and fut2, each of which has one column and three rows, representing the result of having moved a future out of fut1 into fut2. The first, fut1, is grayed out, with a question mark in each index, representing unknown memory. The second, fut2, has 0 and 1 in the first and second rows and an arrow pointing from its third row back to the second row of fut1, representing a pointer that is referencing the old location in memory of the future before it was moved." src="img/trpl17-05.svg" class="center" />
+<figcaption>Rysunek 17-5: Niebezpieczny wynik przenoszenia typu danych z referencjami do siebie</figcaption>
+</figure>
+<p>Teoretycznie, kompilator Rust mógłby próbować aktualizować każdą referencję do obiektu, gdy jest on przenoszony, ale to mogłoby dodać wiele narzutu wydajnościowego, zwłaszcza jeśli cała sieć referencji wymaga aktualizacji. Gdybyśmy zamiast tego mogli zapewnić, że dana struktura danych <em>nie przesuwa się w pamięci</em>, nie musielibyśmy aktualizować żadnych referencji. Do tego właśnie służy borrow checker Rusta: w bezpiecznym kodzie zapobiega przenoszeniu jakiegokolwiek elementu, do którego istnieje aktywna referencja.</p>
+<p><code>Pin</code> opiera się na tym, aby zapewnić nam dokładnie taką gwarancję, jakiej potrzebujemy. Kiedy <em>przypinamy</em> wartość, opakowując wskaźnik do tej wartości w <code>Pin</code>, nie może się ona już przesuwać. Zatem, jeśli masz <code>Pin&lt;Box&lt;SomeType&gt;&gt;</code>, faktycznie przypinasz wartość <code>SomeType</code>, <em>nie</em> wskaźnik <code>Box</code>. Rysunek 17-6 ilustruje ten proces.</p>
+<figure>
+<img alt="Three boxes laid out side by side. The first is labeled “Pin”, the second “b1”, and the third “pinned”. Within “pinned” is a table labeled “fut”, with a single column; it represents a future with cells for each part of the data structure. Its first cell has the value “0”, its second cell has an arrow coming out of it and pointing to the fourth and final cell, which has the value “1” in it, and the third cell has dashed lines and an ellipsis to indicate there may be other parts to the data structure. All together, the “fut” table represents a future which is self-referential. An arrow leaves the box labeled “Pin”, goes through the box labeled “b1” and terminates inside the “pinned” box at the “fut” table." src="img/trpl17-06.svg" class="center" />
+<figcaption>Rysunek 17-6: Przypinanie `Box`, który wskazuje na samoodwołujący się typ future</figcaption>
+</figure>
+<p>W rzeczywistości wskaźnik <code>Box</code> może nadal swobodnie się przemieszczać. Pamiętaj: zależy nam na tym, aby dane, do których ostatecznie się odwołujemy, pozostały na miejscu. Jeśli wskaźnik się przemieszcza, <em>ale dane, na które wskazuje</em>, znajdują się w tym samym miejscu, jak na Rysunku 17-7, nie ma potencjalnego problemu. (Jako niezależne ćwiczenie, spójrz na dokumentację typów oraz modułu <code>std::pin</code> i spróbuj ustalić, jak byś to zrobił z <code>Pin</code> opakowującym <code>Box</code>.) Kluczem jest to, że samoodwołujący się typ sam w sobie nie może się przemieszczać, ponieważ jest nadal przypięty.</p>
+<figure>
+<img alt="Four boxes laid out in three rough columns, identical to the previous diagram with a change to the second column. Now there are two boxes in the second column, labeled “b1” and “b2”, “b1” is grayed out, and the arrow from “Pin” goes through “b2” instead of “b1”, indicating that the pointer has moved from “b1” to “b2”, but the data in “pinned” has not moved." src="img/trpl17-07.svg" class="center" />
+<figcaption>Rysunek 17-7: Przenoszenie `Box`, który wskazuje na samoodwołujący się typ future</figcaption>
+</figure>
+<p>Jednak większość typów jest całkowicie bezpieczna do przenoszenia, nawet jeśli znajdują się za wskaźnikiem <code>Pin</code>. Musimy myśleć o przypinaniu tylko wtedy, gdy elementy mają wewnętrzne referencje. Prymitywne wartości, takie jak liczby i wartości logiczne, są bezpieczne, ponieważ oczywiście nie mają żadnych wewnętrznych referencji.
+Podobnie jak większość typów, z którymi normalnie pracujesz w Rust. Możesz przenosić <code>Vec</code>, na przykład, bez obaw. Biorąc pod uwagę to, co widzieliśmy do tej pory, jeśli masz <code>Pin&lt;Vec&lt;String&gt;&gt;</code>, musiałbyś robić wszystko za pomocą bezpiecznych, ale restrykcyjnych API dostarczonych przez <code>Pin</code>, mimo że <code>Vec&lt;String&gt;</code> jest zawsze bezpieczny do przenoszenia, jeśli nie ma do niego innych referencji. Potrzebujemy sposobu, aby powiedzieć kompilatorowi, że w takich przypadkach można przenosić elementy – i tu właśnie wchodzi <code>Unpin</code>.</p>
+<p><code>Unpin</code> to cecha znacznikowa, podobna do cech <code>Send</code> i <code>Sync</code>, które widzieliśmy w Rozdziale 16, i dlatego nie ma własnej funkcjonalności. Cechy znacznikowe istnieją tylko po to, aby poinformować kompilator, że bezpieczne jest użycie typu implementującego daną cechę w określonym kontekście. <code>Unpin</code> informuje kompilator, że dany typ <em>nie</em> musi przestrzegać żadnych gwarancji dotyczących tego, czy dana wartość może być bezpiecznie przeniesiona.</p>
+<!--
+  The inline `<code>` in the next block is to allow the inline `<em>` inside it,
+  matching what NoStarch does style-wise, and emphasizing within the text here
+  that it is something distinct from a normal type.
+-->
+<p>Podobnie jak w przypadku <code>Send</code> i <code>Sync</code>, kompilator automatycznie implementuje <code>Unpin</code> dla wszystkich typów, dla których może to udowodnić, że jest bezpieczne. Szczególnym przypadkiem, ponownie podobnym do <code>Send</code> i <code>Sync</code>, jest sytuacja, gdy <code>Unpin</code> <em>nie</em> jest implementowany dla typu. Oznaczenie dla tego to <code>impl !Unpin for <em>SomeType</em></code>, gdzie <code><em>SomeType</em></code> to nazwa typu, który <em>musi</em> przestrzegać tych gwarancji, aby być bezpiecznym za każdym razem, gdy wskaźnik do tego typu jest używany w <code>Pin</code>.</p>
+<p>Innymi słowy, istnieją dwie rzeczy, o których należy pamiętać w związku z relacją między <code>Pin</code> a <code>Unpin</code>. Po pierwsze, <code>Unpin</code> jest przypadkiem „normalnym”, a <code>!Unpin</code> jest przypadkiem specjalnym. Po drugie, to, czy typ implementuje <code>Unpin</code> czy <code>!Unpin</code>, ma znaczenie <em>tylko</em> wtedy, gdy używasz przypiętego wskaźnika do tego typu, takiego jak <code>Pin&lt;&amp;mut <em>SomeType</em>&gt;</code>.</p>
+<p>Aby to uściślić, pomyśl o <code>String</code>: ma długość i znaki Unicode, które ją tworzą. Możemy opakować <code>String</code> w <code>Pin</code>, jak widać na Rysunku 17-8. Jednak <code>String</code> automatycznie implementuje <code>Unpin</code>, podobnie jak większość innych typów w Rust.</p>
+<figure>
+<img alt="A box labeled “Pin” on the left with an arrow going from it to a box labeled “String” on the right. The “String” box contains the data 5usize, representing the length of the string, and the letters “h”, “e”, “l”, “l”, and “o” representing the characters of the string “hello” stored in this String instance. A dotted rectangle surrounds the “String” box and its label, but not the “Pin” box." src="img/trpl17-08.svg" class="center" />
+<figcaption>Rysunek 17-8: Przypinanie `String`; przerywana linia wskazuje, że `String` implementuje cechę `Unpin` i dlatego nie jest przypięty</figcaption>
+</figure>
+<p>W rezultacie możemy robić rzeczy, które byłyby nielegalne, gdyby <code>String</code> implementował zamiast tego <code>!Unpin</code>, takie jak zastępowanie jednego ciągu znaków innym w dokładnie tym samym miejscu w pamięci, jak na Rysunku 17-9. Nie narusza to kontraktu <code>Pin</code>, ponieważ <code>String</code> nie ma wewnętrznych odwołań, które czyniłyby jego przenoszenie niebezpiecznym. Właśnie dlatego implementuje <code>Unpin</code>, a nie <code>!Unpin</code>.</p>
+<figure>
+<img alt="The same “hello” string data from the previous example, now labeled “s1” and grayed out. The “Pin” box from the previous example now points to a different String instance, one that is labeled “s2”, is valid, has a length of 7usize, and contains the characters of the string “goodbye”. s2 is surrounded by a dotted rectangle because it, too, implements the Unpin trait." src="img/trpl17-09.svg" class="center" />
+<figcaption>Rysunek 17-9: Zastępowanie `String` zupełnie innym `String` w pamięci</figcaption>
+</figure>
+<p>Teraz wiemy wystarczająco dużo, aby zrozumieć błędy zgłoszone dla wywołania <code>join_all</code> z Listing 17-23. Pierwotnie próbowaliśmy przenieść futures wyprodukowane przez bloki async do <code>Vec&lt;Box&lt;dyn Future&lt;Output = ()&gt;&gt;&gt;</code>, ale jak widzieliśmy, te futures mogą mieć wewnętrzne referencje, więc nie implementują automatycznie <code>Unpin</code>. Po ich przypięciu możemy przekazać wynikowy typ <code>Pin</code> do <code>Vec</code>, ufając, że bazowe dane w futures <em>nie</em> zostaną przeniesione. Listing 17-24 pokazuje, jak naprawić kod, wywołując makro <code>pin!</code> tam, gdzie zdefiniowane są wszystkie trzy futures, i dostosowując typ obiektu cechy.</p>
+<listing number="17-24" caption="Przypinanie futures, aby umożliwić ich przenoszenie do wektora">
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">extern crate trpl; // required for mdbook test
+</span><span class="boring">
+</span>use std::pin::{Pin, pin};
+
+// --snip--
+
+<span class="boring">use std::time::Duration;
+</span><span class="boring">
+</span><span class="boring">fn main() {
+</span><span class="boring">    trpl::block_on(async {
+</span><span class="boring">        let (tx, mut rx) = trpl::channel();
+</span><span class="boring">
+</span><span class="boring">        let tx1 = tx.clone();
+</span>        let tx1_fut = pin!(async move {
+            // --snip--
+<span class="boring">            let vals = vec![
+</span><span class="boring">                String::from("hi"),
+</span><span class="boring">                String::from("from"),
+</span><span class="boring">                String::from("the"),
+</span><span class="boring">                String::from("future"),
+</span><span class="boring">            ];
+</span><span class="boring">
+</span><span class="boring">            for val in vals {
+</span><span class="boring">                tx1.send(val).unwrap();
+</span><span class="boring">                trpl::sleep(Duration::from_secs(1)).await;
+</span><span class="boring">            }
+</span>        });
+
+        let rx_fut = pin!(async {
+            // --snip--
+<span class="boring">            while let Some(value) = rx.recv().await {
+</span><span class="boring">                println!("received '{value}'");
+</span><span class="boring">            }
+</span>        });
+
+        let tx_fut = pin!(async move {
+            // --snip--
+<span class="boring">            let vals = vec![
+</span><span class="boring">                String::from("more"),
+</span><span class="boring">                String::from("messages"),
+</span><span class="boring">                String::from("for"),
+</span><span class="boring">                String::from("you"),
+</span><span class="boring">            ];
+</span><span class="boring">
+</span><span class="boring">            for val in vals {
+</span><span class="boring">                tx.send(val).unwrap();
+</span><span class="boring">                trpl::sleep(Duration::from_secs(1)).await;
+</span><span class="boring">            }
+</span>        });
+
+        let futures: Vec&lt;Pin&lt;&amp;mut dyn Future&lt;Output = ()&gt;&gt;&gt; =
+            vec![tx1_fut, rx_fut, tx_fut];
+<span class="boring">
+</span><span class="boring">        trpl::join_all(futures).await;
+</span><span class="boring">    });
+</span><span class="boring">}</span></code></pre>
+</listing>
+<p>Ten przykład kompiluje się i działa, a my moglibyśmy dodawać lub usuwać futures z wektora w czasie wykonania i łączyć je wszystkie.</p>
+<p><code>Pin</code> i <code>Unpin</code> są głównie ważne przy tworzeniu bibliotek niższego poziomu lub gdy budujesz samo środowisko wykonawcze, a nie w codziennym kodzie Rust. Kiedy jednak zobaczysz te cechy w komunikatach o błędach, będziesz miał lepszy pomysł, jak naprawić swój kod!</p>
+<blockquote>
+<p>Uwaga: To połączenie <code>Pin</code> i <code>Unpin</code> umożliwia bezpieczną implementację całej klasy złożonych typów w Rust, które w przeciwnym razie okazałyby się trudne, ponieważ są samoreferencyjne. Typy wymagające <code>Pin</code> pojawiają się najczęściej w dzisiejszym asynchronicznym Rust, ale co jakiś czas możesz je również zobaczyć w innych kontekstach.</p>
+<p>Szczegóły dotyczące działania <code>Pin</code> i <code>Unpin</code> oraz zasad, których muszą przestrzegać, są szczegółowo omówione w dokumentacji API dla <code>std::pin</code>, więc jeśli jesteś zainteresowany pogłębianiem wiedzy, to świetne miejsce, aby zacząć.</p>
+<p>Jeśli chcesz zrozumieć, jak wszystko działa pod maską jeszcze bardziej szczegółowo, zobacz Rozdziały <a href="https://rust-lang.github.io/async-book/02_execution/01_chapter.html">2</a><!-- ignore --> i <a href="https://rust-lang.github.io/async-book/04_pinning/01_chapter.html">4</a><!-- ignore --> z książki <em>Asynchronous Programming in Rust</em> <a href="https://rust-lang.github.io/async-book/">async-book</a>.</p>
+</blockquote>
+<h3 id="cecha-stream"><a class="header" href="#cecha-stream">Cecha <code>Stream</code></a></h3>
+<p>Teraz, gdy masz głębsze zrozumienie cech <code>Future</code>, <code>Pin</code> i <code>Unpin</code>, możemy zwrócić uwagę na cechę <code>Stream</code>. Jak dowiedziałeś się wcześniej w rozdziale, strumienie są podobne do asynchronicznych iteratorów. Jednak w przeciwieństwie do <code>Iterator</code> i <code>Future</code>, <code>Stream</code> nie ma definicji w standardowej bibliotece w momencie pisania tego tekstu, ale <em>istnieje</em> bardzo powszechna definicja z kraty <code>futures</code> używana w całym ekosystemie.</p>
+<p>Przyjrzyjmy się definicjom cech <code>Iterator</code> i <code>Future</code>, zanim zastanowimy się, jak cecha <code>Stream</code> mogłaby je połączyć. Z <code>Iterator</code> mamy ideę sekwencji: jego metoda <code>next</code> dostarcza <code>Option&lt;Self::Item&gt;</code>. Z <code>Future</code> mamy ideę gotowości w czasie: jego metoda <code>poll</code> dostarcza <code>Poll&lt;Self::Output&gt;</code>. Aby reprezentować sekwencję elementów, które stają się gotowe w czasie, definiujemy cechę <code>Stream</code>, która łączy te funkcje:</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::pin::Pin;
+use std::task::{Context, Poll};
+
+trait Stream {
+    type Item;
+
+    fn poll_next(
+        self: Pin&lt;&amp;mut Self&gt;,
+        cx: &amp;mut Context&lt;'_&gt;
+    ) -&gt; Poll&lt;Option&lt;Self::Item&gt;&gt;;
+}
+<span class="boring">}</span></code></pre>
+<p>Cecha <code>Stream</code> definiuje typ skojarzony o nazwie <code>Item</code> dla typu elementów wytwarzanych przez strumień. Jest to podobne do <code>Iterator</code>, gdzie może być zero lub wiele elementów, i w przeciwieństwie do <code>Future</code>, gdzie zawsze jest pojedynczy <code>Output</code>, nawet jeśli jest to typ jednostkowy <code>()</code>.</p>
+<p><code>Stream</code> definiuje również metodę do pobierania tych elementów. Nazywamy ją <code>poll_next</code>, aby jasno pokazać, że odpytuje w ten sam sposób, co <code>Future::poll</code>, i wytwarza sekwencję elementów w ten sam sposób, co <code>Iterator::next</code>. Jej typ zwracany łączy <code>Poll</code> z <code>Option</code>. Typ zewnętrzny to <code>Poll</code>, ponieważ musi być sprawdzany pod kątem gotowości, tak jak future. Typ wewnętrzny to <code>Option</code>, ponieważ musi sygnalizować, czy są więcej wiadomości, tak jak iterator.</p>
+<p>Coś bardzo podobnego do tej definicji prawdopodobnie znajdzie się w standardowej bibliotece Rusta. W międzyczasie jest to część zestawu narzędzi większości środowisk wykonawczych, więc możesz na tym polegać, a wszystko, co omówimy dalej, powinno generalnie obowiązywać!</p>
+<p>W przykładach, które widzieliśmy w sekcji <a href="ch17-04-streams.html">„Strumienie: Futures w sekwencji”</a><!-- ignore -->, nie użyliśmy jednak <code>poll_next</code> <em>ani</em> <code>Stream</code>, lecz <code>next</code> i <code>StreamExt</code>. Oczywiście <em>mogliśmy</em> pracować bezpośrednio w kategoriach API <code>poll_next</code>, ręcznie pisząc własne maszyny stanów <code>Stream</code>, tak samo jak <em>mogliśmy</em> pracować z futures bezpośrednio za pośrednictwem ich metody <code>poll</code>. Użycie <code>await</code> jest jednak znacznie przyjemniejsze, a cecha <code>StreamExt</code> dostarcza metodę <code>next</code>, dzięki czemu możemy to zrobić:</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">use std::pin::Pin;
+</span><span class="boring">use std::task::{Context, Poll};
+</span><span class="boring">
+</span><span class="boring">trait Stream {
+</span><span class="boring">    type Item;
+</span><span class="boring">    fn poll_next(
+</span><span class="boring">        self: Pin&lt;&amp;mut Self&gt;,
+</span><span class="boring">        cx: &amp;mut Context&lt;'_&gt;,
+</span><span class="boring">    ) -&gt; Poll&lt;Option&lt;Self::Item&gt;&gt;;
+</span><span class="boring">}
+</span><span class="boring">
+</span>trait StreamExt: Stream {
+    async fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt;
+    where
+        Self: Unpin;
+
+    // other methods...
+}
+<span class="boring">}</span></code></pre>
+<!--
+TODO: update this if/when tokio/etc. update their MSRV and switch to using async functions
+in traits, since the lack thereof is the reason they do not yet have this.
+-->
+<blockquote>
+<p>Uwaga: Rzeczywista definicja, której użyliśmy wcześniej w rozdziale, wygląda nieco inaczej, ponieważ obsługuje wersje Rust, które nie obsługiwały jeszcze używania funkcji async w cechach. W rezultacie wygląda to tak:</p>
+<pre><code class="language-rust ignore">fn next(&amp;mut self) -&gt; Next&lt;'_, Self&gt; where Self: Unpin;</code></pre>
+<p>Ten typ <code>Next</code> to <code>struct</code>, która implementuje <code>Future</code> i pozwala nam nazwać czas życia referencji do <code>self</code> za pomocą <code>Next&lt;'_, Self&gt;</code>, tak aby <code>await</code> mógł działać z tą metodą.</p>
+</blockquote>
+<p>Cecha <code>StreamExt</code> jest również miejscem, gdzie znajdują się wszystkie interesujące metody dostępne do użytku ze strumieniami. <code>StreamExt</code> jest automatycznie implementowana dla każdego typu, który implementuje <code>Stream</code>, ale te cechy są definiowane oddzielnie, aby umożliwić społeczności iterowanie po wygodnych API bez wpływu na podstawową cechę.</p>
+<p>W wersji <code>StreamExt</code> użytej w skrzynce <code>trpl</code> cecha ta nie tylko definiuje metodę <code>next</code>, ale także dostarcza domyślną implementację <code>next</code>, która poprawnie obsługuje szczegóły wywoływania <code>Stream::poll_next</code>. Oznacza to, że nawet gdy musisz napisać własny typ danych strumieniowych, <em>tylko</em> musisz zaimplementować <code>Stream</code>, a następnie każdy, kto używa twojego typu danych, może automatycznie używać <code>StreamExt</code> i jego metod.</p>
+<p>To wszystko, co omówimy w kwestii niskopoziomowych szczegółów tych cech. Na zakończenie zastanówmy się, jak futures (w tym strumienie), zadania i wątki pasują do siebie!</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="ch17-04-streams.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="ch17-06-futures-tasks-threads.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="ch17-04-streams.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="ch17-06-futures-tasks-threads.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="ferris-2317480c.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

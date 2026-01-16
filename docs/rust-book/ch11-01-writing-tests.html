@@ -1,0 +1,1248 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Jak pisać testy - Język programowania Rust</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="ferris-d33b75bf.css">
+        <link rel="stylesheet" href="theme/2018-edition-4e126c62.css">
+        <link rel="stylesheet" href="theme/semantic-notes-9b5766c0.css">
+        <link rel="stylesheet" href="theme/listing-cab26221.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-773dca2f.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-039e37ba.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Język programowania Rust</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/rust-lang/book" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h2 id="jak-pisać-testy"><a class="header" href="#jak-pisać-testy">Jak pisać testy</a></h2>
+<p><em>Testy</em> to funkcje Rusta, które weryfikują, czy kod poza testami działa zgodnie
+z oczekiwaniami. Ciała funkcji testowych zazwyczaj wykonują trzy działania:</p>
+<ul>
+<li>Przygotowanie potrzebnych danych lub stanu.</li>
+<li>Uruchomienie kodu, który chcesz przetestować.</li>
+<li>Sprawdzenie, czy wyniki są zgodne z oczekiwaniami.</li>
+</ul>
+<p>Przyjrzyjmy się funkcjom, które Rust dostarcza specjalnie do pisania testów
+wykonujących te działania, w tym atrybutowi <code>test</code>, kilku makrom i atrybutowi
+<code>should_panic</code>.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="the-anatomy-of-a-test-function"></a></p>
+<h3 id="struktura-funkcji-testowych"><a class="header" href="#struktura-funkcji-testowych">Struktura funkcji testowych</a></h3>
+<p>Najprościej rzecz ujmując, test w Rust to funkcja opatrzona atrybutem <code>test</code>.
+Atrybuty to metadane dotyczące fragmentów kodu Rust; jednym z przykładów jest
+atrybut <code>derive</code>, którego używaliśmy ze strukturami w Rozdziale 5. Aby
+zmienić funkcję w funkcję testową, dodaj <code>#[test]</code> w linii przed <code>fn</code>. Kiedy
+uruchamiasz testy za pomocą polecenia <code>cargo test</code>, Rust buduje binarny
+runner testów, który uruchamia adnotowane funkcje i raportuje, czy każda
+funkcja testowa przeszła, czy nie powiodła się.</p>
+<p>Ilekroć tworzymy nowy projekt biblioteczny za pomocą Cargo, automatycznie
+generowany jest dla nas moduł testowy z funkcją testową. Moduł ten
+udostępnia szablon do pisania testów, dzięki czemu nie musisz za każdym
+razem, gdy zaczynasz nowy projekt, szukać dokładnej struktury i składni. Możesz
+dodać tyle dodatkowych funkcji testowych i modułów testowych, ile tylko
+chcesz!</p>
+<p>Przeanalizujemy niektóre aspekty działania testów, eksperymentując z
+szablonowym testem, zanim faktycznie przetestujemy jakikolwiek kod. Następnie
+napiszemy kilka rzeczywistych testów, które wywołają napisany przez nas kod i
+sprawdzą, czy jego zachowanie jest prawidłowe.</p>
+<p>Stwórzmy nowy projekt biblioteczny o nazwie <code>adder</code>, który będzie dodawał
+dwie liczby:</p>
+<pre><code class="language-console">$ cargo new adder --lib
+     Created library `adder` project
+$ cd adder
+</code></pre>
+<p>Zawartość pliku <em>src/lib.rs</em> w Twojej bibliotece <code>adder</code> powinna wyglądać jak
+Listing 11-1.</p>
+<figure class="listing" id="listing-11-1">
+<span class="file-name">Nazwa pliku: src/lib.rs</span>
+<!-- manual-regeneration
+cd listings/ch11-writing-automated-tests
+rm -rf listing-11-01
+cargo new listing-11-01 --lib --name adder
+cd listing-11-01
+echo "$ cargo test" > output.txt
+RUSTFLAGS="-A unused_variables -A dead_code" RUST_TEST_THREADS=1 cargo test >> output.txt 2>&1
+git diff output.txt # commit any relevant changes; discard irrelevant ones
+cd ../../..
+-->
+<pre><code class="language-rust noplayground">pub fn add(left: u64, right: u64) -&gt; u64 {
+    left + right
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn it_works() {
+        let result = add(2, 2);
+        assert_eq!(result, 4);
+    }
+}</code></pre>
+<figcaption><a href="#listing-11-1">Listing 11-1</a>: Kod wygenerowany automatycznie przez <code>cargo new</code></figcaption>
+</figure>
+<p>Plik zaczyna się od przykładowej funkcji <code>add</code>, abyśmy mieli coś do
+testowania.</p>
+<p>Na razie skupmy się wyłącznie na funkcji <code>it_works</code>. Zwróć uwagę na adnotację
+<code>#[test]</code>: Ten atrybut wskazuje, że jest to funkcja testowa, więc
+program uruchamiający testy wie, aby traktować tę funkcję jako test. Możemy
+również mieć funkcje nietestowe w module <code>tests</code>, aby pomóc w
+konfigurowaniu typowych scenariuszy lub wykonywaniu typowych operacji, więc
+zawsze musimy wskazywać, które funkcje są testami.</p>
+<p>Przykładowe ciało funkcji używa makra <code>assert_eq!</code>, aby sprawdzić, czy
+<code>result</code>, które zawiera wynik wywołania <code>add</code> z argumentami 2 i 2, jest równe
+4. To twierdzenie służy jako przykład formatu typowego testu. Uruchommy je,
+aby zobaczyć, że ten test przechodzi.</p>
+<p>Polecenie <code>cargo test</code> uruchamia wszystkie testy w naszym projekcie, jak
+pokazano w Listingu 11-2.</p>
+<figure class="listing" id="listing-11-2">
+<pre><code class="language-console">$ cargo test
+   Compiling adder v0.1.0 (file:///projects/adder)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.57s
+     Running unittests src/lib.rs (target/debug/deps/adder-01ad14159ff659ab)
+
+running 1 test
+test tests::it_works ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests adder
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+</code></pre>
+<figcaption><a href="#listing-11-2">Listing 11-2</a>: Wynik uruchomienia automatycznie wygenerowanego testu</figcaption>
+</figure>
+<p>Cargo skompilował i uruchomił test. Widzimy linię <code>running 1 test</code>. Następna
+linia pokazuje nazwę wygenerowanej funkcji testowej, nazwanej
+<code>tests::it_works</code>, oraz że wynik uruchomienia tego testu to <code>ok</code>. Ogólne
+podsumowanie <code>test result: ok.</code> oznacza, że wszystkie testy przeszły, a część
+<code>1 passed; 0 failed</code> sumuje liczbę testów, które przeszły lub nie powiodły się.</p>
+<p>Można oznaczyć test jako zignorowany, aby nie był uruchamiany w konkretnej
+instancji; omówimy to w sekcji <a href="ch11-02-running-tests.html#ignoring-tests-unless-specifically-requested">„Ignorowanie testów, chyba że są
+specjalnie żądane”</a><!-- ignore --> później w tym rozdziale. Ponieważ
+tego tutaj nie zrobiliśmy, podsumowanie pokazuje <code>0 ignored</code>. Możemy również
+przekazać argument do polecenia <code>cargo test</code>, aby uruchomić tylko te testy,
+których nazwa pasuje do ciągu znaków; nazywa się to <em>filtrowaniem</em>,
+i omówimy to w sekcji <a href="ch11-02-running-tests.html#running-a-subset-of-tests-by-name">„Uruchamianie podzbioru testów według
+nazwy”</a><!-- ignore -->. Tutaj nie filtrowaliśmy uruchamianych testów,
+więc na końcu podsumowania wyświetla się <code>0 filtered out</code>.</p>
+<p>Statystyka <code>0 measured</code> dotyczy testów wydajnościowych, które mierzą
+wydajność. Testy wydajnościowe, w chwili pisania tego tekstu, są dostępne tylko
+w nightly Rust. Więcej informacji znajdziesz w <a href="../unstable-book/library-features/test.html">dokumentacji testów
+wydajnościowych</a>.</p>
+<p>Następna część danych wyjściowych testu, zaczynająca się od <code>Doc-tests adder</code>,
+dotyczy wyników wszelkich testów dokumentacyjnych. Nie mamy jeszcze żadnych
+testów dokumentacyjnych, ale Rust może kompilować wszelkie przykłady kodu,
+które pojawiają się w naszej dokumentacji API. Ta funkcja pomaga utrzymać
+dokumentację i kod w synchronizacji! Omówimy, jak pisać testy dokumentacyjne w
+sekcji <a href="ch14-02-publishing-to-crates-io.html#documentation-comments-as-tests">„Komentarze dokumentacyjne jako testy”</a><!-- ignore -->
+Rozdziału 14. Na razie zignorujemy dane wyjściowe <code>Doc-tests</code>.</p>
+<p>Zacznijmy dostosowywać test do naszych własnych potrzeb. Najpierw zmień nazwę
+funkcji <code>it_works</code> na inną, taką jak <code>exploration</code>, w ten sposób:</p>
+<p><span class="filename">Nazwa pliku: src/lib.rs</span></p>
+<pre><code class="language-rust noplayground">pub fn add(left: u64, right: u64) -&gt; u64 {
+    left + right
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn exploration() {
+        let result = add(2, 2);
+        assert_eq!(result, 4);
+    }
+}</code></pre>
+<p>Następnie ponownie uruchom <code>cargo test</code>. Wynik pokazuje teraz <code>exploration</code>
+zamiast <code>it_works</code>:</p>
+<pre><code class="language-console">$ cargo test
+   Compiling adder v0.1.0 (file:///projects/adder)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.59s
+     Running unittests src/lib.rs (target/debug/deps/adder-92948b65e88960b4)
+
+running 1 test
+test tests::exploration ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests adder
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+</code></pre>
+<p>Teraz dodamy kolejny test, ale tym razem stworzymy test, który zawiedzie! Testy
+zawodzą, gdy coś w funkcji testowej panikuje. Każdy test jest uruchamiany w
+nowym wątku, a gdy główny wątek widzi, że wątek testowy umarł, test jest
+oznaczany jako nieudany. W Rozdziale 9 rozmawialiśmy o tym, że najprostszym
+sposobem na panikę jest wywołanie makra <code>panic!</code>. Wprowadź nowy test jako
+funkcję o nazwie <code>another</code>, tak aby Twój plik <em>src/lib.rs</em> wyglądał jak Listing
+11-3.</p>
+<figure class="listing" id="listing-11-3">
+<span class="file-name">Nazwa pliku: src/lib.rs</span>
+<pre><code class="language-rust panics noplayground">pub fn add(left: u64, right: u64) -&gt; u64 {
+    left + right
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn exploration() {
+        let result = add(2, 2);
+        assert_eq!(result, 4);
+    }
+
+    #[test]
+    fn another() {
+        panic!("Make this test fail");
+    }
+}</code></pre>
+<figcaption><a href="#listing-11-3">Listing 11-3</a>: Dodawanie drugiego testu, który zakończy się niepowodzeniem, ponieważ wywołujemy makro <code>panic!</code></figcaption>
+</figure>
+<p>Uruchom testy ponownie za pomocą <code>cargo test</code>. Wynik powinien wyglądać jak
+Listing 11-4, który pokazuje, że nasz test <code>exploration</code> przeszedł, a <code>another</code>
+zakończył się niepowodzeniem.</p>
+<figure class="listing" id="listing-11-4">
+<pre><code class="language-console">$ cargo test
+   Compiling adder v0.1.0 (file:///projects/adder)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.72s
+     Running unittests src/lib.rs (target/debug/deps/adder-92948b65e88960b4)
+
+running 2 tests
+test tests::another ... FAILED
+test tests::exploration ... ok
+
+failures:
+
+---- tests::another stdout ----
+
+thread 'tests::another' panicked at src/lib.rs:17:9:
+Make this test fail
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    tests::another
+
+test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `--lib`
+</code></pre>
+<figcaption><a href="#listing-11-4">Listing 11-4</a>: Wyniki testów, gdy jeden test przechodzi, a jeden kończy się niepowodzeniem</figcaption>
+</figure>
+<!-- manual-regeneration
+rg panicked listings/ch11-writing-automated-tests/listing-11-03/output.txt
+check the line number of the panic matches the line number in the following paragraph
+ -->
+<p>Zamiast <code>ok</code>, linia <code>test tests::another</code> pokazuje <code>FAILED</code>. Pojawiają się
+dwie nowe sekcje między indywidualnymi wynikami a podsumowaniem: Pierwsza
+wyświetla szczegółowy powód każdego niepowodzenia testu. W tym przypadku
+dostajemy szczegóły, że <code>tests::another</code> zawiódł, ponieważ spanikował z
+wiadomością <code>Make this test fail</code> w linii 17 w pliku <em>src/lib.rs</em>. Następna
+sekcja zawiera tylko nazwy wszystkich nieudanych testów, co jest przydatne,
+gdy jest dużo testów i dużo szczegółowych danych wyjściowych nieudanych
+testów. Możemy użyć nazwy nieudanego testu, aby uruchomić tylko ten test,
+aby łatwiej go debugować; więcej na temat sposobów uruchamiania testów
+opowiemy w sekcji <a href="ch11-02-running-tests.html#controlling-how-tests-are-run">„Kontrolowanie sposobu uruchamiania
+testów”</a><!-- ignore -->.</p>
+<p>Na koniec wyświetla się linia podsumowująca: Ogólnie, nasz wynik testów to
+<code>FAILED</code>. Jeden test przeszedł, a jeden zawiódł.</p>
+<p>Teraz, gdy widziałeś, jak wyglądają wyniki testów w różnych scenariuszach,
+przyjrzyjmy się innym makrom niż <code>panic!</code>, które są przydatne w testach.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="checking-results-with-the-assert-macro"></a></p>
+<h3 id="sprawdzanie-wyników-za-pomocą-makra-assert"><a class="header" href="#sprawdzanie-wyników-za-pomocą-makra-assert">Sprawdzanie wyników za pomocą makra <code>assert!</code></a></h3>
+<p>Makro <code>assert!</code>, dostarczane przez standardową bibliotekę, jest przydatne,
+gdy chcesz upewnić się, że jakiś warunek w teście ocenia się jako <code>true</code>.
+Podajemy makru <code>assert!</code> argument, który ocenia się do wartości boolowskiej.
+Jeśli wartość jest <code>true</code>, nic się nie dzieje i test przechodzi. Jeśli wartość
+jest <code>false</code>, makro <code>assert!</code> wywołuje <code>panic!</code>, aby spowodować niepowodzenie
+testu. Użycie makra <code>assert!</code> pomaga nam sprawdzić, czy nasz kod działa w
+sposób, w jaki zamierzamy.</p>
+<p>W Rozdziale 5, Listing 5-15, użyliśmy struktury <code>Rectangle</code> i metody
+<code>can_hold</code>, które są powtórzone tutaj w Listingu 11-5. Umieśćmy ten kod w
+pliku <em>src/lib.rs</em>, a następnie napiszmy dla niego kilka testów za pomocą
+makra <code>assert!</code>.</p>
+<figure class="listing" id="listing-11-5">
+<span class="file-name">Nazwa pliku: src/lib.rs</span>
+<pre><code class="language-rust noplayground">#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+impl Rectangle {
+    fn can_hold(&amp;self, other: &amp;Rectangle) -&gt; bool {
+        self.width &gt; other.width &amp;&amp; self.height &gt; other.height
+    }
+}</code></pre>
+<figcaption><a href="#listing-11-5">Listing 11-5</a>: Struktura <code>Rectangle</code> i jej metoda <code>can_hold</code> z Rozdziału 5</figcaption>
+</figure>
+<p>Metoda <code>can_hold</code> zwraca wartość boolowską, co oznacza, że jest idealnym
+przypadkiem użycia dla makra <code>assert!</code>. W Listingu 11-6 piszemy test, który
+wykorzystuje metodę <code>can_hold</code>, tworząc instancję <code>Rectangle</code> o szerokości 8
+i wysokości 7 i twierdząc, że może ona pomieścić inną instancję <code>Rectangle</code>
+o szerokości 5 i wysokości 1.</p>
+<figure class="listing" id="listing-11-6">
+<span class="file-name">Nazwa pliku: src/lib.rs</span>
+<pre><code class="language-rust noplayground"><span class="boring">#[derive(Debug)]
+</span><span class="boring">struct Rectangle {
+</span><span class="boring">    width: u32,
+</span><span class="boring">    height: u32,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Rectangle {
+</span><span class="boring">    fn can_hold(&amp;self, other: &amp;Rectangle) -&gt; bool {
+</span><span class="boring">        self.width &gt; other.width &amp;&amp; self.height &gt; other.height
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn larger_can_hold_smaller() {
+        let larger = Rectangle {
+            width: 8,
+            height: 7,
+        };
+        let smaller = Rectangle {
+            width: 5,
+            height: 1,
+        };
+
+        assert!(larger.can_hold(&amp;smaller));
+    }
+}</code></pre>
+<figcaption><a href="#listing-11-6">Listing 11-6</a>: Test dla <code>can_hold</code>, który sprawdza, czy większy prostokąt może rzeczywiście pomieścić mniejszy prostokąt</figcaption>
+</figure>
+<p>Zwróć uwagę na linię <code>use super::*;</code> w module <code>tests</code>. Moduł <code>tests</code> to
+zwykły moduł, który podlega zwykłym zasadom widoczności, które omówiliśmy w
+Rozdziale 7 w sekcji <a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html">„Ścieżki do odwoływania się do elementu w drzewie
+modułów”</a><!-- ignore -->.
+Ponieważ moduł <code>tests</code> jest modułem wewnętrznym, musimy wprowadzić kod poddawany
+testom z modułu zewnętrznego do zakresu modułu wewnętrznego. Używamy tutaj
+globa, więc wszystko, co zdefiniujemy w module zewnętrznym, jest dostępne dla
+tego modułu <code>tests</code>.</p>
+<p>Nazwaliśmy nasz test <code>larger_can_hold_smaller</code> i utworzyliśmy dwie
+instancje <code>Rectangle</code>, których potrzebujemy. Następnie wywołaliśmy makro
+<code>assert!</code> i przekazaliśmy mu wynik wywołania <code>larger.can_hold(&amp;smaller)</code>.
+To wyrażenie powinno zwrócić <code>true</code>, więc nasz test powinien przejść.
+Sprawdźmy!</p>
+<pre><code class="language-console">$ cargo test
+   Compiling rectangle v0.1.0 (file:///projects/rectangle)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.66s
+     Running unittests src/lib.rs (target/debug/deps/rectangle-6584c4561e48942e)
+
+running 1 test
+test tests::larger_can_hold_smaller ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests rectangle
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+</code></pre>
+<p>Przechodzi! Dodajmy kolejny test, tym razem sprawdzający, czy mniejszy
+prostokąt nie może pomieścić większego prostokąta:</p>
+<p><span class="filename">Nazwa pliku: src/lib.rs</span></p>
+<pre><code class="language-rust noplayground"><span class="boring">#[derive(Debug)]
+</span><span class="boring">struct Rectangle {
+</span><span class="boring">    width: u32,
+</span><span class="boring">    height: u32,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Rectangle {
+</span><span class="boring">    fn can_hold(&amp;self, other: &amp;Rectangle) -&gt; bool {
+</span><span class="boring">        self.width &gt; other.width &amp;&amp; self.height &gt; other.height
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn larger_can_hold_smaller() {
+        // --snip--
+<span class="boring">        let larger = Rectangle {
+</span><span class="boring">            width: 8,
+</span><span class="boring">            height: 7,
+</span><span class="boring">        };
+</span><span class="boring">        let smaller = Rectangle {
+</span><span class="boring">            width: 5,
+</span><span class="boring">            height: 1,
+</span><span class="boring">        };
+</span><span class="boring">
+</span><span class="boring">        assert!(larger.can_hold(&amp;smaller));
+</span>    }
+
+    #[test]
+    fn smaller_cannot_hold_larger() {
+        let larger = Rectangle {
+            width: 8,
+            height: 7,
+        };
+        let smaller = Rectangle {
+            width: 5,
+            height: 1,
+        };
+
+        assert!(!smaller.can_hold(&amp;larger));
+    }
+}</code></pre>
+<p>Ponieważ poprawny wynik funkcji <code>can_hold</code> w tym przypadku to <code>false</code>, musimy
+zanegować ten wynik, zanim przekażemy go do makra <code>assert!</code>. W rezultacie nasz
+test przejdzie, jeśli <code>can_hold</code> zwróci <code>false</code>:</p>
+<pre><code class="language-console">$ cargo test
+   Compiling rectangle v0.1.0 (file:///projects/rectangle)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.66s
+     Running unittests src/lib.rs (target/debug/deps/rectangle-6584c4561e48942e)
+
+running 2 tests
+test tests::larger_can_hold_smaller ... ok
+test tests::smaller_cannot_hold_larger ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests rectangle
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+</code></pre>
+<p>Dwa testy, które przeszły! Zobaczmy teraz, co się stanie z wynikami naszych
+testów, gdy wprowadzimy błąd do naszego kodu. Zmienimy implementację metody
+<code>can_hold</code>, zastępując znak „większe niż” (<code>&gt;</code>) znakiem „mniejsze niż” (<code>&lt;</code>),
+gdy porównuje szerokości:</p>
+<pre><code class="language-rust not_desired_behavior noplayground"><span class="boring">#[derive(Debug)]
+</span><span class="boring">struct Rectangle {
+</span><span class="boring">    width: u32,
+</span><span class="boring">    height: u32,
+</span><span class="boring">}
+</span><span class="boring">
+</span>// --snip--
+impl Rectangle {
+    fn can_hold(&amp;self, other: &amp;Rectangle) -&gt; bool {
+        self.width &lt; other.width &amp;&amp; self.height &gt; other.height
+    }
+}
+<span class="boring">
+</span><span class="boring">#[cfg(test)]
+</span><span class="boring">mod tests {
+</span><span class="boring">    use super::*;
+</span><span class="boring">
+</span><span class="boring">    #[test]
+</span><span class="boring">    fn larger_can_hold_smaller() {
+</span><span class="boring">        let larger = Rectangle {
+</span><span class="boring">            width: 8,
+</span><span class="boring">            height: 7,
+</span><span class="boring">        };
+</span><span class="boring">        let smaller = Rectangle {
+</span><span class="boring">            width: 5,
+</span><span class="boring">            height: 1,
+</span><span class="boring">        };
+</span><span class="boring">
+</span><span class="boring">        assert!(larger.can_hold(&amp;smaller));
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    #[test]
+</span><span class="boring">    fn smaller_cannot_hold_larger() {
+</span><span class="boring">        let larger = Rectangle {
+</span><span class="boring">            width: 8,
+</span><span class="boring">            height: 7,
+</span><span class="boring">        };
+</span><span class="boring">        let smaller = Rectangle {
+</span><span class="boring">            width: 5,
+</span><span class="boring">            height: 1,
+</span><span class="boring">        };
+</span><span class="boring">
+</span><span class="boring">        assert!(!smaller.can_hold(&amp;larger));
+</span><span class="boring">    }
+</span><span class="boring">}</span></code></pre>
+<p>Uruchomienie testów teraz daje następujące wyniki:</p>
+<pre><code class="language-console">$ cargo test
+   Compiling rectangle v0.1.0 (file:///projects/rectangle)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.66s
+     Running unittests src/lib.rs (target/debug/deps/rectangle-6584c4561e48942e)
+
+running 2 tests
+test tests::larger_can_hold_smaller ... FAILED
+test tests::smaller_cannot_hold_larger ... ok
+
+failures:
+
+---- tests::larger_can_hold_smaller stdout ----
+
+thread 'tests::larger_can_hold_smaller' panicked at src/lib.rs:28:9:
+assertion failed: larger.can_hold(&amp;smaller)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    tests::larger_can_hold_smaller
+
+test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `--lib`
+</code></pre>
+<p>Nasze testy wykryły błąd! Ponieważ <code>larger.width</code> wynosi <code>8</code>, a <code>smaller.width</code>
+wynosi <code>5</code>, porównanie szerokości w <code>can_hold</code> zwraca teraz <code>false</code>: 8 nie jest
+mniejsze niż 5.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="testing-equality-with-the-assert_eq-and-assert_ne-macros"></a></p>
+<h3 id="testowanie-równości-za-pomocą-makr-assert_eq-i-assert_ne"><a class="header" href="#testowanie-równości-za-pomocą-makr-assert_eq-i-assert_ne">Testowanie równości za pomocą makr <code>assert_eq!</code> i <code>assert_ne!</code></a></h3>
+<p>Powszechnym sposobem weryfikacji funkcjonalności jest testowanie równości między
+wynikiem kodu poddanego testom a wartością, którą kod powinien zwrócić. Można
+to zrobić, używając makra <code>assert!</code> i przekazując mu wyrażenie używające
+operatora <code>==</code>. Jest to jednak tak powszechny test, że standardowa biblioteka
+dostarcza parę makr — <code>assert_eq!</code> i <code>assert_ne!</code> — aby wygodniej
+wykonać ten test. Makra te porównują dwa argumenty pod kątem równości lub
+nierówności. Wyświetlają również dwie wartości, jeśli asercja zawiedzie, co
+ułatwia zrozumienie, <em>dlaczego</em> test zawiódł; z kolei makro <code>assert!</code>
+wskazuje tylko, że otrzymało wartość <code>false</code> dla wyrażenia <code>==</code>, nie
+wyświetlając wartości, które doprowadziły do wartości <code>false</code>.</p>
+<p>W Listingu 11-7 piszemy funkcję o nazwie <code>add_two</code>, która dodaje <code>2</code> do swego
+parametru, a następnie testujemy tę funkcję za pomocą makra <code>assert_eq!</code>.</p>
+<figure class="listing" id="listing-11-7">
+<span class="file-name">Nazwa pliku: src/lib.rs</span>
+<pre><code class="language-rust noplayground">pub fn add_two(a: u64) -&gt; u64 {
+    a + 2
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn it_adds_two() {
+        let result = add_two(2);
+        assert_eq!(result, 4);
+    }
+}</code></pre>
+<figcaption><a href="#listing-11-7">Listing 11-7</a>: Testowanie funkcji <code>add_two</code> za pomocą makra <code>assert_eq!</code></figcaption>
+</figure>
+<p>Sprawdźmy, czy przechodzi!</p>
+<pre><code class="language-console">$ cargo test
+   Compiling adder v0.1.0 (file:///projects/adder)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.58s
+     Running unittests src/lib.rs (target/debug/deps/adder-92948b65e88960b4)
+
+running 1 test
+test tests::it_adds_two ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests adder
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+</code></pre>
+<p>Tworzymy zmienną o nazwie <code>result</code>, która przechowuje wynik wywołania
+<code>add_two(2)</code>. Następnie przekazujemy <code>result</code> i <code>4</code> jako argumenty do makra
+<code>assert_eq!</code>. Linia wyjściowa dla tego testu to <code>test tests::it_adds_two ... ok</code>,
+a tekst <code>ok</code> wskazuje, że nasz test przeszedł!</p>
+<p>Wprowadźmy błąd do naszego kodu, aby zobaczyć, jak wygląda <code>assert_eq!</code>, gdy
+zawodzi. Zmień implementację funkcji <code>add_two</code>, aby zamiast tego dodawała <code>3</code>:</p>
+<pre><code class="language-rust not_desired_behavior noplayground">pub fn add_two(a: u64) -&gt; u64 {
+    a + 3
+}
+<span class="boring">
+</span><span class="boring">#[cfg(test)]
+</span><span class="boring">mod tests {
+</span><span class="boring">    use super::*;
+</span><span class="boring">
+</span><span class="boring">    #[test]
+</span><span class="boring">    fn it_adds_two() {
+</span><span class="boring">        let result = add_two(2);
+</span><span class="boring">        assert_eq!(result, 4);
+</span><span class="boring">    }
+</span><span class="boring">}</span></code></pre>
+<p>Uruchom testy ponownie:</p>
+<pre><code class="language-console">$ cargo test
+   Compiling adder v0.1.0 (file:///projects/adder)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.61s
+     Running unittests src/lib.rs (target/debug/deps/adder-92948b65e88960b4)
+
+running 1 test
+test tests::it_adds_two ... FAILED
+
+failures:
+
+---- tests::it_adds_two stdout ----
+
+thread 'tests::it_adds_two' panicked at src/lib.rs:12:9:
+assertion `left == right` failed
+  left: 5
+ right: 4
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    tests::it_adds_two
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `--lib`
+</code></pre>
+<p>Nasz test wykrył błąd! Test <code>tests::it_adds_two</code> nie powiódł się, a komunikat
+informuje nas, że asercja, która zawiodła, to <code>left == right</code> oraz jakie są
+wartości <code>left</code> i <code>right</code>. Ten komunikat pomaga nam rozpocząć debugowanie:
+argument <code>left</code>, gdzie mieliśmy wynik wywołania <code>add_two(2)</code>, wynosił <code>5</code>, ale
+argument <code>right</code> wynosił <code>4</code>. Można sobie wyobrazić, że byłoby to szczególnie
+pomocne, gdybyśmy mieli wiele testów.</p>
+<p>Zauważ, że w niektórych językach i frameworkach testowych parametry funkcji
+asercji równości nazywane są <code>expected</code> i <code>actual</code>, a kolejność, w jakiej
+określamy argumenty, ma znaczenie. Jednak w Rust nazywają się <code>left</code> i
+<code>right</code>, a kolejność, w jakiej określamy wartość, której oczekujemy, i
+wartość, którą produkuje kod, nie ma znaczenia. Moglibyśmy napisać asercję
+w tym teście jako <code>assert_eq!(4, result)</code>, co spowodowałoby ten sam komunikat
+o błędzie, który wyświetla <code>assertion `left == right` failed</code>.</p>
+<p>Makro <code>assert_ne!</code> przejdzie, jeśli dwie podane mu wartości nie są sobie równe,
+a zawiedzie, jeśli są równe. To makro jest najbardziej przydatne w przypadkach,
+gdy nie jesteśmy pewni, jaka <em>będzie</em> wartość, ale wiemy, jaka wartość
+zdecydowanie <em>nie powinna</em> być. Na przykład, jeśli testujemy funkcję, która ma
+gwarantować zmianę jej danych wejściowych w jakiś sposób, ale sposób zmiany
+danych wejściowych zależy od dnia tygodnia, w którym uruchamiamy nasze testy,
+najlepiej byłoby sprawdzić, czy wynik funkcji nie jest równy danym
+wejściowym.</p>
+<p>Pod powierzchnią, makra <code>assert_eq!</code> i <code>assert_ne!</code> używają odpowiednio
+operatorów <code>==</code> i <code>!=</code>. Kiedy asercje zawiodą, te makra wypisują swoje
+argumenty za pomocą formatowania debuggowania, co oznacza, że porównywane
+wartości muszą implementować cechy <code>PartialEq</code> i <code>Debug</code>. Wszystkie typy
+prymitywne i większość typów standardowej biblioteki implementują te cechy.
+Dla struktur i wyliczeń, które sam definiujesz, będziesz musiał zaimplementować
+<code>PartialEq</code>, aby sprawdzić równość tych typów. Będziesz również musiał
+zaimplementować <code>Debug</code>, aby wyświetlić wartości, gdy asercja zawiedzie.
+Ponieważ obie cechy są cechami, które można wyprowadzić, jak wspomniano w
+Listingu 5-12 w Rozdziale 5, jest to zazwyczaj tak proste, jak dodanie
+anotacji <code>#[derive(PartialEq, Debug)]</code> do definicji struktury lub wyliczenia.
+Więcej szczegółów na temat tych i innych cech, które można wyprowadzić,
+znajdziesz w Dodatku C, <a href="appendix-03-derivable-traits.html">„Cechy, które można
+wyprowadzić”</a><!-- ignore -->.</p>
+<h3 id="dodawanie-niestandardowych-komunikatów-o-błędach"><a class="header" href="#dodawanie-niestandardowych-komunikatów-o-błędach">Dodawanie niestandardowych komunikatów o błędach</a></h3>
+<p>Możesz również dodać niestandardowy komunikat do wydrukowania wraz z
+komunikatem o błędzie jako opcjonalne argumenty do makr <code>assert!</code>, <code>assert_eq!</code>
+i <code>assert_ne!</code>. Wszelkie argumenty określone po wymaganych argumentach są
+przekazywane do makra <code>format!</code> (omówionego w <a href="ch08-02-strings.html#concatenating-with--or-format">„Łączenie za pomocą <code>+</code> lub
+<code>format!</code>”</a><!-- ignore --> w Rozdziale 8), więc możesz
+przekazać ciąg formatujący, który zawiera znaczniki <code>{}</code> i wartości, które mają
+być umieszczone w tych znacznikach. Niestandardowe komunikaty są przydatne do
+dokumentowania, co oznacza asercja; gdy test zawiedzie, będziesz miał lepsze
+pojęcie o tym, na czym polega problem z kodem.</p>
+<p>Na przykład, powiedzmy, że mamy funkcję, która wita ludzi po imieniu, i chcemy
+przetestować, czy imię, które przekazujemy do funkcji, pojawia się w danych
+wyjściowych:</p>
+<p><span class="filename">Nazwa pliku: src/lib.rs</span></p>
+<pre><code class="language-rust noplayground">pub fn greeting(name: &amp;str) -&gt; String {
+    format!("Hello {name}!")
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn greeting_contains_name() {
+        let result = greeting("Carol");
+        assert!(result.contains("Carol"));
+    }
+}</code></pre>
+<p>Wymagania dla tego programu nie zostały jeszcze uzgodnione, a my jesteśmy
+raczej pewni, że tekst „Hello” na początku pozdrowienia zmieni się. Postanowiliśmy,
+że nie chcemy aktualizować testu, gdy wymagania się zmienią, więc zamiast
+sprawdzać dokładną równość z wartością zwróconą przez funkcję <code>greeting</code>,
+będziemy tylko sprawdzać, czy wynik zawiera tekst parametru wejściowego.</p>
+<p>Teraz wprowadźmy błąd do tego kodu, zmieniając <code>greeting</code> tak, aby wykluczało
+<code>name</code>, aby zobaczyć, jak wygląda domyślne niepowodzenie testu:</p>
+<pre><code class="language-rust not_desired_behavior noplayground">pub fn greeting(name: &amp;str) -&gt; String {
+    String::from("Hello!")
+}
+<span class="boring">
+</span><span class="boring">#[cfg(test)]
+</span><span class="boring">mod tests {
+</span><span class="boring">    use super::*;
+</span><span class="boring">
+</span><span class="boring">    #[test]
+</span><span class="boring">    fn greeting_contains_name() {
+</span><span class="boring">        let result = greeting("Carol");
+</span><span class="boring">        assert!(result.contains("Carol"));
+</span><span class="boring">    }
+</span><span class="boring">}</span></code></pre>
+<p>Uruchomienie tego testu daje następujące wyniki:</p>
+<pre><code class="language-console">$ cargo test
+   Compiling greeter v0.1.0 (file:///projects/greeter)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.91s
+     Running unittests src/lib.rs (target/debug/deps/greeter-170b942eb5bf5e3a)
+
+running 1 test
+test tests::greeting_contains_name ... FAILED
+
+failures:
+
+---- tests::greeting_contains_name stdout ----
+
+thread 'tests::greeting_contains_name' panicked at src/lib.rs:12:9:
+assertion failed: result.contains("Carol")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    tests::greeting_contains_name
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `--lib`
+</code></pre>
+<p>Ten wynik wskazuje tylko, że asercja nie powiodła się i w której linii się
+znajduje. Bardziej użyteczny komunikat o błędzie wyświetliłby wartość z funkcji
+<code>greeting</code>. Dodajmy niestandardowy komunikat o błędzie składający się z ciągu
+formatującego z znacznikiem miejsca wypełnionym rzeczywistą wartością, którą
+otrzymaliśmy z funkcji <code>greeting</code>:</p>
+<pre><code class="language-rust ignore"><span class="boring">pub fn greeting(name: &amp;str) -&gt; String {
+</span><span class="boring">    String::from("Hello!")
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">#[cfg(test)]
+</span><span class="boring">mod tests {
+</span><span class="boring">    use super::*;
+</span><span class="boring">
+</span>    #[test]
+    fn greeting_contains_name() {
+        let result = greeting("Carol");
+        assert!(
+            result.contains("Carol"),
+            "Greeting did not contain name, value was `{result}`"
+        );
+    }
+<span class="boring">}</span></code></pre>
+<p>Teraz, gdy uruchomimy test, otrzymamy bardziej informacyjny komunikat o błędzie:</p>
+<pre><code class="language-console">$ cargo test
+   Compiling greeter v0.1.0 (file:///projects/greeter)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.93s
+     Running unittests src/lib.rs (target/debug/deps/greeter-170b942eb5bf5e3a)
+
+running 1 test
+test tests::greeting_contains_name ... FAILED
+
+failures:
+
+---- tests::greeting_contains_name stdout ----
+
+thread 'tests::greeting_contains_name' panicked at src/lib.rs:12:9:
+Greeting did not contain name, value was `Hello!`
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    tests::greeting_contains_name
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `--lib`
+</code></pre>
+<p>Możemy zobaczyć rzeczywistą wartość, którą otrzymaliśmy w wynikach testu, co
+pomogłoby nam debugować, co się stało, zamiast tego, czego się spodziewaliśmy.</p>
+<h3 id="sprawdzanie-paniki-za-pomocą-should_panic"><a class="header" href="#sprawdzanie-paniki-za-pomocą-should_panic">Sprawdzanie paniki za pomocą <code>should_panic</code></a></h3>
+<p>Oprócz sprawdzania wartości zwracanych, ważne jest sprawdzenie, czy nasz kod
+obsługuje warunki błędów zgodnie z oczekiwaniami. Na przykład, rozważ typ
+<code>Guess</code>, który utworzyliśmy w Rozdziale 9, Listing 9-13. Inny kod, który
+używa <code>Guess</code>, zależy od gwarancji, że instancje <code>Guess</code> będą zawierać tylko
+wartości od 1 do 100. Możemy napisać test, który zapewni, że próba utworzenia
+instancji <code>Guess</code> z wartością spoza tego zakresu spowoduje panikę.</p>
+<p>Robimy to, dodając atrybut <code>should_panic</code> do naszej funkcji testowej. Test
+przechodzi, jeśli kod wewnątrz funkcji panikuje; test kończy się niepowodzeniem,
+jeśli kod wewnątrz funkcji nie panikuje.</p>
+<p>Listing 11-8 przedstawia test, który sprawdza, czy warunki błędu funkcji
+<code>Guess::new</code> występują, gdy tego oczekujemy.</p>
+<figure class="listing" id="listing-11-8">
+<span class="file-name">Nazwa pliku: src/lib.rs</span>
+<pre><code class="language-rust noplayground">pub struct Guess {
+    value: i32,
+}
+
+impl Guess {
+    pub fn new(value: i32) -&gt; Guess {
+        if value &lt; 1 || value &gt; 100 {
+            panic!("Guess value must be between 1 and 100, got {value}.");
+        }
+
+        Guess { value }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    #[should_panic]
+    fn greater_than_100() {
+        Guess::new(200);
+    }
+}</code></pre>
+<figcaption><a href="#listing-11-8">Listing 11-8</a>: Testowanie, czy warunek spowoduje <code>panic!</code></figcaption>
+</figure>
+<p>Umieszczamy atrybut <code>#[should_panic]</code> po atrybucie <code>#[test]</code> i przed funkcją
+testową, której dotyczy. Spójrzmy na wynik, gdy ten test przejdzie:</p>
+<pre><code class="language-console">$ cargo test
+   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.58s
+     Running unittests src/lib.rs (target/debug/deps/guessing_game-57d70c3acb738f4d)
+
+running 1 test
+test tests::greater_than_100 - should panic ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests guessing_game
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+</code></pre>
+<p>Wygląda dobrze! Teraz wprowadźmy błąd do naszego kodu, usuwając warunek, że
+funkcja <code>new</code> spanikuje, jeśli wartość jest większa niż 100:</p>
+<pre><code class="language-rust not_desired_behavior noplayground"><span class="boring">pub struct Guess {
+</span><span class="boring">    value: i32,
+</span><span class="boring">}
+</span><span class="boring">
+</span>// --snip--
+impl Guess {
+    pub fn new(value: i32) -&gt; Guess {
+        if value &lt; 1 {
+            panic!("Guess value must be between 1 and 100, got {value}.");
+        }
+
+        Guess { value }
+    }
+}
+<span class="boring">
+</span><span class="boring">#[cfg(test)]
+</span><span class="boring">mod tests {
+</span><span class="boring">    use super::*;
+</span><span class="boring">
+</span><span class="boring">    #[test]
+</span><span class="boring">    #[should_panic]
+</span><span class="boring">    fn greater_than_100() {
+</span><span class="boring">        Guess::new(200);
+</span><span class="boring">    }
+</span><span class="boring">}</span></code></pre>
+<p>Kiedy uruchomimy test w Listingu 11-8, zakończy się on niepowodzeniem:</p>
+<pre><code class="language-console">$ cargo test
+   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.62s
+     Running unittests src/lib.rs (target/debug/deps/guessing_game-57d70c3acb738f4d)
+
+running 1 test
+test tests::greater_than_100 - should panic ... FAILED
+
+failures:
+
+---- tests::greater_than_100 stdout ----
+note: test did not panic as expected at src/lib.rs:21:8
+
+failures:
+    tests::greater_than_100
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `--lib`
+</code></pre>
+<p>W tym przypadku nie otrzymujemy zbyt pomocnego komunikatu, ale patrząc na
+funkcję testową, widzimy, że jest ona opatrzona adnotacją
+<code>#[should_panic]</code>. Otrzymany błąd oznacza, że kod w funkcji testowej nie
+spowodował paniki.</p>
+<p>Testy wykorzystujące <code>should_panic</code> mogą być niedokładne. Test <code>should_panic</code>
+przeszedłby nawet wtedy, gdyby test panikował z innego powodu niż ten, którego
+się spodziewaliśmy. Aby testy <code>should_panic</code> były bardziej precyzyjne,
+możemy dodać opcjonalny parametr <code>expected</code> do atrybutu <code>should_panic</code>. Test
+framework zapewni, że komunikat o błędzie będzie zawierał podany tekst. Na
+przykład, rozważ zmodyfikowany kod dla <code>Guess</code> w Listingu 11-9, gdzie funkcja
+<code>new</code> panikuje z różnymi komunikatami w zależności od tego, czy wartość jest
+za mała, czy za duża.</p>
+<figure class="listing" id="listing-11-9">
+<span class="file-name">Nazwa pliku: src/lib.rs</span>
+<pre><code class="language-rust noplayground">pub struct Guess {
+    value: i32,
+}
+
+impl Guess {
+    pub fn new(value: i32) -&gt; Guess {
+        if value &lt; 1 {
+            panic!(
+                "Guess value must be greater than or equal to 1, got {value}."
+            );
+        } else if value &gt; 100 {
+            panic!(
+                "Guess value must be less than or equal to 100, got {value}."
+            );
+        }
+
+        Guess { value }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    #[should_panic(expected = "less than or equal to 100")]
+    fn greater_than_100() {
+        Guess::new(200);
+    }
+}</code></pre>
+<figcaption><a href="#listing-11-9">Listing 11-9</a>: Testowanie <code>panic!</code> z komunikatem paniki zawierającym określony podciąg</figcaption>
+</figure>
+<p>Ten test przejdzie, ponieważ wartość, którą umieściliśmy w parametrze
+<code>expected</code> atrybutu <code>should_panic</code>, jest podciągiem komunikatu, z którym
+funkcja <code>Guess::new</code> panikuje. Mogliśmy określić cały oczekiwany komunikat
+paniki, który w tym przypadku brzmiałby <code>Guess value must be less than or equal to 100, got 200</code>. To, co zdecydujesz się określić, zależy od tego, jak
+wiele z komunikatu paniki jest unikalne lub dynamiczne i jak precyzyjny chcesz,
+aby był Twój test. W tym przypadku podciąg komunikatu paniki jest wystarczający,
+aby upewnić się, że kod w funkcji testowej wykonuje przypadek
+<code>else if value &gt; 100</code>.</p>
+<p>Aby zobaczyć, co się stanie, gdy test <code>should_panic</code> z komunikatem <code>expected</code>
+zawiedzie, ponownie wprowadźmy błąd do naszego kodu, zamieniając ciała bloków
+<code>if value &lt; 1</code> i <code>else if value &gt; 100</code>:</p>
+<pre><code class="language-rust ignore not_desired_behavior"><span class="boring">pub struct Guess {
+</span><span class="boring">    value: i32,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Guess {
+</span><span class="boring">    pub fn new(value: i32) -&gt; Guess {
+</span>        if value &lt; 1 {
+            panic!(
+                "Guess value must be less than or equal to 100, got {value}."
+            );
+        } else if value &gt; 100 {
+            panic!(
+                "Guess value must be greater than or equal to 1, got {value}."
+            );
+        }
+<span class="boring">
+</span><span class="boring">        Guess { value }
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">#[cfg(test)]
+</span><span class="boring">mod tests {
+</span><span class="boring">    use super::*;
+</span><span class="boring">
+</span><span class="boring">    #[test]
+</span><span class="boring">    #[should_panic(expected = "less than or equal to 100")]
+</span><span class="boring">    fn greater_than_100() {
+</span><span class="boring">        Guess::new(200);
+</span><span class="boring">    }
+</span><span class="boring">}</span></code></pre>
+<p>Tym razem, gdy uruchomimy test <code>should_panic</code>, zakończy się on niepowodzeniem:</p>
+<pre><code class="language-console">$ cargo test
+   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.66s
+     Running unittests src/lib.rs (target/debug/deps/guessing_game-57d70c3acb738f4d)
+
+running 1 test
+test tests::greater_than_100 - should panic ... FAILED
+
+failures:
+
+---- tests::greater_than_100 stdout ----
+
+thread 'tests::greater_than_100' panicked at src/lib.rs:12:13:
+Guess value must be greater than or equal to 1, got 200.
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+note: panic did not contain expected string
+      panic message: "Guess value must be greater than or equal to 1, got 200."
+ expected substring: "less than or equal to 100"
+
+failures:
+    tests::greater_than_100
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `--lib`
+</code></pre>
+<p>Komunikat o błędzie wskazuje, że ten test rzeczywiście panikował, jak się
+spodziewaliśmy, ale komunikat paniki nie zawierał oczekiwanego ciągu znaków
+<code>less than or equal to 100</code>. Komunikat paniki, który otrzymaliśmy w tym
+przypadku, brzmiał <code>Guess value must be greater than or equal to 1, got 200</code>.
+Teraz możemy zacząć szukać naszego błędu!</p>
+<h3 id="używanie-resultt-e-w-testach"><a class="header" href="#używanie-resultt-e-w-testach">Używanie <code>Result&lt;T, E&gt;</code> w testach</a></h3>
+<p>Wszystkie nasze dotychczasowe testy panikują, gdy zawiodą. Możemy również
+pisać testy, które używają <code>Result&lt;T, E&gt;</code>! Oto test z Listingu 11-1,
+przepisany tak, aby używał <code>Result&lt;T, E&gt;</code> i zwracał <code>Err</code> zamiast panikować:</p>
+<pre><code class="language-rust noplayground"><span class="boring">pub fn add(left: u64, right: u64) -&gt; u64 {
+</span><span class="boring">    left + right
+</span><span class="boring">}
+</span><span class="boring">
+</span>#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn it_works() -&gt; Result&lt;(), String&gt; {
+        let result = add(2, 2);
+
+        if result == 4 {
+            Ok(())
+        } else {
+            Err(String::from("two plus two does not equal four"))
+        }
+    }
+}</code></pre>
+<p>Funkcja <code>it_works</code> ma teraz typ zwracany <code>Result&lt;(), String&gt;</code>. W ciele
+funkcji, zamiast wywoływać makro <code>assert_eq!</code>, zwracamy <code>Ok(())</code>, gdy test
+przejdzie, i <code>Err</code> z <code>String</code> w środku, gdy test zawiedzie.</p>
+<p>Pisanie testów w taki sposób, aby zwracały <code>Result&lt;T, E&gt;</code>, pozwala na
+używanie operatora znaku zapytania w ciele testów, co może być wygodnym
+sposobem pisania testów, które powinny zakończyć się niepowodzeniem, jeśli
+jakakolwiek operacja w ich obrębie zwróci wariant <code>Err</code>.</p>
+<p>Nie możesz używać adnotacji <code>#[should_panic]</code> w testach, które używają
+<code>Result&lt;T, E&gt;</code>. Aby potwierdzić, że operacja zwraca wariant <code>Err</code>, <em>nie</em> używaj
+operatora znaku zapytania na wartości <code>Result&lt;T, E&gt;</code>. Zamiast tego użyj
+<code>assert!(value.is_err())</code>.</p>
+<p>Teraz, gdy znasz kilka sposobów pisania testów, przyjrzyjmy się, co dzieje się,
+gdy uruchamiamy nasze testy i zbadajmy różne opcje, których możemy użyć z
+<code>cargo test</code>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="ch11-00-testing.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="ch11-02-running-tests.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="ch11-00-testing.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="ch11-02-running-tests.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="ferris-2317480c.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

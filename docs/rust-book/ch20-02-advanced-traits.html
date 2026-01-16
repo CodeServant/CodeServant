@@ -1,0 +1,768 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Zaawansowane Traity - Język programowania Rust</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="ferris-d33b75bf.css">
+        <link rel="stylesheet" href="theme/2018-edition-4e126c62.css">
+        <link rel="stylesheet" href="theme/semantic-notes-9b5766c0.css">
+        <link rel="stylesheet" href="theme/listing-cab26221.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-773dca2f.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-039e37ba.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Język programowania Rust</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/rust-lang/book" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h2 id="zaawansowane-traity"><a class="header" href="#zaawansowane-traity">Zaawansowane Traity</a></h2>
+<p>Po raz pierwszy omówiliśmy traity w sekcji <a href="ch10-02-traits.html">„Definiowanie wspólnego zachowania za pomocą traitów”</a><!-- ignore --> w Rozdziale 10, ale nie omówiliśmy bardziej zaawansowanych szczegółów. Teraz, gdy wiesz więcej o Rust, możemy przejść do sedna.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="specifying-placeholder-types-in-trait-definitions-with-associated-types"></a>
+<a id="associated-types"></a></p>
+<h3 id="definiowanie-traitów-z-typami-stowarzyszonymi"><a class="header" href="#definiowanie-traitów-z-typami-stowarzyszonymi">Definiowanie Traitów z Typami Stowarzyszonymi</a></h3>
+<p><em>Typy stowarzyszone</em> łączą typ zastępczy z traitem w taki sposób, że definicje metod traitów mogą używać tych typów zastępczych w swoich sygnaturach. Implementator traitu określi konkretny typ, który ma być użyty zamiast typu zastępczego dla konkretnej implementacji. W ten sposób możemy zdefiniować trait, który używa pewnych typów, bez konieczności dokładnego poznania tych typów, dopóki trait nie zostanie zaimplementowany.</p>
+<p>Większość zaawansowanych funkcji w tym rozdziale opisaliśmy jako rzadko potrzebne. Typy stowarzyszone znajdują się gdzieś pośrodku: są używane rzadziej niż funkcje wyjaśnione w pozostałej części książki, ale częściej niż wiele innych funkcji omówionych w tym rozdziale.</p>
+<p>Jednym z przykładów traitu z typem stowarzyszonym jest trait <code>Iterator</code>, który udostępnia biblioteka standardowa. Typ stowarzyszony nazywa się <code>Item</code> i zastępuje typ wartości, po których iteruje typ implementujący trait <code>Iterator</code>. Definicja traitu <code>Iterator</code> jest pokazana na Liście 20-13.</p>
+<figure class="listing" id="listing-20-13">
+<pre><code class="language-rust noplayground">pub trait Iterator {
+    type Item;
+
+    fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt;;
+}</code></pre>
+<figcaption><a href="#listing-20-13">Lista 20-13</a>: Definicja traitu <code>Iterator</code>, który ma stowarzyszony typ <code>Item</code></figcaption>
+</figure>
+<p>Typ <code>Item</code> jest zastępczy, a definicja metody <code>next</code> pokazuje, że zwróci ona wartości typu <code>Option&lt;Self::Item&gt;</code>. Implementatorzy traitu <code>Iterator</code> określą konkretny typ dla <code>Item</code>, a metoda <code>next</code> zwróci <code>Option</code> zawierający wartość tego konkretnego typu.</p>
+<p>Typy stowarzyszone mogą wydawać się podobną koncepcją do generyków, w tym sensie, że te ostatnie pozwalają nam zdefiniować funkcję bez określania, jakie typy może obsługiwać. Aby zbadać różnicę między tymi dwoma koncepcjami, przyjrzymy się implementacji traitu <code>Iterator</code> na typie o nazwie <code>Counter</code>, który określa, że typ <code>Item</code> to <code>u32</code>:</p>
+<figure class="listing">
+<span class="file-name">Nazwa pliku: src/lib.rs</span>
+<pre><code class="language-rust ignore"><span class="boring">struct Counter {
+</span><span class="boring">    count: u32,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Counter {
+</span><span class="boring">    fn new() -&gt; Counter {
+</span><span class="boring">        Counter { count: 0 }
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl Iterator for Counter {
+    type Item = u32;
+
+    fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt; {
+        // --snip--
+<span class="boring">        if self.count &lt; 5 {
+</span><span class="boring">            self.count += 1;
+</span><span class="boring">            Some(self.count)
+</span><span class="boring">        } else {
+</span><span class="boring">            None
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">}</span></code></pre>
+</figure>
+<p>Ta składnia wydaje się porównywalna do składni generyków. Więc dlaczego nie zdefiniować cechy <code>Iterator</code> za pomocą generyków, jak pokazano na Liście 20-14?</p>
+<figure class="listing" id="listing-20-14">
+<pre><code class="language-rust noplayground">pub trait Iterator&lt;T&gt; {
+    fn next(&amp;mut self) -&gt; Option&lt;T&gt;;
+}</code></pre>
+<figcaption><a href="#listing-20-14">Lista 20-14</a>: Hipotetyczna definicja traitu <code>Iterator</code> używającego generyków</figcaption>
+</figure>
+<p>Różnica polega na tym, że używając generyków, jak na Liście 20-14, musimy adnotować typy w każdej implementacji; ponieważ możemy również zaimplementować <code>Iterator&lt;String&gt; for Counter</code> lub dowolny inny typ, moglibyśmy mieć wiele implementacji <code>Iterator</code> dla <code>Counter</code>. Innymi słowy, gdy trait ma parametr generyczny, może być implementowany dla typu wiele razy, zmieniając konkretne typy generycznych parametrów typu za każdym razem. Kiedy używamy metody <code>next</code> na <code>Counter</code>, musielibyśmy podać adnotacje typów, aby wskazać, którą implementację <code>Iterator</code> chcemy użyć.</p>
+<p>Z typami stowarzyszonymi nie musimy adnotować typów, ponieważ nie możemy zaimplementować traitu na typie wiele razy. Na Liście 20-13 z definicją używającą typów stowarzyszonych, możemy wybrać typ <code>Item</code> tylko raz, ponieważ może istnieć tylko jedna <code>impl Iterator for Counter</code>. Nie musimy określać, że chcemy iteratora wartości <code>u32</code> wszędzie tam, gdzie wywołujemy <code>next</code> na <code>Counter</code>.</p>
+<p>Typy stowarzyszone stają się również częścią kontraktu traitu: Implementatorzy traitu muszą dostarczyć typ, który zastąpi symbol zastępczy typu stowarzyszonego. Typy stowarzyszone często mają nazwę opisującą sposób użycia typu, a dokumentowanie typu stowarzyszonego w dokumentacji API jest dobrą praktyką.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="default-generic-type-parameters-and-operator-overloading"></a></p>
+<h3 id="używanie-domyślnych-parametrów-typów-generycznych-i-przeciążanie-operatorów"><a class="header" href="#używanie-domyślnych-parametrów-typów-generycznych-i-przeciążanie-operatorów">Używanie Domyślnych Parametrów Typów Generycznych i Przeciążanie Operatorów</a></h3>
+<p>Kiedy używamy generycznych parametrów typu, możemy określić domyślny konkretny typ dla typu generycznego. Eliminuje to potrzebę określania konkretnego typu przez implementatorów cechy, jeśli domyślny typ działa. Domyślny typ określa się podczas deklarowania typu generycznego za pomocą składni <code>&lt;PlaceholderType=ConcreteType&gt;</code>.</p>
+<p>Świetnym przykładem sytuacji, w której ta technika jest przydatna, jest <em>przeciążanie operatorów</em>, w którym dostosowujesz zachowanie operatora (takiego jak <code>+</code>) w określonych sytuacjach.</p>
+<p>Rust nie pozwala na tworzenie własnych operatorów ani na przeciążanie dowolnych operatorów. Możesz jednak przeciążać operacje i odpowiadające im traity wymienione w <code>std::ops</code>, implementując traity powiązane z operatorem. Na przykład, na Liście 20-15 przeciążamy operator <code>+</code>, aby dodawać dwie instancje <code>Point</code>. Robimy to, implementując trait <code>Add</code> na strukturze <code>Point</code>.</p>
+<figure class="listing" id="listing-20-15">
+<span class="file-name">Nazwa pliku: src/main.rs</span>
+<pre class="playground"><code class="language-rust edition2024">use std::ops::Add;
+
+#[derive(Debug, Copy, Clone, PartialEq)]
+struct Point {
+    x: i32,
+    y: i32,
+}
+
+impl Add for Point {
+    type Output = Point;
+
+    fn add(self, other: Point) -&gt; Point {
+        Point {
+            x: self.x + other.x,
+            y: self.y + other.y,
+        }
+    }
+}
+
+fn main() {
+    assert_eq!(
+        Point { x: 1, y: 0 } + Point { x: 2, y: 3 },
+        Point { x: 3, y: 3 }
+    );
+}</code></pre>
+<figcaption><a href="#listing-20-15">Lista 20-15</a>: Implementacja traitu <code>Add</code> w celu przeciążenia operatora <code>+</code> dla instancji <code>Point</code></figcaption>
+</figure>
+<p>Metoda <code>add</code> dodaje wartości <code>x</code> dwóch instancji <code>Point</code> i wartości <code>y</code> dwóch instancji <code>Point</code>, aby stworzyć nową <code>Point</code>. Trait <code>Add</code> ma stowarzyszony typ o nazwie <code>Output</code>, który określa typ zwracany przez metodę <code>add</code>.</p>
+<p>Domyślny typ generyczny w tym kodzie znajduje się wewnątrz traitu <code>Add</code>. Oto jego definicja:</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait Add&lt;Rhs=Self&gt; {
+    type Output;
+
+    fn add(self, rhs: Rhs) -&gt; Self::Output;
+}
+<span class="boring">}</span></code></pre>
+<p>Ten kod powinien być ogólnie znany: trait z jedną metodą i stowarzyszonym typem. Nowa część to <code>Rhs=Self</code>: ta składnia nazywa się <em>domyślnymi parametrami typu</em>. Generyczny parametr typu <code>Rhs</code> (skrót od „right-hand side” – prawa strona) definiuje typ parametru <code>rhs</code> w metodzie <code>add</code>. Jeśli nie określimy konkretnego typu dla <code>Rhs</code> podczas implementacji traitu <code>Add</code>, typ <code>Rhs</code> domyślnie przyjmie <code>Self</code>, czyli typ, na którym implementujemy <code>Add</code>.</p>
+<p>Kiedy implementowaliśmy <code>Add</code> dla <code>Point</code>, użyliśmy domyślnego <code>Rhs</code>, ponieważ chcieliśmy dodać dwie instancje <code>Point</code>. Przyjrzyjmy się przykładowi implementacji traitu <code>Add</code>, gdzie chcemy dostosować typ <code>Rhs</code>, zamiast używać wartości domyślnej.</p>
+<p>Mamy dwie struktury, <code>Millimeters</code> i <code>Meters</code>, przechowujące wartości w różnych jednostkach. To cienkie opakowanie istniejącego typu w inną strukturę jest znane jako <em>wzorzec newtype</em>, który szczegółowo opisujemy w sekcji <a href="ch20-02-advanced-traits.html#implementing-external-traits-with-the-newtype-pattern">„Implementowanie zewnętrznych traitów za pomocą wzorca newtype”</a><!-- ignore -->. Chcemy dodawać wartości w milimetrach do wartości w metrach i chcemy, aby implementacja <code>Add</code> poprawnie wykonywała konwersję. Możemy zaimplementować <code>Add</code> dla <code>Millimeters</code> z <code>Meters</code> jako <code>Rhs</code>, jak pokazano na Liście 20-16.</p>
+<figure class="listing" id="listing-20-16">
+<span class="file-name">Nazwa pliku: src/lib.rs</span>
+<pre><code class="language-rust noplayground">use std::ops::Add;
+
+struct Millimeters(u32);
+struct Meters(u32);
+
+impl Add&lt;Meters&gt; for Millimeters {
+    type Output = Millimeters;
+
+    fn add(self, other: Meters) -&gt; Millimeters {
+        Millimeters(self.0 + (other.0 * 1000))
+    }
+}</code></pre>
+<figcaption><a href="#listing-20-16">Lista 20-16</a>: Implementacja traitu <code>Add</code> na <code>Millimeters</code> w celu dodawania <code>Millimeters</code> i <code>Meters</code></figcaption>
+</figure>
+<p>Aby dodać <code>Millimeters</code> i <code>Meters</code>, określamy <code>impl Add&lt;Meters&gt;</code>, aby ustawić wartość parametru typu <code>Rhs</code> zamiast używać domyślnego <code>Self</code>.</p>
+<p>Parametry typu domyślnego będziesz używać na dwa główne sposoby:</p>
+<ol>
+<li>Aby rozszerzyć typ bez naruszania istniejącego kodu</li>
+<li>Aby umożliwić dostosowanie w konkretnych przypadkach, których większość użytkowników nie będzie potrzebować</li>
+</ol>
+<p>Trait <code>Add</code> z biblioteki standardowej jest przykładem drugiego celu: zazwyczaj dodajesz dwa podobne typy, ale trait <code>Add</code> zapewnia możliwość dostosowania wykraczającego poza to. Użycie domyślnego parametru typu w definicji traitu <code>Add</code> oznacza, że nie musisz określać dodatkowego parametru przez większość czasu. Innymi słowy, nie jest potrzebna pewna ilość kodu boilerplate, co ułatwia używanie traitu.</p>
+<p>Pierwszy cel jest podobny do drugiego, ale odwrotnie: jeśli chcesz dodać parametr typu do istniejącego traitu, możesz nadać mu wartość domyślną, aby umożliwić rozszerzenie funkcjonalności traitu bez naruszania istniejącego kodu implementacji.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="fully-qualified-syntax-for-disambiguation-calling-methods-with-the-same-name"></a>
+<a id="disambiguating-between-methods-with-the-same-name"></a></p>
+<h3 id="rozróżnianie-metod-o-identycznych-nazwach"><a class="header" href="#rozróżnianie-metod-o-identycznych-nazwach">Rozróżnianie Metod o Identycznych Nazwach</a></h3>
+<p>Nic w Rust nie zapobiega temu, aby trait miał metodę o tej samej nazwie co metoda innego traitu, ani Rust nie zapobiega implementowaniu obu traitów na jednym typie. Możliwe jest również zaimplementowanie metody bezpośrednio na typie z tą samą nazwą co metody z traitów.</p>
+<p>Podczas wywoływania metod o tej samej nazwie, będziesz musiał powiedzieć Rust, której chcesz użyć. Rozważ kod na Liście 20-17, gdzie zdefiniowaliśmy dwa traity, <code>Pilot</code> i <code>Wizard</code>, które oba mają metodę <code>fly</code>. Następnie implementujemy oba traity na typie <code>Human</code>, który już ma zaimplementowaną metodę <code>fly</code>. Każda metoda <code>fly</code> robi coś innego.</p>
+<figure class="listing" id="listing-20-17">
+<span class="file-name">Nazwa pliku: src/main.rs</span>
+<pre class="playground"><code class="language-rust edition2024">trait Pilot {
+    fn fly(&amp;self);
+}
+
+trait Wizard {
+    fn fly(&amp;self);
+}
+
+struct Human;
+
+impl Pilot for Human {
+    fn fly(&amp;self) {
+        println!("This is your captain speaking.");
+    }
+}
+
+impl Wizard for Human {
+    fn fly(&amp;self) {
+        println!("Up!");
+    }
+}
+
+impl Human {
+    fn fly(&amp;self) {
+        println!("*waving arms furiously*");
+    }
+}
+<span class="boring">
+</span><span class="boring">fn main() {}</span></code></pre>
+<figcaption><a href="#listing-20-17">Lista 20-17</a>: Dwa traity zdefiniowane jako posiadające metodę <code>fly</code> i zaimplementowane na typie <code>Human</code>, oraz metoda <code>fly</code> zaimplementowana bezpośrednio na <code>Human</code>.</figcaption>
+</figure>
+<p>Kiedy wywołujemy <code>fly</code> na instancji <code>Human</code>, kompilator domyślnie wywołuje metodę, która jest bezpośrednio zaimplementowana na typie, jak pokazano na Liście 20-18.</p>
+<figure class="listing" id="listing-20-18">
+<span class="file-name">Nazwa pliku: src/main.rs</span>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">trait Pilot {
+</span><span class="boring">    fn fly(&amp;self);
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">trait Wizard {
+</span><span class="boring">    fn fly(&amp;self);
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">struct Human;
+</span><span class="boring">
+</span><span class="boring">impl Pilot for Human {
+</span><span class="boring">    fn fly(&amp;self) {
+</span><span class="boring">        println!("This is your captain speaking.");
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Wizard for Human {
+</span><span class="boring">    fn fly(&amp;self) {
+</span><span class="boring">        println!("Up!");
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Human {
+</span><span class="boring">    fn fly(&amp;self) {
+</span><span class="boring">        println!("*waving arms furiously*");
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
+    let person = Human;
+    person.fly();
+}</code></pre>
+<figcaption><a href="#listing-20-18">Lista 20-18</a>: Wywoływanie <code>fly</code> na instancji <code>Human</code></figcaption>
+</figure>
+<p>Uruchomienie tego kodu wydrukuje <code>*waving arms furiously*</code>, pokazując, że Rust wywołał metodę <code>fly</code> zaimplementowaną bezpośrednio na <code>Human</code>.</p>
+<p>Aby wywołać metody <code>fly</code> z traitu <code>Pilot</code> lub traitu <code>Wizard</code>, musimy użyć bardziej jawnej składni, aby określić, którą metodę <code>fly</code> mamy na myśli. Lista 20-19 demonstruje tę składnię.</p>
+<figure class="listing" id="listing-20-19">
+<span class="file-name">Nazwa pliku: src/main.rs</span>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">trait Pilot {
+</span><span class="boring">    fn fly(&amp;self);
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">trait Wizard {
+</span><span class="boring">    fn fly(&amp;self);
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">struct Human;
+</span><span class="boring">
+</span><span class="boring">impl Pilot for Human {
+</span><span class="boring">    fn fly(&amp;self) {
+</span><span class="boring">        println!("This is your captain speaking.");
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Wizard for Human {
+</span><span class="boring">    fn fly(&amp;self) {
+</span><span class="boring">        println!("Up!");
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Human {
+</span><span class="boring">    fn fly(&amp;self) {
+</span><span class="boring">        println!("*waving arms furiously*");
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
+    let person = Human;
+    Pilot::fly(&amp;person);
+    Wizard::fly(&amp;person);
+    person.fly();
+}</code></pre>
+<figcaption><a href="#listing-20-19">Lista 20-19</a>: Określanie, którą metodę <code>fly</code> z traitu chcemy wywołać</figcaption>
+</figure>
+<p>Określenie nazwy traitu przed nazwą metody wyjaśnia Rust, którą implementację <code>fly</code> chcemy wywołać. Moglibyśmy również napisać <code>Human::fly(&amp;person)</code>, co jest równoważne <code>person.fly()</code>, którego użyliśmy na Liście 20-19, ale jest to nieco dłuższe do napisania, jeśli nie musimy rozróżniać.</p>
+<p>Uruchomienie tego kodu wypisuje następujące informacje:</p>
+<pre><code class="language-console">$ cargo run
+   Compiling traits-example v0.1.0 (file:///projects/traits-example)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.46s
+     Running `target/debug/traits-example`
+This is your captain speaking.
+Up!
+*waving arms furiously*
+</code></pre>
+<p>Ponieważ metoda <code>fly</code> przyjmuje parametr <code>self</code>, gdybyśmy mieli dwa <em>typy</em>, które oba implementują jeden <em>trait</em>, Rust mógłby ustalić, którą implementację traitu użyć na podstawie typu <code>self</code>.</p>
+<p>Jednak funkcje stowarzyszone, które nie są metodami, nie mają parametru <code>self</code>. Gdy istnieje wiele typów lub cech, które definiują funkcje niestowarzyszone z tą samą nazwą funkcji, Rust nie zawsze wie, o który typ chodzi, chyba że użyjesz w pełni kwalifikowanej składni. Na przykład na Liście 20-20 tworzymy cechę dla schroniska dla zwierząt, które chce nazwać wszystkie szczenięta Spot. Tworzymy cechę <code>Animal</code> z powiązaną funkcją niestowarzyszoną <code>baby_name</code>. Cecha <code>Animal</code> jest zaimplementowana dla struktury <code>Dog</code>, dla której również udostępniamy bezpośrednio powiązaną funkcję niestowarzyszoną <code>baby_name</code>.</p>
+<figure class="listing" id="listing-20-20">
+<span class="file-name">Nazwa pliku: src/main.rs</span>
+<pre class="playground"><code class="language-rust edition2024">trait Animal {
+    fn baby_name() -&gt; String;
+}
+
+struct Dog;
+
+impl Dog {
+    fn baby_name() -&gt; String {
+        String::from("Spot")
+    }
+}
+
+impl Animal for Dog {
+    fn baby_name() -&gt; String {
+        String::from("puppy")
+    }
+}
+
+fn main() {
+    println!("A baby dog is called a {}", Dog::baby_name());
+}</code></pre>
+<figcaption><a href="#listing-20-20">Lista 20-20</a>: Trait z funkcją stowarzyszoną i typ z funkcją stowarzyszoną o tej samej nazwie, która również implementuje trait</figcaption>
+</figure>
+<p>Implementujemy kod do nazywania wszystkich szczeniąt Spot w funkcji stowarzyszonej <code>baby_name</code>, która jest zdefiniowana na <code>Dog</code>. Typ <code>Dog</code> implementuje również trait <code>Animal</code>, który opisuje cechy, które mają wszystkie zwierzęta. Młode psy nazywane są szczeniętami, co jest wyrażone w implementacji traitu <code>Animal</code> na <code>Dog</code> w funkcji <code>baby_name</code> stowarzyszonej z traitem <code>Animal</code>.</p>
+<p>W <code>main</code> wywołujemy funkcję <code>Dog::baby_name</code>, która wywołuje bezpośrednio funkcję stowarzyszoną zdefiniowaną na <code>Dog</code>. Ten kod wypisuje następujące informacje:</p>
+<pre><code class="language-console">$ cargo run
+   Compiling traits-example v0.1.0 (file:///projects/traits-example)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.54s
+     Running `target/debug/traits-example`
+A baby dog is called a Spot
+</code></pre>
+<p>Ten wynik nie jest tym, czego chcieliśmy. Chcemy wywołać funkcję <code>baby_name</code>, która jest częścią cechy <code>Animal</code>, którą zaimplementowaliśmy na <code>Dog</code>, tak aby kod wypisywał <code>A baby dog is called a puppy</code>. Technika określania nazwy cechy, której użyliśmy na Liście 20-19, nie pomaga tutaj; jeśli zmienimy <code>main</code> na kod z Listy 20-21, otrzymamy błąd kompilacji.</p>
+<figure class="listing" id="listing-20-21">
+<span class="file-name">Nazwa pliku: src/main.rs</span>
+<pre><code class="language-rust ignore does_not_compile"><span class="boring">trait Animal {
+</span><span class="boring">    fn baby_name() -&gt; String;
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">struct Dog;
+</span><span class="boring">
+</span><span class="boring">impl Dog {
+</span><span class="boring">    fn baby_name() -&gt; String {
+</span><span class="boring">        String::from("Spot")
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Animal for Dog {
+</span><span class="boring">    fn baby_name() -&gt; String {
+</span><span class="boring">        String::from("puppy")
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
+    println!("A baby dog is called a {}", Animal::baby_name());
+}</code></pre>
+<figcaption><a href="#listing-20-21">Lista 20-21</a>: Próba wywołania funkcji <code>baby_name</code> z traitu <code>Animal</code>, ale Rust nie wie, której implementacji użyć</figcaption>
+</figure>
+<p>Ponieważ <code>Animal::baby_name</code> nie ma parametru <code>self</code>, a mogą istnieć inne typy, które implementują cechę <code>Animal</code>, Rust nie może ustalić, którą implementację <code>Animal::baby_name</code> chcemy. Otrzymamy ten błąd kompilacji:</p>
+<pre><code class="language-console">$ cargo run
+   Compiling traits-example v0.1.0 (file:///projects/traits-example)
+error[E0790]: cannot call associated function on trait without specifying the corresponding `impl` type
+  --&gt; src/main.rs:20:43
+   |
+ 2 |     fn baby_name() -&gt; String;
+   |     ------------------------- `Animal::baby_name` defined here
+...
+20 |     println!("A baby dog is called a {}", Animal::baby_name());
+   |                                           ^^^^^^^^^^^^^^^^^^^ cannot call associated function of trait
+   |
+help: use the fully-qualified path to the only available implementation
+   |
+20 |     println!("A baby dog is called a {}", &lt;Dog as Animal&gt;::baby_name());
+   |                                           +++++++       +
+
+For more information about this error, try `rustc --explain E0790`.
+error: could not compile `traits-example` (bin "traits-example") due to 1 previous error
+</code></pre>
+<p>Aby rozróżnić i powiedzieć Rust, że chcemy użyć implementacji <code>Animal</code> dla <code>Dog</code> w przeciwieństwie do implementacji <code>Animal</code> dla jakiegoś innego typu, musimy użyć w pełni kwalifikowanej składni. Lista 20-22 demonstruje, jak używać w pełni kwalifikowanej składni.</p>
+<figure class="listing" id="listing-20-22">
+<span class="file-name">Nazwa pliku: src/main.rs</span>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">trait Animal {
+</span><span class="boring">    fn baby_name() -&gt; String;
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">struct Dog;
+</span><span class="boring">
+</span><span class="boring">impl Dog {
+</span><span class="boring">    fn baby_name() -&gt; String {
+</span><span class="boring">        String::from("Spot")
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Animal for Dog {
+</span><span class="boring">    fn baby_name() -&gt; String {
+</span><span class="boring">        String::from("puppy")
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
+    println!("A baby dog is called a {}", &lt;Dog as Animal&gt;::baby_name());
+}</code></pre>
+<figcaption><a href="#listing-20-22">Lista 20-22</a>: Użycie w pełni kwalifikowanej składni, aby określić, że chcemy wywołać funkcję <code>baby_name</code> z traitu <code>Animal</code> zaimplementowanego na <code>Dog</code></figcaption>
+</figure>
+<p>Dostarczamy Rust adnotację typu w nawiasach ostrych, która wskazuje, że chcemy wywołać metodę <code>baby_name</code> z cechy <code>Animal</code> zaimplementowanej na <code>Dog</code>, mówiąc, że chcemy traktować typ <code>Dog</code> jako <code>Animal</code> dla tego wywołania funkcji. Ten kod wydrukuje teraz to, czego chcemy:</p>
+<pre><code class="language-console">$ cargo run
+   Compiling traits-example v0.1.0 (file:///projects/traits-example)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.48s
+     Running `target/debug/traits-example`
+A baby dog is called a puppy
+</code></pre>
+<p>Ogólnie, w pełni kwalifikowana składnia jest zdefiniowana następująco:</p>
+<pre><code class="language-rust ignore">&lt;Typ jako Trait&gt;::funkcja(odbiorca_jeśli_metoda, następny_argument, ...);</code></pre>
+<p>Dla funkcji stowarzyszonych, które nie są metodami, nie byłoby <code>odbiorcy</code>: byłaby tylko lista innych argumentów. Można by używać w pełni kwalifikowanej składni wszędzie tam, gdzie wywołuje się funkcje lub metody. Jednakże, można pominąć dowolną część tej składni, którą Rust może ustalić na podstawie innych informacji w programie. Tę bardziej rozbudowaną składnię trzeba używać tylko w przypadkach, gdy istnieje wiele implementacji, które używają tej samej nazwy, a Rust potrzebuje pomocy w zidentyfikowaniu, którą implementację chcesz wywołać.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="using-supertraits-to-require-one-traits-functionality-within-another-trait"></a></p>
+<h3 id="używanie-supertraitów"><a class="header" href="#używanie-supertraitów">Używanie Supertraitów</a></h3>
+<p>Czasami możesz napisać definicję traitu, która zależy od innego traitu: Aby typ implementował pierwszy trait, chcesz wymagać, aby ten typ również implementował drugi trait. Robisz to po to, aby Twoja definicja traitu mogła korzystać ze stowarzyszonych elementów drugiego traitu. Trait, na którym opiera się Twoja definicja traitu, nazywany jest <em>supertraitem</em> Twojego traitu.</p>
+<p>Na przykład, powiedzmy, że chcemy stworzyć cechę <code>OutlinePrint</code> z metodą <code>outline_print</code>, która będzie drukować podaną wartość sformatowaną tak, aby była obramowana gwiazdkami. Oznacza to, że biorąc pod uwagę strukturę <code>Point</code>, która implementuje standardową cechę <code>Display</code>, aby uzyskać <code>(x, y)</code>, gdy wywołamy <code>outline_print</code> na instancji <code>Point</code>, która ma <code>1</code> dla <code>x</code> i <code>3</code> dla <code>y</code>, powinna ona wydrukować następujące:</p>
+<pre><code class="language-text">**********
+*        *
+* (1, 3) *
+*        *
+**********
+</code></pre>
+<p>W implementacji metody <code>outline_print</code> chcemy użyć funkcjonalności cechy <code>Display</code>. Dlatego musimy określić, że cecha <code>OutlinePrint</code> będzie działać tylko dla typów, które również implementują <code>Display</code> i dostarczają funkcjonalność, której potrzebuje <code>OutlinePrint</code>. Możemy to zrobić w definicji cechy, określając <code>OutlinePrint: Display</code>. Ta technika jest podobna do dodawania ograniczenia cechy do cechy. Lista 20-23 pokazuje implementację cechy <code>OutlinePrint</code>.</p>
+<figure class="listing" id="listing-20-23">
+<span class="file-name">Nazwa pliku: src/main.rs</span>
+<pre class="playground"><code class="language-rust edition2024">use std::fmt;
+
+trait OutlinePrint: fmt::Display {
+    fn outline_print(&amp;self) {
+        let output = self.to_string();
+        let len = output.len();
+        println!("{}", "*".repeat(len + 4));
+        println!("*{}*", " ".repeat(len + 2));
+        println!("* {output} *");
+        println!("*{}*", " ".repeat(len + 2));
+        println!("{}", "*".repeat(len + 4));
+    }
+}
+<span class="boring">
+</span><span class="boring">fn main() {}</span></code></pre>
+<figcaption><a href="#listing-20-23">Lista 20-23</a>: Implementacja traitu <code>OutlinePrint</code>, który wymaga funkcjonalności z <code>Display</code></figcaption>
+</figure>
+<p>Ponieważ określiliśmy, że <code>OutlinePrint</code> wymaga traitu <code>Display</code>, możemy użyć funkcji <code>to_string</code>, która jest automatycznie implementowana dla każdego typu, który implementuje <code>Display</code>. Gdybyśmy spróbowali użyć <code>to_string</code> bez dodania dwukropka i określenia traitu <code>Display</code> po nazwie traitu, otrzymalibyśmy błąd mówiący, że w bieżącym zakresie nie znaleziono metody o nazwie <code>to_string</code> dla typu <code>&amp;Self</code>.</p>
+<p>Zobaczmy, co się stanie, gdy spróbujemy zaimplementować <code>OutlinePrint</code> na typie, który nie implementuje <code>Display</code>, takim jak struktura <code>Point</code>:</p>
+<figure class="listing">
+<span class="file-name">Nazwa pliku: src/main.rs</span>
+<pre><code class="language-rust ignore does_not_compile"><span class="boring">use std::fmt;
+</span><span class="boring">
+</span><span class="boring">trait OutlinePrint: fmt::Display {
+</span><span class="boring">    fn outline_print(&amp;self) {
+</span><span class="boring">        let output = self.to_string();
+</span><span class="boring">        let len = output.len();
+</span><span class="boring">        println!("{}", "*".repeat(len + 4));
+</span><span class="boring">        println!("*{}*", " ".repeat(len + 2));
+</span><span class="boring">        println!("* {output} *");
+</span><span class="boring">        println!("*{}*", " ".repeat(len + 2));
+</span><span class="boring">        println!("{}", "*".repeat(len + 4));
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>struct Point {
+    x: i32,
+    y: i32,
+}
+
+impl OutlinePrint for Point {}
+<span class="boring">
+</span><span class="boring">fn main() {
+</span><span class="boring">    let p = Point { x: 1, y: 3 };
+</span><span class="boring">    p.outline_print();
+</span><span class="boring">}</span></code></pre>
+</figure>
+<p>Otrzymujemy błąd mówiący, że <code>Display</code> jest wymagane, ale nie zaimplementowane:</p>
+<pre><code class="language-console">$ cargo run
+   Compiling traits-example v0.1.0 (file:///projects/traits-example)
+error[E0277]: `Point` doesn't implement `std::fmt::Display`
+  --&gt; src/main.rs:20:23
+   |
+20 | impl OutlinePrint for Point {}
+   |                       ^^^^^ the trait `std::fmt::Display` is not implemented for `Point`
+   |
+note: required by a bound in `OutlinePrint`
+  --&gt; src/main.rs:3:21
+   |
+ 3 | trait OutlinePrint: fmt::Display {
+   |                     ^^^^^^^^^^^^ required by this bound in `OutlinePrint`
+
+error[E0277]: `Point` doesn't implement `std::fmt::Display`
+  --&gt; src/main.rs:24:7
+   |
+24 |     p.outline_print();
+   |       ^^^^^^^^^^^^^ the trait `std::fmt::Display` is not implemented for `Point`
+   |
+note: required by a bound in `OutlinePrint::outline_print`
+  --&gt; src/main.rs:3:21
+   |
+ 3 | trait OutlinePrint: fmt::Display {
+   |                     ^^^^^^^^^^^^ required by this bound in `OutlinePrint::outline_print`
+ 4 |     fn outline_print(&amp;self) {
+   |        ------------- required by a bound in this associated function
+
+For more information about this error, try `rustc --explain E0277`.
+error: could not compile `traits-example` (bin "traits-example") due to 2 previous errors
+</code></pre>
+<p>Aby to naprawić, implementujemy <code>Display</code> na <code>Point</code> i spełniamy ograniczenie, którego wymaga <code>OutlinePrint</code>, w ten sposób:</p>
+<figure class="listing">
+<span class="file-name">Nazwa pliku: src/main.rs</span>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">trait OutlinePrint: fmt::Display {
+</span><span class="boring">    fn outline_print(&amp;self) {
+</span><span class="boring">        let output = self.to_string();
+</span><span class="boring">        let len = output.len();
+</span><span class="boring">        println!("{}", "*".repeat(len + 4));
+</span><span class="boring">        println!("*{}*", " ".repeat(len + 2));
+</span><span class="boring">        println!("* {output} *");
+</span><span class="boring">        println!("*{}*", " ".repeat(len + 2));
+</span><span class="boring">        println!("{}", "*".repeat(len + 4));
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">struct Point {
+</span><span class="boring">    x: i32,
+</span><span class="boring">    y: i32,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl OutlinePrint for Point {}
+</span><span class="boring">
+</span>use std::fmt;
+
+impl fmt::Display for Point {
+    fn fmt(&amp;self, f: &amp;mut fmt::Formatter) -&gt; fmt::Result {
+        write!(f, "({}, {})", self.x, self.y)
+    }
+}
+<span class="boring">
+</span><span class="boring">fn main() {
+</span><span class="boring">    let p = Point { x: 1, y: 3 };
+</span><span class="boring">    p.outline_print();
+</span><span class="boring">}</span></code></pre>
+</figure>
+<p>Wtedy implementacja cechy <code>OutlinePrint</code> na <code>Point</code> skompiluje się pomyślnie, i będziemy mogli wywołać <code>outline_print</code> na instancji <code>Point</code>, aby wyświetlić ją w obramowaniu z gwiazdek.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="using-the-newtype-pattern-to-implement-external-traits-on-external-types"></a>
+<a id="using-the-newtype-pattern-to-implement-external-traits"></a></p>
+<h3 id="implementowanie-zewnętrznych-traitów-za-pomocą-wzorca-newtype"><a class="header" href="#implementowanie-zewnętrznych-traitów-za-pomocą-wzorca-newtype">Implementowanie Zewnętrznych Traitów za pomocą Wzorca Newtype</a></h3>
+<p>W sekcji <a href="ch10-02-traits.html#implementing-a-trait-on-a-type">„Implementowanie traitu na typie”</a><!-- ignore --> w Rozdziale 10 wspomnieliśmy o regule sieroty, która stanowi, że możemy implementować trait na typie tylko wtedy, gdy albo trait, albo typ, albo oba, są lokalne dla naszego crate’u. Możliwe jest obejście tego ograniczenia za pomocą wzorca newtype, który polega na utworzeniu nowego typu w strukturze krotkowej. (Struktury krotkowe omówiliśmy w sekcji <a href="ch05-01-defining-structs.html#creating-different-types-with-tuple-structs">„Tworzenie różnych typów za pomocą struktur krotkowych”</a><!-- ignore --> w Rozdziale 5.) Struktura krotkowa będzie miała jedno pole i będzie cienkim opakowaniem wokół typu, dla którego chcemy zaimplementować trait. Wtedy typ opakowujący jest lokalny dla naszego crate’u, i możemy zaimplementować trait na opakowaniu. <em>Newtype</em> to termin, który pochodzi z języka programowania Haskell. Nie ma kary za wydajność w czasie wykonania za użycie tego wzorca, a typ opakowujący jest pomijany w czasie kompilacji.</p>
+<p>Na przykład, załóżmy, że chcemy zaimplementować <code>Display</code> na <code>Vec&lt;T&gt;</code>, czego reguła sieroty uniemożliwia nam bezpośrednio, ponieważ trait <code>Display</code> i typ <code>Vec&lt;T&gt;</code> są zdefiniowane poza naszym crate. Możemy stworzyć strukturę <code>Wrapper</code>, która przechowuje instancję <code>Vec&lt;T&gt;</code>; następnie możemy zaimplementować <code>Display</code> na <code>Wrapper</code> i użyć wartości <code>Vec&lt;T&gt;</code>, jak pokazano na Liście 20-24.</p>
+<figure class="listing" id="listing-20-24">
+<span class="file-name">Nazwa pliku: src/main.rs</span>
+<pre class="playground"><code class="language-rust edition2024">use std::fmt;
+
+struct Wrapper(Vec&lt;String&gt;);
+
+impl fmt::Display for Wrapper {
+    fn fmt(&amp;self, f: &amp;mut fmt::Formatter) -&gt; fmt::Result {
+        write!(f, "[{}]", self.0.join(", "))
+    }
+}
+
+fn main() {
+    let w = Wrapper(vec![String::from("hello"), String::from("world")]);
+    println!("w = {w}");
+}</code></pre>
+<figcaption><a href="#listing-20-24">Lista 20-24</a>: Tworzenie typu <code>Wrapper</code> wokół <code>Vec&lt;String&gt;</code> w celu implementacji <code>Display</code></figcaption>
+</figure>
+<p>Implementacja <code>Display</code> używa <code>self.0</code> do dostępu do wewnętrznego <code>Vec&lt;T&gt;</code>, ponieważ <code>Wrapper</code> jest strukturą krotkową, a <code>Vec&lt;T&gt;</code> jest elementem o indeksie 0 w krotce. Następnie możemy użyć funkcjonalności cechy <code>Display</code> na <code>Wrapper</code>.</p>
+<p>Wadą stosowania tej techniki jest to, że <code>Wrapper</code> jest nowym typem, więc nie ma metod wartości, którą przechowuje. Musielibyśmy zaimplementować wszystkie metody <code>Vec&lt;T&gt;</code> bezpośrednio na <code>Wrapper</code>, tak aby metody delegowały do <code>self.0</code>, co pozwoliłoby nam traktować <code>Wrapper</code> dokładnie tak jak <code>Vec&lt;T&gt;</code>. Gdybyśmy chcieli, aby nowy typ miał każdą metodę, którą ma typ wewnętrzny, zaimplementowanie cechy <code>Deref</code> na <code>Wrapper</code>, aby zwracała typ wewnętrzny, byłoby rozwiązaniem (omówiliśmy implementację cechy <code>Deref</code> w sekcji <a href="ch15-02-deref.html#treating-smart-pointers-like-regular-references">„Traktowanie inteligentnych wskaźników jak zwykłych referencji”</a><!-- ignore --> w Rozdziale 15). Gdybyśmy nie chcieli, aby typ <code>Wrapper</code> miał wszystkie metody typu wewnętrznego — na przykład, aby ograniczyć zachowanie typu <code>Wrapper</code> — musielibyśmy ręcznie zaimplementować tylko te metody, które chcemy.</p>
+<p>Ten wzorzec newtype jest również użyteczny nawet wtedy, gdy traity nie są zaangażowane. Zmieńmy fokus i przyjrzyjmy się niektórym zaawansowanym sposobom interakcji z systemem typów Rust.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="ch20-01-unsafe-rust.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="ch20-03-advanced-types.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="ch20-01-unsafe-rust.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="ch20-03-advanced-types.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="ferris-2317480c.js"></script>
+
+
+
+    </div>
+    </body>
+</html>
