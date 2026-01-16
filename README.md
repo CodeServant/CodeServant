@@ -1,5 +1,7 @@
 [My Github Repo](https://github.com/CodeServant)
 
+Książka [Język programowania Rust](./docs/rust-book) po polsku.
+
 <!--
 **CodeServant/CodeServant** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
