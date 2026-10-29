@@ -2,4 +2,4 @@
 
 Książka [Język programowania Rust](./docs/rust-book) po polsku.
 
-Mój tymczasowy email. My temp email. [u84qq0gvv@mozmail.com](mailto:u84qq0gvv@mozmail.com)
+Mój tymczasowy email. My temp email. [mnm9pu8cm@mozmail.com](mailto:mnm9pu8cm@mozmail.com)
